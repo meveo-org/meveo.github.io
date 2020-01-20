@@ -126,7 +126,7 @@ When updating, creating, or deleting an endpoint, a javascript file will be crea
 
 [[sql_configuration]]
 == SQL Configuration
-are
+
 SQL Configuration is introduced in version 6.6.0. The idea is to have an option to store different studies on different database locations. For example, study a is stored on data source a while study b is on data source b. By default, the MEVEO manage connection is still available and save as the "default" SqlConfiguration and linked to a "default" repository stored in a database. Unchanged, this is still where the CETs are saved.
 
 [[sql_connection_provider]]
@@ -422,3 +422,160 @@ Here is an example request for creating an SQL Configuration:
     "dialect": "org.hibernate.dialect.PostgreSQLDialect"
 }
 ----
+
+[[maven_configuration]]
+== Maven Configuration
+Before a Script is compiled by adding all the jar dependencies of the project and Wildfly's libraries. Maven configuration allows adding a jar from another source repository at runtime using the Aether library.
+
+[[maven_configuration_data_model]]
+=== Data Model
+Maven configuration is save in the system setting (file) and not in a database table.
+
+.Maven Configuration Fields
+|===
+|Field |Description
+
+|maven.path.executable
+|Local path where maven is installed.
+
+|maven.path.m2
+|Local directory where jar dependencies are downloaded and use when compiling a script.
+
+|maven.path.repositories
+|A list of maven repositories delimited by pipe. For example: 
+http://nexus.opencast.org/nexus/content/repositoriespublic/\|
+http://edward.org\|http://repository.jboss.org/nexus/content/groups/public-jboss\|http://manaty.net/meveo-repo
+|===
+
+[[maven_configuration_gui_api]]
+=== GUI & API
+
+Maven configuration values can be modified in the System Settings menu.
+
+An API endpoint is available under /mavenConfiguration URL.
+
+Supported operations are:
+
+ - POST - Create or update
+ - GET - Returns the maven configuration
+
+An example POST request
+[source,json]
+----
+{
+	"mavenExecutablePath": "C:/Apache/maven-3.5.2/bin",
+	"m2FolderPath": "D:/Java/.m2/repository",
+	"mavenRepositories": [
+		"http://repository.jboss.org/nexus/content/groups/public-jboss",
+		"http://nexus.opencast.org/nexus/content/repositories/public/"
+	]
+}
+----
+
+[[maven_configuration_script_integration]]
+=== Script Integration
+
+To add a dependency using maven configuration, a new parameter is added when compiling a script which is mavenDependencies. This new dependency will be use when compiling and running the script. So the script should not throw any compilation issue even if the jar file is not a project dependency or in Wildfly's library.
+
+For example let's create a script that depends to commons-math3 dependency which is not a dependency of the project.
+
+[source,json]
+----
+{
+    "code" : "org.meveo.test.script.FunctionIO",
+    "script" : "
+		package org.meveo.test.script;
+		import org.apache.commons.math3.util.CombinatoricsUtils;
+		import org.meveo.service.script.Script;
+		import java.util.HashMap;
+		import java.util.Map;
+		import org.meveo.admin.exception.BusinessException;
+		port org.apache.commons.cli.HelpFormatter;
+		import org.apache.commons.cli.Options;
+		import org.apache.commons.cli.ParseException;
+		
+		public class FunctionIO extends Script {
+			@Override
+			public void execute(Map <String, Object> methodContext) throws BusinessException { 
+				long factorial = CombinatoricsUtils.factorial(10);
+				Options options = new Options();
+				options.addOption("p", "print", false, "Send print request to printer.")
+					.addOption("g", "gui", false, "Show GUI Application")
+					.addOption("n", true, "No. of copies to print");
+					
+				HelpFormatter formatter = new HelpFormatter();
+				formatter.printHelp("CLITester", options);
+				
+				String result = "factorial(10)=" + factorial;
+				methodContext.put(RESULT_VALUE, result);
+			}
+		}",
+    "mavenDependencies": [
+    	 {
+	    	"groupId": "org.apache.commons",
+	    	"artifactId": "commons-math3",
+	    	"version": "3.6.1",
+	    	"classifier": "",
+	    	"coordinates": ""
+    	 }
+    ],
+    "fileDependencies": [
+    	{
+    		"path": "D:\Java\.m2\repository\commons-cli\commons-cli\1.4\commons-cli-1.4.jar"
+    	},
+    	{	
+    		"path": "D:\Javaglowroot"
+    	}
+    ]
+}
+----
+
+Note that for this demonstration, I have also added a file dependency which will look for a file in the local machine when compiling a script.
+
+[[maven_configuration_meveo]]
+=== MEVEO as a Maven Repository
+
+Starting from version 6.6.0, MEVEO can act as a maven repository. Which means that a jar file that will be use as dependency to script can be uploaded and reference from it.
+
+The URL of the repository is <MEVEO_URL>/maven/<groupId>/<artifactId>/<version>/<jar_file>-<version>.jar. 
+
+Example: http://localhost:8080/meveo/maven/org/apache/commons/commons-math3/3.6.1/commons-math3-3.6.1.jar.
+
+Note that the directory structure must exists as well as the file inside the providers.rootDir property value. For example d:/temp/meveo/.m2/org/apache/commons/commons-math3/3.6.1/commons-math3-3.6.1.jar
+
+[[maven_configuration_jar_upload]]
+==== Uploading a Jar Dependency
+
+A jar dependency can be uploaded in 2 ways.
+
+1.) GUI. Which is accessible from Configuration / Maven configuration menu.
+
+Using the GUI, a remote repository can be added by specifying the code and the URL.
+
+2.) API. With the endpoint /mavenConfiguration/upload and method=POST.
+
+A maven configuration dependency model contains the following fields.
+
+.Maven Configuration Dependency Fields
+|===
+|Field |Description
+
+|jarFile
+|Zipped maven content
+
+|filename
+|The name of the file
+
+|groupId
+|Group Id of the dependency
+
+|artifactId
+|Artifact Id of the dependency
+
+|version
+|Version number of the dependency
+
+|classifier
+|Classifier of the dependency
+
+|===
