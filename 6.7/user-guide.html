@@ -610,13 +610,13 @@ p {
 <li><a href="#maven_configuration">Maven Configuration</a>
 <ul class="sectlevel2">
 <li><a href="#maven_configuration_data_model">Data Model</a></li>
-<li><a href="#maven_configuration_gui_api">GUI &amp; API</a></li>
-<li><a href="#maven_configuration_script_integration">Script Integration</a></li>
-<li><a href="#maven_configuration_meveo">MEVEO as a Maven Repository</a>
+<li><a href="#maven_configuration_gui_api">GUI &amp; API</a>
 <ul class="sectlevel3">
 <li><a href="#maven_configuration_jar_upload">Uploading a Jar Dependency</a></li>
 </ul>
 </li>
+<li><a href="#maven_configuration_script_integration">Script Integration</a></li>
+<li><a href="#maven_configuration_meveo">MEVEO as a Maven Repository</a></li>
 </ul>
 </li>
 </ul>
@@ -908,10 +908,10 @@ Method: POST</pre>
 <div class="sect2">
 <h3 id="maven_configuration_data_model"><a class="anchor" href="#maven_configuration_data_model"></a>Data Model</h3>
 <div class="paragraph">
-<p>Maven configuration is save in the system setting (file) and not in a database table.</p>
+<p>Remote repository is save in the database.</p>
 </div>
 <table class="tableblock frame-all grid-all spread">
-<caption class="title">Table 2. Maven Configuration Fields</caption>
+<caption class="title">Table 2. Remote Repository Fields</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -924,18 +924,12 @@ Method: POST</pre>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">maven.path.executable</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Local path where maven is installed.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String code</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Code of the remote repository</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">maven.path.m2</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Local directory where jar dependencies are downloaded and use when compiling a script.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">maven.path.repositories</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A list of maven repositories delimited by pipe. For example:
-<a href="http://nexus.opencast.org/nexus/content/repositoriespublic/|" class="bare">http://nexus.opencast.org/nexus/content/repositoriespublic/|</a>
-<a href="http://edward.org|http://repository.jboss.org/nexus/content/groups/public-jboss|http://manaty.net/meveo-repo" class="bare">http://edward.org|http://repository.jboss.org/nexus/content/groups/public-jboss|http://manaty.net/meveo-repo</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String url</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Remote repository URL. Example <a href="http://repository.jboss.org/nexus/content/groups/public-jboss" class="bare">http://repository.jboss.org/nexus/content/groups/public-jboss</a>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -943,10 +937,10 @@ Method: POST</pre>
 <div class="sect2">
 <h3 id="maven_configuration_gui_api"><a class="anchor" href="#maven_configuration_gui_api"></a>GUI &amp; API</h3>
 <div class="paragraph">
-<p>Maven configuration values can be modified in the System Settings menu.</p>
+<p>Remote repository can be modified under the Configuration / Maven configuration menu.</p>
 </div>
 <div class="paragraph">
-<p>An API endpoint is available under /mavenConfiguration URL.</p>
+<p>An API endpoint is available under /mavenConfiguration/remoteRepository URL.</p>
 </div>
 <div class="paragraph">
 <p>Supported operations are:</p>
@@ -957,7 +951,10 @@ Method: POST</pre>
 <p>POST - Create or update</p>
 </li>
 <li>
-<p>GET - Returns the maven configuration</p>
+<p>GET - Returns the list of repositories</p>
+</li>
+<li>
+<p>DELETE - Deletes a repository with a given code</p>
 </li>
 </ul>
 </div>
@@ -967,14 +964,67 @@ Method: POST</pre>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="json"><span class="tok-p">{</span>
-	<span class="tok-nt">&quot;mavenExecutablePath&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;C:/Apache/maven-3.5.2/bin&quot;</span><span class="tok-p">,</span>
-	<span class="tok-nt">&quot;m2FolderPath&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;D:/Java/.m2/repository&quot;</span><span class="tok-p">,</span>
-	<span class="tok-nt">&quot;mavenRepositories&quot;</span><span class="tok-p">:</span> <span class="tok-p">[</span>
-		<span class="tok-s2">&quot;http://repository.jboss.org/nexus/content/groups/public-jboss&quot;</span><span class="tok-p">,</span>
-		<span class="tok-s2">&quot;http://nexus.opencast.org/nexus/content/repositories/public/&quot;</span>
-	<span class="tok-p">]</span>
+	<span class="tok-nt">&quot;code&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;JBOSS_PUBLIC&quot;</span><span class="tok-p">,</span>
+	<span class="tok-nt">&quot;url&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;http://repository.jboss.org/nexus/content/groups/public-jboss&quot;</span>
 <span class="tok-p">}</span></code></pre>
 </div>
+</div>
+<div class="sect3">
+<h4 id="maven_configuration_jar_upload"><a class="anchor" href="#maven_configuration_jar_upload"></a>Uploading a Jar Dependency</h4>
+<div class="paragraph">
+<p>A jar dependency can be uploaded in 2 ways.</p>
+</div>
+<div class="paragraph">
+<p>1.) GUI. Which is accessible from Configuration / Maven configuration menu.</p>
+</div>
+<div class="paragraph">
+<p>Using the GUI, a remote repository can be added by specifying the code and the URL.</p>
+</div>
+<div class="paragraph">
+<p>2.) API. With the endpoint /mavenConfiguration/upload and method=POST.</p>
+</div>
+<div class="paragraph">
+<p>A maven configuration dependency model contains the following fields.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 3. Maven Configuration Dependency Fields</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jarFile</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Zipped maven content</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">filename</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The name of the file</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">groupId</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Group Id of the dependency</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">artifactId</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Artifact Id of the dependency</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">version</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Version number of the dependency</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">classifier</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Classifier of the dependency</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div class="sect2">
@@ -1053,63 +1103,6 @@ Method: POST</pre>
 </div>
 <div class="paragraph">
 <p>Note that the directory structure must exists as well as the file inside the providers.rootDir property value. For example d:/temp/meveo/.m2/org/apache/commons/commons-math3/3.6.1/commons-math3-3.6.1.jar</p>
-</div>
-<div class="sect3">
-<h4 id="maven_configuration_jar_upload"><a class="anchor" href="#maven_configuration_jar_upload"></a>Uploading a Jar Dependency</h4>
-<div class="paragraph">
-<p>A jar dependency can be uploaded in 2 ways.</p>
-</div>
-<div class="paragraph">
-<p>1.) GUI. Which is accessible from Configuration / Maven configuration menu.</p>
-</div>
-<div class="paragraph">
-<p>Using the GUI, a remote repository can be added by specifying the code and the URL.</p>
-</div>
-<div class="paragraph">
-<p>2.) API. With the endpoint /mavenConfiguration/upload and method=POST.</p>
-</div>
-<div class="paragraph">
-<p>A maven configuration dependency model contains the following fields.</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<caption class="title">Table 3. Maven Configuration Dependency Fields</caption>
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Field</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">jarFile</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Zipped maven content</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">filename</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The name of the file</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">groupId</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Group Id of the dependency</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">artifactId</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Artifact Id of the dependency</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">version</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Version number of the dependency</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">classifier</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Classifier of the dependency</p></td>
-</tr>
-</tbody>
-</table>
 </div>
 </div>
 </div>
