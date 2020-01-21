@@ -200,48 +200,78 @@ Before a Script is compiled by adding all the jar dependencies of the project an
 
 [[maven_configuration_data_model]]
 === Data Model
-Maven configuration is save in the system setting (file) and not in a database table.
+Remote repository is save in the database.
 
-.Maven Configuration Fields
+.Remote Repository Fields
 |===
 |Field |Description
 
-|maven.path.executable
-|Local path where maven is installed.
+|String code
+|Code of the remote repository
 
-|maven.path.m2
-|Local directory where jar dependencies are downloaded and use when compiling a script.
+|String url
+|Remote repository URL. Example http://repository.jboss.org/nexus/content/groups/public-jboss.
 
-|maven.path.repositories
-|A list of maven repositories delimited by pipe. For example: 
-http://nexus.opencast.org/nexus/content/repositoriespublic/\|
-http://edward.org\|http://repository.jboss.org/nexus/content/groups/public-jboss\|http://manaty.net/meveo-repo
 |===
 
 [[maven_configuration_gui_api]]
 === GUI & API
 
-Maven configuration values can be modified in the System Settings menu.
+Remote repository can be modified under the Configuration / Maven configuration menu.
 
-An API endpoint is available under /mavenConfiguration URL.
+An API endpoint is available under /mavenConfiguration/remoteRepository URL.
 
 Supported operations are:
 
  - POST - Create or update
- - GET - Returns the maven configuration
+ - GET - Returns the list of repositories
+ - DELETE - Deletes a repository with a given code
 
 An example POST request
 [source,json]
 ----
 {
-	"mavenExecutablePath": "C:/Apache/maven-3.5.2/bin",
-	"m2FolderPath": "D:/Java/.m2/repository",
-	"mavenRepositories": [
-		"http://repository.jboss.org/nexus/content/groups/public-jboss",
-		"http://nexus.opencast.org/nexus/content/repositories/public/"
-	]
+	"code": "JBOSS_PUBLIC",
+	"url": "http://repository.jboss.org/nexus/content/groups/public-jboss"
 }
 ----
+
+[[maven_configuration_jar_upload]]
+==== Uploading a Jar Dependency
+
+A jar dependency can be uploaded in 2 ways.
+
+1.) GUI. Which is accessible from Configuration / Maven configuration menu.
+
+Using the GUI, a remote repository can be added by specifying the code and the URL.
+
+2.) API. With the endpoint /mavenConfiguration/upload and method=POST.
+
+A maven configuration dependency model contains the following fields.
+
+.Maven Configuration Dependency Fields
+|===
+|Field |Description
+
+|jarFile
+|Zipped maven content
+
+|filename
+|The name of the file
+
+|groupId
+|Group Id of the dependency
+
+|artifactId
+|Artifact Id of the dependency
+
+|version
+|Version number of the dependency
+
+|classifier
+|Classifier of the dependency
+
+|===
 
 [[maven_configuration_script_integration]]
 === Script Integration
@@ -313,40 +343,3 @@ The URL of the repository is <MEVEO_URL>/maven/<groupId>/<artifactId>/<version>/
 Example: http://localhost:8080/meveo/maven/org/apache/commons/commons-math3/3.6.1/commons-math3-3.6.1.jar.
 
 Note that the directory structure must exists as well as the file inside the providers.rootDir property value. For example d:/temp/meveo/.m2/org/apache/commons/commons-math3/3.6.1/commons-math3-3.6.1.jar
-
-[[maven_configuration_jar_upload]]
-==== Uploading a Jar Dependency
-
-A jar dependency can be uploaded in 2 ways.
-
-1.) GUI. Which is accessible from Configuration / Maven configuration menu.
-
-Using the GUI, a remote repository can be added by specifying the code and the URL.
-
-2.) API. With the endpoint /mavenConfiguration/upload and method=POST.
-
-A maven configuration dependency model contains the following fields.
-
-.Maven Configuration Dependency Fields
-|===
-|Field |Description
-
-|jarFile
-|Zipped maven content
-
-|filename
-|The name of the file
-
-|groupId
-|Group Id of the dependency
-
-|artifactId
-|Artifact Id of the dependency
-
-|version
-|Version number of the dependency
-
-|classifier
-|Classifier of the dependency
-
-|===
