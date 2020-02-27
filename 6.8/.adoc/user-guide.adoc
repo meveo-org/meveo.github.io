@@ -1,0 +1,407 @@
+= Meveo - User guide
+:nofooter:
+:source-highlighter: pygments
+
+[[scripts]]
+== Scripts
+In Meveo, you can create Java and Javascript scripts. The code of these scripts are stored in the link:<<git>[Meveo git repository]. You can either create them from the user interface under `/pages/admin/storages/scriptInstances/scriptInstances.jsf` or using the REST Api.
+
+A script can be executed from the REST Api using the default endpoint, by a Notification, a Job or an Endpoint.
+
+To ease the communication with other components of Meveo, the user can define named inputs and outputs.
+
+=== Java scripts
+All java scripts should be classes that implements the org.meveo.script.ScriptInterface interface. The code of the script is deduced from full name (package name + class name) of the java class.
+
+The parameters can either be taken from the map or be defined through setters. The parameters taken from setters will automatically be added to the list of user defined inputs.
+
+The output can either be added to the map (which is read after the script execution) or defined in a getter.The outputs taken from getters will automatically be added to the list of user defined outputs.
+
+[source,java]
+----
+package org.meveo.test;
+
+import org.meveo.service.script.Script;
+import java.util.Map; 
+import org.meveo.admin.exception.BusinessException; 
+
+public class TestSetterAndGetters extends Script { 
+
+    private String field1;
+
+    @Override
+    public void execute(Map<String, Object> methodContext) throws BusinessException { 
+        String fieldFromMap = methodContext.get("fieldFromMap");
+        methodContext.put("output2", "output2");
+    }
+
+    /**
+    * @param fieldValue Value of the field.
+    * Just a test.
+    */
+    public void setField1(String fieldValue){
+        this.field1 = fieldValue;
+    }
+
+    /**
+    * @return The field previously set
+    */
+    public String getOutput1(){
+        return this.field1 + "increased";
+    }
+}
+----
+
+=== Javascript scripts
+The javascript scripts should just be simple scripts that will be evaluated in a java context by the GraalJS library.
+
+The parameters are injected as variables in the script context, so we can access them directly. We can also access them using the `methodContext` object.
+
+The outputs of the script must be added in the `methodContext` map.
+
+[source,javascipt]
+----
+var inputA = methodContext.get('input'); 
+methodContext.put('result', inputA * 2); 
+var declaredVar = input * 3;
+methodContext.put('result2', declaredVar);
+----
+
+[[git]]
+== Git
+
+[[git_server]]
+=== Git server
+
+You can access the git server like in any other git hosting provider. The remote origin will be accessible at `\https://{host}(:{port})/{context-root}/git/{repository-code}`.
+
+You must authenticate using your Meveo login / password
+
+[[git_repository]]
+=== Git repository
+A git repository entity reflect a git repository hosted by the Meveo instance. It is defined by a code, a description, a optional remote origin (with optional username and password), reading roles and writing roles. You can access the mangament page at `/pages/admin/storages/repositories/gitRepositories.jsf`.
+
+==== Definition
+===== Remote origin
+When a git repository has a remote origin, the user can push / pull to / from the remote origin. Default credentials can be defined, but we can also specify them at execution of the action.
+
+===== Reading roles
+If reading roles are provided, only user with one of these roles will be able to pull and clone the concerned repository.
+
+===== Writing roles
+If writing roles are provided, only user with one of these roles will be able to push to the concerned repository.
+
+==== Operations
+===== Commit [API]
+When committing a repository, you should provide a commit message and a pattern of the commited files (can be a regex). This operation is only available from API at the moment.
+
+===== Push & Pull
+When pushing or pulling a repository, you can specify credentials different from the default credentials. The Meveo instance will behave in the same way when he receives commits from a pull as when he receives a commit from a git client.
+
+===== Import a repository
+A zip file can be imported from the file system. If the repository already exist, it will be overriden. This operation is only available for repositories that have no remote origin.
+
+===== Export a repository
+The content of a repository can be exported as a zip file. The branch to export can be specified, default branch will be the current branch of the repository.
+
+===== Managing branches [API]
+We can checkout, create and delete branches of a git repository. This operation is only available from API at the moment
+
+[[git_how_to]]
+=== How to use Git in Meveo ?
+
+Currently, the ontology elements and the scripts are stored in a dedicated git repository hosted by the running Meveo instance, called "Meveo" repository and accessible at `\https://{host}(:{port})/{context-root}/git/Meveo`.
+
+[[git_script]]
+==== Scripts
+If you clone the Meveo repository, then make some changes to a script, and finally push it, the concerned script will be re-compiled by Meveo and updated. If you create or delete scripts, the action will be reflected on the Meveo instance.
+
+[[git_onto]]
+==== Ontology
+The ontology elements are serialized under an extended JSON Schema specification. The same rules than for script applies, so if you create, modify or delete a json file, it will be reflected on the Meveo instance you pushed to.
+
+[[git_endpoint]]
+==== Endpoints
+When updating, creating, or deleting an endpoint, a javascript file will be created. This file contains a default function exported that make a fetch call to the corresponding endpoint. It takes into account the method (GET / POST), the path parameters and the body / query parameters. The return value of this function is a Response object that must be handled.
+
+[[sql_configuration]]
+== SQL Configuration
+
+SQL Configuration is introduced in version 6.6.0. The idea is to have an option to store different studies on different database locations. For example, study a is stored on data source a while study b is on data source b. By default, the MEVEO manage connection is still available and save as the "default" SqlConfiguration and linked to a "default" repository stored in a database. Unchanged, this is still where the CETs are saved.
+
+[[sql_connection_provider]]
+=== SQL Connection Provider
+
+The default repository and SQL configuration are checked on the application start and created if they don't exist yet in the database. The code for this feature is in class _SQLConnectionProvider_. This class also contains the methods to open a new SQL connection with a given SQL configuration. See _SQLConnectionProvider.getSession(SQLConfiguration)_.
+
+[[sql_configuration_repository]]
+=== Repository
+
+A repository is a storage object that holds the connection setting for the different data sources. Currently, there are three supported data sources SQL, Neo4j and Binary or files.
+
+The data on two or more SQL data sources are not merged, that is why a repository filter is provided on both API and GUI.
+
+[[sql_configuration_table]]
+=== SQL Configuration Table
+
+Here are the fields of the table SqlConfiguration:
+
+.SQL Configuration Table 
+|===
+|Field |Description
+|String driverClass
+|The class used to load this data source, the appropriate jar must be in the classpath. By default, PostgreSQL and Neo4j are already loaded.
+
+|String url
+|This is the URL of this data source. For example jdbc:postgresql://localhost:5432/meveo.
+
+|String username
+|The data source's username.
+
+|String password
+|The data source's password.
+
+|String dialect
+|The data source's dialect. Hibernate uses dialect configuration to know which database you are using so that it can switch to the database-specific SQL generator code whenever necessary.
+
+|boolean initialized
+|True if this data source has already been initialized.
+
+|===
+
+[[sql_configuration_gui_api]]
+=== GUI & API
+
+In the GUI, A new CRUD page is created for SQL Configuration. It is available under Administration / Storages / SQL Configuration menu.
+
+An API endpoint is created for SQL Configuration CRUD operations accessible at `/api/rest/sql/configurations`.  Available operations are CREATE, UPDATE, DELETE, LIST, FIND.
+
+Here is an example request for creating an SQL Configuration:
+
+ Endpoint: /api/rest/sql/configurations
+ Method: POST
+
+[source,json]
+----
+{
+    "code": "POSTGRESQL2",
+    "description": "PostgreSQL Database",
+    "driverClass": "org.postgresql.Driver",
+    "url": "jdbc:postgresql://localhost/meveo",
+    "username": "meveo",
+    "password": "meveo",
+    "dialect": "org.hibernate.dialect.PostgreSQLDialect"
+}
+----
+
+[[maven_configuration]]
+== Maven Configuration
+Before a Script is compiled by adding all the jar dependencies of the project and Wildfly's libraries. Maven configuration allows adding a jar from another source repository at runtime using the Aether library.
+
+[[maven_configuration_data_model]]
+=== Data Model
+Remote repository is save in the database.
+
+.Remote Repository Fields
+|===
+|Field |Description
+
+|String code
+|Code of the remote repository
+
+|String url
+|Remote repository URL. Example http://repository.jboss.org/nexus/content/groups/public-jboss.
+
+|===
+
+[[maven_configuration_gui_api]]
+=== GUI & API
+
+Remote repository can be modified under the Configuration / Maven configuration menu.
+
+An API endpoint is available under /mavenConfiguration/remoteRepository URL.
+
+Supported operations are:
+
+ - POST - Create or update
+ - GET - Returns the list of repositories
+ - DELETE - Deletes a repository with a given code
+
+An example POST request
+[source,json]
+----
+{
+	"code": "JBOSS_PUBLIC",
+	"url": "http://repository.jboss.org/nexus/content/groups/public-jboss"
+}
+----
+
+[[maven_configuration_jar_upload]]
+==== Uploading a Jar Dependency
+
+A jar dependency can be uploaded in 2 ways.
+
+1.) GUI. Which is accessible from Configuration / Maven configuration menu.
+
+Using the GUI, a remote repository can be added by specifying the code and the URL.
+
+2.) API. With the endpoint /mavenConfiguration/upload and method=POST.
+
+A maven configuration dependency model contains the following fields.
+
+.Maven Configuration Dependency Fields
+|===
+|Field |Description
+
+|jarFile
+|Zipped maven content
+
+|filename
+|The name of the file
+
+|groupId
+|Group Id of the dependency
+
+|artifactId
+|Artifact Id of the dependency
+
+|version
+|Version number of the dependency
+
+|classifier
+|Classifier of the dependency
+
+|===
+
+[[maven_configuration_script_integration]]
+=== Script Integration
+
+To add a dependency using maven configuration, a new parameter is added when compiling a script which is mavenDependencies. This new dependency will be use when compiling and running the script. So the script should not throw any compilation issue even if the jar file is not a project dependency or in Wildfly's library.
+
+For example let's create a script that depends to commons-math3 dependency which is not a dependency of the project.
+
+[source,json]
+----
+{
+    "code" : "org.meveo.test.script.FunctionIO",
+    "script" : "
+		package org.meveo.test.script;
+		import org.apache.commons.math3.util.CombinatoricsUtils;
+		import org.meveo.service.script.Script;
+		import java.util.HashMap;
+		import java.util.Map;
+		import org.meveo.admin.exception.BusinessException;
+		port org.apache.commons.cli.HelpFormatter;
+		import org.apache.commons.cli.Options;
+		import org.apache.commons.cli.ParseException;
+		
+		public class FunctionIO extends Script {
+			@Override
+			public void execute(Map <String, Object> methodContext) throws BusinessException { 
+				long factorial = CombinatoricsUtils.factorial(10);
+				Options options = new Options();
+				options.addOption("p", "print", false, "Send print request to printer.")
+					.addOption("g", "gui", false, "Show GUI Application")
+					.addOption("n", true, "No. of copies to print");
+					
+				HelpFormatter formatter = new HelpFormatter();
+				formatter.printHelp("CLITester", options);
+				
+				String result = "factorial(10)=" + factorial;
+				methodContext.put(RESULT_VALUE, result);
+			}
+		}",
+    "mavenDependencies": [
+    	 {
+	    	"groupId": "org.apache.commons",
+	    	"artifactId": "commons-math3",
+	    	"version": "3.6.1",
+	    	"classifier": "",
+	    	"coordinates": ""
+    	 }
+    ],
+    "fileDependencies": [
+    	{
+    		"path": "D:\Java\.m2\repository\commons-cli\commons-cli\1.4\commons-cli-1.4.jar"
+    	},
+    	{	
+    		"path": "D:\Javaglowroot"
+    	}
+    ]
+}
+----
+
+Note that for this demonstration, I have also added a file dependency which will look for a file in the local machine when compiling a script.
+
+[[maven_configuration_meveo]]
+=== MEVEO as a Maven Repository
+
+Starting from version 6.6.0, MEVEO can act as a maven repository. Which means that a jar file that will be use as dependency to script can be uploaded and reference from it.
+
+The URL of the repository is <MEVEO_URL>/maven/<groupId>/<artifactId>/<version>/<jar_file>-<version>.jar. 
+
+Example: http://localhost:8080/meveo/maven/org/apache/commons/commons-math3/3.6.1/commons-math3-3.6.1.jar.
+
+Note that the directory structure must exists as well as the file inside the providers.rootDir property value. For example d:/temp/meveo/.m2/org/apache/commons/commons-math3/3.6.1/commons-math3-3.6.1.jar
+
+[[file_explorer]]
+== File Explorer
+
+When creating, updating or deleting a entity module, the file will be generated and stored to file explorer directory for the user's provider.
+
+[[file_gui_api]]
+=== GUI & API
+
+For GUI, File explorer can be modified under the Services / File explorer menu.
+
+An API for managing the app file system preset in a specific folder.
+
+Supported operations are:
+
+ - POST - Create directory from where to list files, zip file, zip directory, suppress file, suppress directory, upload file
+ - GET - Returns the list of files or list directory from where to list files, download file
+
+[[file_explorer_file_to_module]]
+=== Add file/folder from File Explorer to Module
+
+1.) GUI.From Services / File explorer menu, a file/folder can be added to a module by "Add To Module" button.
+
+2.) API.The URL of module <MEVEO_URL>/module/<code>/file/add and method=POST.
+Example: http://localhost:8080/meveo/module/moduleModule/file/add. With path="\classes\org\meveo".
+
+Note <code> is the code of module and path of file must exists inside the File Explorer.
+
+[[automatically_zip_export_module_related_to_file_explorer]]
+=== Export a module that is related to file(s)
+
+When exporting a module that is related to file(s), automatically zip it.
+
+A module that is related to file(s) can be exported and automatically zipped in 2 ways.
+
+1.) GUI.From Deployment / Module menu, selcet the module(s) containing the file(s) then click "Export Selection" button.
+
+2.) API. Which is accessible with /api/rest/module/export and method=GET.
+
+[[import_a_zipped_module_with_files]]
+=== Import a zipped module with files
+
+When importing a zipped module with files, put them into the file explorer under the same path.
+
+A zipped module with files can be imported in 2 ways.
+
+1.) GUI.From Deployment / Module menu, click "Import Data" button and select a zipped module to import.
+
+2.) API.A zipped module is imported with api/rest/module/importZip and method=POST.
+A module upload model contains the following fields.
+
+.Module Upload Fields
+|===
+|Field |Description
+
+|zipFile
+|Zipped module with files
+
+|filename
+|The name of the file
+
+|===
