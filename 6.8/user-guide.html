@@ -418,7 +418,75 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 .show-for-print{display:inherit!important}}
 </style>
 <style>
-/* Pygments styles disabled. Pygments is not available. */
+.listingblock .pygments .hll { background-color: #ffffcc }
+.listingblock .pygments, .listingblock .pygments code { background: #f8f8f8; }
+.listingblock .pygments .tok-c { color: #408080; font-style: italic } /* Comment */
+.listingblock .pygments .tok-err { border: 1px solid #FF0000 } /* Error */
+.listingblock .pygments .tok-k { color: #008000; font-weight: bold } /* Keyword */
+.listingblock .pygments .tok-o { color: #666666 } /* Operator */
+.listingblock .pygments .tok-ch { color: #408080; font-style: italic } /* Comment.Hashbang */
+.listingblock .pygments .tok-cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.listingblock .pygments .tok-cp { color: #BC7A00 } /* Comment.Preproc */
+.listingblock .pygments .tok-cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
+.listingblock .pygments .tok-c1 { color: #408080; font-style: italic } /* Comment.Single */
+.listingblock .pygments .tok-cs { color: #408080; font-style: italic } /* Comment.Special */
+.listingblock .pygments .tok-gd { color: #A00000 } /* Generic.Deleted */
+.listingblock .pygments .tok-ge { font-style: italic } /* Generic.Emph */
+.listingblock .pygments .tok-gr { color: #FF0000 } /* Generic.Error */
+.listingblock .pygments .tok-gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.listingblock .pygments .tok-gi { color: #00A000 } /* Generic.Inserted */
+.listingblock .pygments .tok-go { color: #888888 } /* Generic.Output */
+.listingblock .pygments .tok-gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.listingblock .pygments .tok-gs { font-weight: bold } /* Generic.Strong */
+.listingblock .pygments .tok-gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.listingblock .pygments .tok-gt { color: #0044DD } /* Generic.Traceback */
+.listingblock .pygments .tok-kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.listingblock .pygments .tok-kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.listingblock .pygments .tok-kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.listingblock .pygments .tok-kp { color: #008000 } /* Keyword.Pseudo */
+.listingblock .pygments .tok-kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.listingblock .pygments .tok-kt { color: #B00040 } /* Keyword.Type */
+.listingblock .pygments .tok-m { color: #666666 } /* Literal.Number */
+.listingblock .pygments .tok-s { color: #BA2121 } /* Literal.String */
+.listingblock .pygments .tok-na { color: #7D9029 } /* Name.Attribute */
+.listingblock .pygments .tok-nb { color: #008000 } /* Name.Builtin */
+.listingblock .pygments .tok-nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.listingblock .pygments .tok-no { color: #880000 } /* Name.Constant */
+.listingblock .pygments .tok-nd { color: #AA22FF } /* Name.Decorator */
+.listingblock .pygments .tok-ni { color: #999999; font-weight: bold } /* Name.Entity */
+.listingblock .pygments .tok-ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.listingblock .pygments .tok-nf { color: #0000FF } /* Name.Function */
+.listingblock .pygments .tok-nl { color: #A0A000 } /* Name.Label */
+.listingblock .pygments .tok-nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.listingblock .pygments .tok-nt { color: #008000; font-weight: bold } /* Name.Tag */
+.listingblock .pygments .tok-nv { color: #19177C } /* Name.Variable */
+.listingblock .pygments .tok-ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.listingblock .pygments .tok-w { color: #bbbbbb } /* Text.Whitespace */
+.listingblock .pygments .tok-mb { color: #666666 } /* Literal.Number.Bin */
+.listingblock .pygments .tok-mf { color: #666666 } /* Literal.Number.Float */
+.listingblock .pygments .tok-mh { color: #666666 } /* Literal.Number.Hex */
+.listingblock .pygments .tok-mi { color: #666666 } /* Literal.Number.Integer */
+.listingblock .pygments .tok-mo { color: #666666 } /* Literal.Number.Oct */
+.listingblock .pygments .tok-sa { color: #BA2121 } /* Literal.String.Affix */
+.listingblock .pygments .tok-sb { color: #BA2121 } /* Literal.String.Backtick */
+.listingblock .pygments .tok-sc { color: #BA2121 } /* Literal.String.Char */
+.listingblock .pygments .tok-dl { color: #BA2121 } /* Literal.String.Delimiter */
+.listingblock .pygments .tok-sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.listingblock .pygments .tok-s2 { color: #BA2121 } /* Literal.String.Double */
+.listingblock .pygments .tok-se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.listingblock .pygments .tok-sh { color: #BA2121 } /* Literal.String.Heredoc */
+.listingblock .pygments .tok-si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.listingblock .pygments .tok-sx { color: #008000 } /* Literal.String.Other */
+.listingblock .pygments .tok-sr { color: #BB6688 } /* Literal.String.Regex */
+.listingblock .pygments .tok-s1 { color: #BA2121 } /* Literal.String.Single */
+.listingblock .pygments .tok-ss { color: #19177C } /* Literal.String.Symbol */
+.listingblock .pygments .tok-bp { color: #008000 } /* Name.Builtin.Pseudo */
+.listingblock .pygments .tok-fm { color: #0000FF } /* Name.Function.Magic */
+.listingblock .pygments .tok-vc { color: #19177C } /* Name.Variable.Class */
+.listingblock .pygments .tok-vg { color: #19177C } /* Name.Variable.Global */
+.listingblock .pygments .tok-vi { color: #19177C } /* Name.Variable.Instance */
+.listingblock .pygments .tok-vm { color: #19177C } /* Name.Variable.Magic */
+.listingblock .pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 </style>
 <!-- Generate a nice TOC -->
 <script src="/dependencies/jquery.js"></script>
@@ -559,6 +627,18 @@ p {
 <li><a href="#import_a_zipped_module_with_files">Import a zipped module with files</a></li>
 </ul>
 </li>
+<li><a href="#endpoint_openapi_doc">Endpoint Open API Documentation</a>
+<ul class="sectlevel2">
+<li><a href="#endpoint_openapi_doc_swagger">Swagger Dynamically Generated Document</a></li>
+<li><a href="#endpoint_js_interface">Javascript Auto-Generated Interface</a>
+<ul class="sectlevel3">
+<li><a href="#endpoint_js_interface_request_schema">Request Schema</a></li>
+<li><a href="#endpoint_js_interface_response_schema">Response Schema</a></li>
+<li><a href="#endpoint_js_interface_code">Javascript Interface</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -588,37 +668,37 @@ p {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java">package org.meveo.test;
+<pre class="pygments highlight"><code data-lang="java"><span class="tok-kn">package</span> <span class="tok-nn">org.meveo.test</span><span class="tok-o">;</span>
 
-import org.meveo.service.script.Script;
-import java.util.Map;
-import org.meveo.admin.exception.BusinessException;
+<span class="tok-kn">import</span> <span class="tok-nn">org.meveo.service.script.Script</span><span class="tok-o">;</span>
+<span class="tok-kn">import</span> <span class="tok-nn">java.util.Map</span><span class="tok-o">;</span>
+<span class="tok-kn">import</span> <span class="tok-nn">org.meveo.admin.exception.BusinessException</span><span class="tok-o">;</span>
 
-public class TestSetterAndGetters extends Script {
+<span class="tok-kd">public</span> <span class="tok-kd">class</span> <span class="tok-nc">TestSetterAndGetters</span> <span class="tok-kd">extends</span> <span class="tok-n">Script</span> <span class="tok-o">{</span>
 
-    private String field1;
+    <span class="tok-kd">private</span> <span class="tok-n">String</span> <span class="tok-n">field1</span><span class="tok-o">;</span>
 
-    @Override
-    public void execute(Map&lt;String, Object&gt; methodContext) throws BusinessException {
-        String fieldFromMap = methodContext.get("fieldFromMap");
-        methodContext.put("output2", "output2");
-    }
+    <span class="tok-nd">@Override</span>
+    <span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">execute</span><span class="tok-o">(</span><span class="tok-n">Map</span><span class="tok-o">&lt;</span><span class="tok-n">String</span><span class="tok-o">,</span> <span class="tok-n">Object</span><span class="tok-o">&gt;</span> <span class="tok-n">methodContext</span><span class="tok-o">)</span> <span class="tok-kd">throws</span> <span class="tok-n">BusinessException</span> <span class="tok-o">{</span>
+        <span class="tok-n">String</span> <span class="tok-n">fieldFromMap</span> <span class="tok-o">=</span> <span class="tok-n">methodContext</span><span class="tok-o">.</span><span class="tok-na">get</span><span class="tok-o">(</span><span class="tok-s">&quot;fieldFromMap&quot;</span><span class="tok-o">);</span>
+        <span class="tok-n">methodContext</span><span class="tok-o">.</span><span class="tok-na">put</span><span class="tok-o">(</span><span class="tok-s">&quot;output2&quot;</span><span class="tok-o">,</span> <span class="tok-s">&quot;output2&quot;</span><span class="tok-o">);</span>
+    <span class="tok-o">}</span>
 
-    /**
-    * @param fieldValue Value of the field.
-    * Just a test.
-    */
-    public void setField1(String fieldValue){
-        this.field1 = fieldValue;
-    }
+    <span class="tok-cm">/**</span>
+<span class="tok-cm">    * @param fieldValue Value of the field.</span>
+<span class="tok-cm">    * Just a test.</span>
+<span class="tok-cm">    */</span>
+    <span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">setField1</span><span class="tok-o">(</span><span class="tok-n">String</span> <span class="tok-n">fieldValue</span><span class="tok-o">){</span>
+        <span class="tok-k">this</span><span class="tok-o">.</span><span class="tok-na">field1</span> <span class="tok-o">=</span> <span class="tok-n">fieldValue</span><span class="tok-o">;</span>
+    <span class="tok-o">}</span>
 
-    /**
-    * @return The field previously set
-    */
-    public String getOutput1(){
-        return this.field1 + "increased";
-    }
-}</code></pre>
+    <span class="tok-cm">/**</span>
+<span class="tok-cm">    * @return The field previously set</span>
+<span class="tok-cm">    */</span>
+    <span class="tok-kd">public</span> <span class="tok-n">String</span> <span class="tok-nf">getOutput1</span><span class="tok-o">(){</span>
+        <span class="tok-k">return</span> <span class="tok-k">this</span><span class="tok-o">.</span><span class="tok-na">field1</span> <span class="tok-o">+</span> <span class="tok-s">&quot;increased&quot;</span><span class="tok-o">;</span>
+    <span class="tok-o">}</span>
+<span class="tok-o">}</span></code></pre>
 </div>
 </div>
 </div>
@@ -635,10 +715,10 @@ public class TestSetterAndGetters extends Script {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="javascipt">var inputA = methodContext.get('input');
-methodContext.put('result', inputA * 2);
+<pre class="pygments highlight"><code data-lang="javascipt">var inputA = methodContext.get(&#39;input&#39;);
+methodContext.put(&#39;result&#39;, inputA * 2);
 var declaredVar = input * 3;
-methodContext.put('result2', declaredVar);</code></pre>
+methodContext.put(&#39;result2&#39;, declaredVar);</code></pre>
 </div>
 </div>
 </div>
@@ -825,15 +905,15 @@ Method: POST</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="json">{
-    "code": "POSTGRESQL2",
-    "description": "PostgreSQL Database",
-    "driverClass": "org.postgresql.Driver",
-    "url": "jdbc:postgresql://localhost/meveo",
-    "username": "meveo",
-    "password": "meveo",
-    "dialect": "org.hibernate.dialect.PostgreSQLDialect"
-}</code></pre>
+<pre class="pygments highlight"><code data-lang="json"><span class="tok-p">{</span>
+    <span class="tok-nt">&quot;code&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;POSTGRESQL2&quot;</span><span class="tok-p">,</span>
+    <span class="tok-nt">&quot;description&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;PostgreSQL Database&quot;</span><span class="tok-p">,</span>
+    <span class="tok-nt">&quot;driverClass&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;org.postgresql.Driver&quot;</span><span class="tok-p">,</span>
+    <span class="tok-nt">&quot;url&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;jdbc:postgresql://localhost/meveo&quot;</span><span class="tok-p">,</span>
+    <span class="tok-nt">&quot;username&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;meveo&quot;</span><span class="tok-p">,</span>
+    <span class="tok-nt">&quot;password&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;meveo&quot;</span><span class="tok-p">,</span>
+    <span class="tok-nt">&quot;dialect&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;org.hibernate.dialect.PostgreSQLDialect&quot;</span>
+<span class="tok-p">}</span></code></pre>
 </div>
 </div>
 </div>
@@ -903,10 +983,10 @@ Method: POST</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="json">{
-	"code": "JBOSS_PUBLIC",
-	"url": "http://repository.jboss.org/nexus/content/groups/public-jboss"
-}</code></pre>
+<pre class="pygments highlight"><code data-lang="json"><span class="tok-p">{</span>
+	<span class="tok-nt">&quot;code&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;JBOSS_PUBLIC&quot;</span><span class="tok-p">,</span>
+	<span class="tok-nt">&quot;url&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;http://repository.jboss.org/nexus/content/groups/public-jboss&quot;</span>
+<span class="tok-p">}</span></code></pre>
 </div>
 </div>
 <div class="sect3">
@@ -977,53 +1057,53 @@ Method: POST</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="json">{
-    "code" : "org.meveo.test.script.FunctionIO",
-    "script" : "
-		package org.meveo.test.script;
-		import org.apache.commons.math3.util.CombinatoricsUtils;
-		import org.meveo.service.script.Script;
-		import java.util.HashMap;
-		import java.util.Map;
-		import org.meveo.admin.exception.BusinessException;
-		port org.apache.commons.cli.HelpFormatter;
-		import org.apache.commons.cli.Options;
-		import org.apache.commons.cli.ParseException;
+<pre class="pygments highlight"><code data-lang="json"><span class="tok-p">{</span>
+    <span class="tok-nt">&quot;code&quot;</span> <span class="tok-p">:</span> <span class="tok-s2">&quot;org.meveo.test.script.FunctionIO&quot;</span><span class="tok-p">,</span>
+    <span class="tok-nt">&quot;script&quot;</span> <span class="tok-p">:</span> <span class="tok-s2">&quot;</span>
+<span class="tok-s2">		package org.meveo.test.script;</span>
+<span class="tok-s2">		import org.apache.commons.math3.util.CombinatoricsUtils;</span>
+<span class="tok-s2">		import org.meveo.service.script.Script;</span>
+<span class="tok-s2">		import java.util.HashMap;</span>
+<span class="tok-s2">		import java.util.Map;</span>
+<span class="tok-s2">		import org.meveo.admin.exception.BusinessException;</span>
+<span class="tok-s2">		port org.apache.commons.cli.HelpFormatter;</span>
+<span class="tok-s2">		import org.apache.commons.cli.Options;</span>
+<span class="tok-s2">		import org.apache.commons.cli.ParseException;</span>
 
-		public class FunctionIO extends Script {
-			@Override
-			public void execute(Map &lt;String, Object&gt; methodContext) throws BusinessException {
-				long factorial = CombinatoricsUtils.factorial(10);
-				Options options = new Options();
-				options.addOption("p", "print", false, "Send print request to printer.")
-					.addOption("g", "gui", false, "Show GUI Application")
-					.addOption("n", true, "No. of copies to print");
+<span class="tok-s2">		public class FunctionIO extends Script {</span>
+<span class="tok-s2">			@Override</span>
+<span class="tok-s2">			public void execute(Map &lt;String, Object&gt; methodContext) throws BusinessException {</span>
+<span class="tok-s2">				long factorial = CombinatoricsUtils.factorial(10);</span>
+<span class="tok-s2">				Options options = new Options();</span>
+<span class="tok-s2">				options.addOption(&quot;</span><span class="tok-err">p</span><span class="tok-s2">&quot;, &quot;</span><span class="tok-err">print</span><span class="tok-s2">&quot;, false, &quot;</span><span class="tok-err">Send</span> <span class="tok-err">print</span> <span class="tok-err">request</span> <span class="tok-err">to</span> <span class="tok-err">printer.</span><span class="tok-s2">&quot;)</span>
+<span class="tok-s2">					.addOption(&quot;</span><span class="tok-err">g</span><span class="tok-s2">&quot;, &quot;</span><span class="tok-err">gui</span><span class="tok-s2">&quot;, false, &quot;</span><span class="tok-err">Show</span> <span class="tok-err">GUI</span> <span class="tok-err">Application</span><span class="tok-s2">&quot;)</span>
+<span class="tok-s2">					.addOption(&quot;</span><span class="tok-err">n</span><span class="tok-s2">&quot;, true, &quot;</span><span class="tok-err">No.</span> <span class="tok-err">of</span> <span class="tok-err">copies</span> <span class="tok-err">to</span> <span class="tok-err">print</span><span class="tok-s2">&quot;);</span>
 
-				HelpFormatter formatter = new HelpFormatter();
-				formatter.printHelp("CLITester", options);
+<span class="tok-s2">				HelpFormatter formatter = new HelpFormatter();</span>
+<span class="tok-s2">				formatter.printHelp(&quot;</span><span class="tok-err">CLITester</span><span class="tok-s2">&quot;, options);</span>
 
-				String result = "factorial(10)=" + factorial;
-				methodContext.put(RESULT_VALUE, result);
-			}
-		}",
-    "mavenDependencies": [
-    	 {
-	    	"groupId": "org.apache.commons",
-	    	"artifactId": "commons-math3",
-	    	"version": "3.6.1",
-	    	"classifier": "",
-	    	"coordinates": ""
-    	 }
-    ],
-    "fileDependencies": [
-    	{
-    		"path": "D:\Java\.m2\repository\commons-cli\commons-cli\1.4\commons-cli-1.4.jar"
-    	},
-    	{
-    		"path": "D:\Javaglowroot"
-    	}
-    ]
-}</code></pre>
+<span class="tok-s2">				String result = &quot;</span><span class="tok-err">factorial(</span><span class="tok-mi">10</span><span class="tok-err">)=</span><span class="tok-s2">&quot; + factorial;</span>
+<span class="tok-s2">				methodContext.put(RESULT_VALUE, result);</span>
+<span class="tok-s2">			}</span>
+<span class="tok-s2">		}&quot;</span><span class="tok-p">,</span>
+    <span class="tok-nt">&quot;mavenDependencies&quot;</span><span class="tok-p">:</span> <span class="tok-p">[</span>
+    	 <span class="tok-p">{</span>
+	    	<span class="tok-nt">&quot;groupId&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;org.apache.commons&quot;</span><span class="tok-p">,</span>
+	    	<span class="tok-nt">&quot;artifactId&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;commons-math3&quot;</span><span class="tok-p">,</span>
+	    	<span class="tok-nt">&quot;version&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;3.6.1&quot;</span><span class="tok-p">,</span>
+	    	<span class="tok-nt">&quot;classifier&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;&quot;</span><span class="tok-p">,</span>
+	    	<span class="tok-nt">&quot;coordinates&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;&quot;</span>
+    	 <span class="tok-p">}</span>
+    <span class="tok-p">],</span>
+    <span class="tok-nt">&quot;fileDependencies&quot;</span><span class="tok-p">:</span> <span class="tok-p">[</span>
+    	<span class="tok-p">{</span>
+    		<span class="tok-nt">&quot;path&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;D:\Java\.m2\repository\commons-cli\commons-cli\1.4\commons-cli-1.4.jar&quot;</span>
+    	<span class="tok-p">},</span>
+    	<span class="tok-p">{</span>
+    		<span class="tok-nt">&quot;path&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;D:\Javaglowroot&quot;</span>
+    	<span class="tok-p">}</span>
+    <span class="tok-p">]</span>
+<span class="tok-p">}</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1141,6 +1221,427 @@ A module upload model contains the following fields.</p>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="endpoint_openapi_doc"><a class="anchor" href="#endpoint_openapi_doc"></a>Endpoint Open API Documentation</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="endpoint_openapi_doc_swagger"><a class="anchor" href="#endpoint_openapi_doc_swagger"></a>Swagger Dynamically Generated Document</h3>
+<div class="paragraph">
+<p>MEVEO has the capability to dynamically generate a Swagger standard schema of a given endpoint. This feature is available via API.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="javascript"><span class="tok-nx">GET</span>
+<span class="tok-err">/endpoint/openApi/{endpointCode}</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="endpoint_js_interface"><a class="anchor" href="#endpoint_js_interface"></a>Javascript Auto-Generated Interface</h3>
+<div class="paragraph">
+<p>To automate the creation of GUI, MEVEO provides an endpoint that can be used to manage a custom entity template. It serves a dynamically generated endpoint javascript interface that can be used by the frontend application  to send CRUD requests to the server.</p>
+</div>
+<div class="sect3">
+<h4 id="endpoint_js_interface_request_schema"><a class="anchor" href="#endpoint_js_interface_request_schema"></a>Request Schema</h4>
+<div class="paragraph">
+<p>The request schema is an Open API v3 Draft7 standard document that is created from the non-path parameters of an endpoint (field parametersMapping).</p>
+</div>
+<div class="paragraph">
+<p>These parameters are passed to an endpoint and mapped to the linked script.</p>
+</div>
+<div class="paragraph">
+<p>Currently two types of parameters are supported. Get and Body. Get is basically the query parameters, it&#8217;s data type corresponds to the Java native types. On the other hand a body parameter, is represented as a JSON object. It can be as complicated as needed. In Meveo, it can be a custom entity template on several layers, meaning custom entity template a can have a field custom entity template b.</p>
+</div>
+<div class="paragraph">
+<p>This feature is available via API at:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="javascript"><span class="tok-nx">GET</span>
+<span class="tok-err">/endpoint/schema/{endpointCode}/request</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="endpoint_js_interface_response_schema"><a class="anchor" href="#endpoint_js_interface_response_schema"></a>Response Schema</h4>
+<div class="paragraph">
+<p>The response schema is an Open API v3 Draft7 standard document. It represents the data type saved in endpoint&#8217;s returnedVariableName.</p>
+</div>
+<div class="paragraph">
+<p>The returnedVariableName, is a name of a field inside a script where it is mapped from the endpoint. It can be a Java native data type and can be a custom entity template as well.</p>
+</div>
+<div class="paragraph">
+<p>For example, we have a script ScriptTest that is linked to our endpoint. This ScriptTest has a custom entity template property named Account.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span class="tok-kd">public</span> <span class="tok-kd">class</span> <span class="tok-nc">ScriptTest</span> <span class="tok-kd">extends</span> <span class="tok-n">Script</span> <span class="tok-o">{</span>
+
+	<span class="tok-kd">private</span> <span class="tok-n">Account</span> <span class="tok-n">account</span><span class="tok-o">;</span>
+
+	<span class="tok-kd">public</span> <span class="tok-n">Account</span> <span class="tok-nf">getAccount</span><span class="tok-o">()</span> <span class="tok-o">{</span>
+		<span class="tok-k">return</span> <span class="tok-n">account</span><span class="tok-o">;</span>
+	<span class="tok-o">}</span>
+
+	<span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">setAccount</span><span class="tok-o">(</span><span class="tok-n">Account</span> <span class="tok-n">account</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+		<span class="tok-k">this</span><span class="tok-o">.</span><span class="tok-na">account</span> <span class="tok-o">=</span> <span class="tok-n">account</span><span class="tok-o">;</span>
+	<span class="tok-o">}</span>
+<span class="tok-o">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To tell our endpoint that we want to return the value of the account after the execution, we need to set the value of endpoint.returnedVariableName=account.</p>
+</div>
+<div class="paragraph">
+<p>This feature is available via API at:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="javascript"><span class="tok-nx">GET</span>
+<span class="tok-err">/endpoint/schema/{endpointCode}/response</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="endpoint_js_interface_code"><a class="anchor" href="#endpoint_js_interface_code"></a>Javascript Interface</h4>
+<div class="paragraph">
+<p>An API that provides a working service or interface for managing CRUD operations of a custom entity template is available. This interface is automatically created and save in Meveo&#8217;s internal Git system, which is normally located at &lt;PROVIDERS_DIR&gt;\git\Meveo\endpoints.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="javascript"><span class="tok-nx">GET</span>
+<span class="tok-err">/endpoint/openApi/{endpointCode}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For reference, here is an example endpoint&#8217;s javascript interface</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="javascript"><span class="tok-kr">const</span> <span class="tok-nx">buildRequestParameters</span> <span class="tok-o">=</span> <span class="tok-p">(</span><span class="tok-nx">parameters</span><span class="tok-p">,</span> <span class="tok-nx">schema</span><span class="tok-p">)</span> <span class="tok-p">=&gt;</span> <span class="tok-p">{</span>
+    <span class="tok-k">if</span> <span class="tok-p">(</span><span class="tok-nx">schema</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+        <span class="tok-kr">const</span> <span class="tok-nx">errors</span> <span class="tok-o">=</span> <span class="tok-p">[]</span>
+        <span class="tok-kr">const</span> <span class="tok-nx">requestParameters</span> <span class="tok-o">=</span> <span class="tok-nb">Object</span><span class="tok-p">.</span><span class="tok-nx">keys</span><span class="tok-p">(</span>
+            <span class="tok-nx">schema</span><span class="tok-p">.</span><span class="tok-nx">properties</span><span class="tok-p">,</span>
+        <span class="tok-p">).</span><span class="tok-nx">reduce</span><span class="tok-p">((</span><span class="tok-nx">reqParameters</span><span class="tok-p">,</span> <span class="tok-nx">property</span><span class="tok-p">)</span> <span class="tok-p">=&gt;</span> <span class="tok-p">{</span>
+            <span class="tok-kr">const</span> <span class="tok-nx">value</span> <span class="tok-o">=</span> <span class="tok-nx">parameters</span><span class="tok-p">[</span><span class="tok-nx">property</span><span class="tok-p">]</span>
+            <span class="tok-kr">const</span> <span class="tok-nx">isRequired</span> <span class="tok-o">=</span> <span class="tok-nx">schema</span><span class="tok-p">.</span><span class="tok-nx">properties</span><span class="tok-p">[</span><span class="tok-nx">property</span><span class="tok-p">].</span><span class="tok-nx">required</span>
+
+            <span class="tok-k">if</span> <span class="tok-p">(</span><span class="tok-nx">isRequired</span> <span class="tok-o">&amp;&amp;</span> <span class="tok-o">!</span><span class="tok-nx">value</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+                <span class="tok-nx">errors</span><span class="tok-p">.</span><span class="tok-nx">push</span><span class="tok-p">(</span><span class="tok-sb">`</span><span class="tok-si">${</span><span class="tok-nx">property</span><span class="tok-si">}</span><span class="tok-sb"> is required.`</span><span class="tok-p">)</span>
+            <span class="tok-p">}</span> <span class="tok-k">else</span> <span class="tok-k">if</span> <span class="tok-p">(</span><span class="tok-o">!!</span><span class="tok-nx">value</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+                <span class="tok-k">return</span> <span class="tok-p">{</span>
+                    <span class="tok-p">...</span><span class="tok-nx">reqParameters</span><span class="tok-p">,</span>
+                    <span class="tok-p">[</span><span class="tok-nx">property</span><span class="tok-p">]</span><span class="tok-o">:</span> <span class="tok-nx">value</span>
+                <span class="tok-p">}</span>
+            <span class="tok-p">}</span>
+            <span class="tok-k">return</span> <span class="tok-nx">reqParameters</span>
+        <span class="tok-p">},</span> <span class="tok-p">{})</span>
+        <span class="tok-k">if</span> <span class="tok-p">(</span><span class="tok-nx">errors</span><span class="tok-p">.</span><span class="tok-nx">length</span> <span class="tok-o">&gt;</span> <span class="tok-mi">0</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+            <span class="tok-k">throw</span> <span class="tok-nx">errors</span>
+        <span class="tok-p">}</span>
+        <span class="tok-k">return</span> <span class="tok-nx">requestParameters</span>
+    <span class="tok-p">}</span>
+    <span class="tok-k">return</span> <span class="tok-kc">null</span>
+<span class="tok-p">}</span>
+
+<span class="tok-kr">const</span> <span class="tok-nx">EVENT</span> <span class="tok-o">=</span> <span class="tok-p">{</span>
+    <span class="tok-nx">SUCCESS</span><span class="tok-o">:</span> <span class="tok-s2">&quot;Updatepost-OpenApiGenerateCetTest-endpoint-SUCCESS&quot;</span><span class="tok-p">,</span>
+    <span class="tok-nx">ERROR</span><span class="tok-o">:</span> <span class="tok-s2">&quot;Updatepost-OpenApiGenerateCetTest-endpoint-ERROR&quot;</span>
+<span class="tok-p">};</span>
+
+<span class="tok-kr">export</span> <span class="tok-kr">const</span> <span class="tok-nx">registerEventListeners</span> <span class="tok-o">=</span> <span class="tok-p">(</span>
+    <span class="tok-nx">component</span><span class="tok-p">,</span>
+    <span class="tok-nx">successCallback</span><span class="tok-p">,</span>
+    <span class="tok-nx">errorCallback</span>
+<span class="tok-p">)</span> <span class="tok-p">=&gt;</span> <span class="tok-p">{</span>
+    <span class="tok-k">if</span> <span class="tok-p">(</span><span class="tok-nx">successCallback</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+        <span class="tok-nx">component</span><span class="tok-p">.</span><span class="tok-nx">addEventListener</span><span class="tok-p">(</span><span class="tok-nx">EVENT</span><span class="tok-p">.</span><span class="tok-nx">SUCCESS</span><span class="tok-p">,</span> <span class="tok-nx">successCallback</span><span class="tok-p">);</span>
+    <span class="tok-p">}</span>
+    <span class="tok-k">if</span> <span class="tok-p">(</span><span class="tok-nx">errorCallback</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+        <span class="tok-nx">component</span><span class="tok-p">.</span><span class="tok-nx">addEventListener</span><span class="tok-p">(</span><span class="tok-nx">EVENT</span><span class="tok-p">.</span><span class="tok-nx">ERROR</span><span class="tok-p">,</span> <span class="tok-nx">errorCallback</span><span class="tok-p">);</span>
+    <span class="tok-p">}</span>
+<span class="tok-p">};</span>
+
+<span class="tok-kr">export</span> <span class="tok-kr">const</span> <span class="tok-nx">getRequestSchema</span> <span class="tok-o">=</span> <span class="tok-nx">async</span> <span class="tok-p">(</span><span class="tok-nx">parameters</span><span class="tok-p">,</span> <span class="tok-nx">config</span><span class="tok-p">)</span> <span class="tok-p">=&gt;</span> <span class="tok-p">{</span>
+    <span class="tok-k">return</span> <span class="tok-p">{</span>
+  <span class="tok-s2">&quot;title&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;post-OpenApiGenerateCetTest-endpointRequest&quot;</span><span class="tok-p">,</span>
+  <span class="tok-s2">&quot;id&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;post-OpenApiGenerateCetTest-endpointRequest&quot;</span><span class="tok-p">,</span>
+  <span class="tok-s2">&quot;default&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;Schema definition for post-OpenApiGenerateCetTest-endpoint&quot;</span><span class="tok-p">,</span>
+  <span class="tok-s2">&quot;$schema&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;http://json-schema.org/draft-07/schema&quot;</span><span class="tok-p">,</span>
+  <span class="tok-s2">&quot;type&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;object&quot;</span><span class="tok-p">,</span>
+  <span class="tok-s2">&quot;properties&quot;</span><span class="tok-o">:</span> <span class="tok-p">{</span>
+    <span class="tok-s2">&quot;qparam3&quot;</span><span class="tok-o">:</span> <span class="tok-p">{</span>
+      <span class="tok-s2">&quot;title&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;Consumption&quot;</span><span class="tok-p">,</span>
+      <span class="tok-s2">&quot;description&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;Consumption&quot;</span><span class="tok-p">,</span>
+      <span class="tok-s2">&quot;id&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;Consumption&quot;</span><span class="tok-p">,</span>
+      <span class="tok-s2">&quot;storages&quot;</span><span class="tok-o">:</span> <span class="tok-p">[</span>
+        <span class="tok-s2">&quot;SQL&quot;</span>
+      <span class="tok-p">],</span>
+      <span class="tok-s2">&quot;type&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;object&quot;</span><span class="tok-p">,</span>
+      <span class="tok-s2">&quot;properties&quot;</span><span class="tok-o">:</span> <span class="tok-p">{</span>
+        <span class="tok-s2">&quot;date&quot;</span><span class="tok-o">:</span> <span class="tok-p">{</span>
+          <span class="tok-s2">&quot;title&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;Consumption.date&quot;</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;description&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;Date&quot;</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;id&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;CE_Consumption_date&quot;</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;storages&quot;</span><span class="tok-o">:</span> <span class="tok-p">[</span>
+            <span class="tok-s2">&quot;SQL&quot;</span>
+          <span class="tok-p">],</span>
+          <span class="tok-s2">&quot;nullable&quot;</span><span class="tok-o">:</span> <span class="tok-kc">false</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;readOnly&quot;</span><span class="tok-o">:</span> <span class="tok-kc">false</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;versionable&quot;</span><span class="tok-o">:</span> <span class="tok-kc">false</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;indexType&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;INDEX_NOT_ANALYZE&quot;</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;type&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;string&quot;</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;format&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;date-time&quot;</span>
+        <span class="tok-p">},</span>
+        <span class="tok-s2">&quot;amount&quot;</span><span class="tok-o">:</span> <span class="tok-p">{</span>
+          <span class="tok-s2">&quot;title&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;Consumption.amount&quot;</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;description&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;Amount&quot;</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;id&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;CE_Consumption_amount&quot;</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;storages&quot;</span><span class="tok-o">:</span> <span class="tok-p">[</span>
+            <span class="tok-s2">&quot;SQL&quot;</span>
+          <span class="tok-p">],</span>
+          <span class="tok-s2">&quot;nullable&quot;</span><span class="tok-o">:</span> <span class="tok-kc">false</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;readOnly&quot;</span><span class="tok-o">:</span> <span class="tok-kc">false</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;versionable&quot;</span><span class="tok-o">:</span> <span class="tok-kc">false</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;indexType&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;INDEX_NOT_ANALYZE&quot;</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;type&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;integer&quot;</span>
+        <span class="tok-p">},</span>
+        <span class="tok-s2">&quot;account&quot;</span><span class="tok-o">:</span> <span class="tok-p">{</span>
+          <span class="tok-s2">&quot;title&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;Consumption.account&quot;</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;description&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;Account&quot;</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;id&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;CE_Consumption_account&quot;</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;storages&quot;</span><span class="tok-o">:</span> <span class="tok-p">[</span>
+            <span class="tok-s2">&quot;SQL&quot;</span>
+          <span class="tok-p">],</span>
+          <span class="tok-s2">&quot;nullable&quot;</span><span class="tok-o">:</span> <span class="tok-kc">false</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;readOnly&quot;</span><span class="tok-o">:</span> <span class="tok-kc">false</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;versionable&quot;</span><span class="tok-o">:</span> <span class="tok-kc">false</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;indexType&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;INDEX_NOT_ANALYZE&quot;</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;type&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;string&quot;</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;minLength&quot;</span><span class="tok-o">:</span> <span class="tok-mi">1</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;maxLength&quot;</span><span class="tok-o">:</span> <span class="tok-mi">255</span>
+        <span class="tok-p">}</span>
+      <span class="tok-p">},</span>
+      <span class="tok-s2">&quot;required&quot;</span><span class="tok-o">:</span> <span class="tok-p">[</span>
+        <span class="tok-s2">&quot;account&quot;</span><span class="tok-p">,</span>
+        <span class="tok-s2">&quot;amount&quot;</span><span class="tok-p">,</span>
+        <span class="tok-s2">&quot;date&quot;</span>
+      <span class="tok-p">]</span>
+    <span class="tok-p">},</span>
+    <span class="tok-s2">&quot;qparam2&quot;</span><span class="tok-o">:</span> <span class="tok-p">{</span>
+      <span class="tok-s2">&quot;title&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;Account&quot;</span><span class="tok-p">,</span>
+      <span class="tok-s2">&quot;description&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;Account&quot;</span><span class="tok-p">,</span>
+      <span class="tok-s2">&quot;id&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;Account&quot;</span><span class="tok-p">,</span>
+      <span class="tok-s2">&quot;storages&quot;</span><span class="tok-o">:</span> <span class="tok-p">[</span>
+        <span class="tok-s2">&quot;SQL&quot;</span>
+      <span class="tok-p">],</span>
+      <span class="tok-s2">&quot;type&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;object&quot;</span><span class="tok-p">,</span>
+      <span class="tok-s2">&quot;properties&quot;</span><span class="tok-o">:</span> <span class="tok-p">{</span>
+        <span class="tok-s2">&quot;accountCode&quot;</span><span class="tok-o">:</span> <span class="tok-p">{</span>
+          <span class="tok-s2">&quot;title&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;Account.accountCode&quot;</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;description&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;Account code&quot;</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;id&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;CE_Account_accountCode&quot;</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;storages&quot;</span><span class="tok-o">:</span> <span class="tok-p">[</span>
+            <span class="tok-s2">&quot;SQL&quot;</span>
+          <span class="tok-p">],</span>
+          <span class="tok-s2">&quot;nullable&quot;</span><span class="tok-o">:</span> <span class="tok-kc">false</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;readOnly&quot;</span><span class="tok-o">:</span> <span class="tok-kc">false</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;versionable&quot;</span><span class="tok-o">:</span> <span class="tok-kc">false</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;indexType&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;INDEX_NOT_ANALYZE&quot;</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;type&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;string&quot;</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;minLength&quot;</span><span class="tok-o">:</span> <span class="tok-mi">1</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;maxLength&quot;</span><span class="tok-o">:</span> <span class="tok-mi">255</span>
+        <span class="tok-p">},</span>
+        <span class="tok-s2">&quot;accountType&quot;</span><span class="tok-o">:</span> <span class="tok-p">{</span>
+          <span class="tok-s2">&quot;title&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;Account.accountType&quot;</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;description&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;Account type&quot;</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;id&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;CE_Account_accountType&quot;</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;storages&quot;</span><span class="tok-o">:</span> <span class="tok-p">[</span>
+            <span class="tok-s2">&quot;SQL&quot;</span>
+          <span class="tok-p">],</span>
+          <span class="tok-s2">&quot;nullable&quot;</span><span class="tok-o">:</span> <span class="tok-kc">false</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;readOnly&quot;</span><span class="tok-o">:</span> <span class="tok-kc">false</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;versionable&quot;</span><span class="tok-o">:</span> <span class="tok-kc">false</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;indexType&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;INDEX_NOT_ANALYZE&quot;</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;type&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;string&quot;</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;minLength&quot;</span><span class="tok-o">:</span> <span class="tok-mi">1</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;maxLength&quot;</span><span class="tok-o">:</span> <span class="tok-mi">255</span>
+        <span class="tok-p">}</span>
+      <span class="tok-p">},</span>
+      <span class="tok-s2">&quot;required&quot;</span><span class="tok-o">:</span> <span class="tok-p">[</span>
+        <span class="tok-s2">&quot;accountCode&quot;</span><span class="tok-p">,</span>
+        <span class="tok-s2">&quot;accountType&quot;</span>
+      <span class="tok-p">]</span>
+    <span class="tok-p">},</span>
+    <span class="tok-s2">&quot;qparam1&quot;</span><span class="tok-o">:</span> <span class="tok-p">{</span>
+      <span class="tok-s2">&quot;title&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;qparam1&quot;</span><span class="tok-p">,</span>
+      <span class="tok-s2">&quot;type&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;string&quot;</span><span class="tok-p">,</span>
+      <span class="tok-s2">&quot;minLength&quot;</span><span class="tok-o">:</span> <span class="tok-mi">1</span>
+    <span class="tok-p">}</span>
+  <span class="tok-p">}</span>
+<span class="tok-p">}</span>
+<span class="tok-p">};</span>
+
+<span class="tok-kr">export</span> <span class="tok-kr">const</span> <span class="tok-nx">getResponseSchema</span> <span class="tok-o">=</span> <span class="tok-nx">async</span> <span class="tok-p">(</span><span class="tok-nx">parameters</span><span class="tok-p">,</span> <span class="tok-nx">config</span><span class="tok-p">)</span> <span class="tok-p">=&gt;</span> <span class="tok-p">{</span>
+    <span class="tok-k">return</span> <span class="tok-p">{</span>
+  <span class="tok-s2">&quot;title&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;post-OpenApiGenerateCetTest-endpointResponse&quot;</span><span class="tok-p">,</span>
+  <span class="tok-s2">&quot;id&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;post-OpenApiGenerateCetTest-endpointResponse&quot;</span><span class="tok-p">,</span>
+  <span class="tok-s2">&quot;default&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;Schema definition for post-OpenApiGenerateCetTest-endpoint&quot;</span><span class="tok-p">,</span>
+  <span class="tok-s2">&quot;$schema&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;http://json-schema.org/draft-07/schema&quot;</span><span class="tok-p">,</span>
+  <span class="tok-s2">&quot;type&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;object&quot;</span><span class="tok-p">,</span>
+  <span class="tok-s2">&quot;properties&quot;</span><span class="tok-o">:</span> <span class="tok-p">{</span>
+    <span class="tok-s2">&quot;consumption&quot;</span><span class="tok-o">:</span> <span class="tok-p">{</span>
+      <span class="tok-s2">&quot;title&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;Consumption&quot;</span><span class="tok-p">,</span>
+      <span class="tok-s2">&quot;description&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;Consumption&quot;</span><span class="tok-p">,</span>
+      <span class="tok-s2">&quot;id&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;Consumption&quot;</span><span class="tok-p">,</span>
+      <span class="tok-s2">&quot;storages&quot;</span><span class="tok-o">:</span> <span class="tok-p">[</span>
+        <span class="tok-s2">&quot;SQL&quot;</span>
+      <span class="tok-p">],</span>
+      <span class="tok-s2">&quot;type&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;object&quot;</span><span class="tok-p">,</span>
+      <span class="tok-s2">&quot;properties&quot;</span><span class="tok-o">:</span> <span class="tok-p">{</span>
+        <span class="tok-s2">&quot;date&quot;</span><span class="tok-o">:</span> <span class="tok-p">{</span>
+          <span class="tok-s2">&quot;title&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;Consumption.date&quot;</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;description&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;Date&quot;</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;id&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;CE_Consumption_date&quot;</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;storages&quot;</span><span class="tok-o">:</span> <span class="tok-p">[</span>
+            <span class="tok-s2">&quot;SQL&quot;</span>
+          <span class="tok-p">],</span>
+          <span class="tok-s2">&quot;nullable&quot;</span><span class="tok-o">:</span> <span class="tok-kc">false</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;readOnly&quot;</span><span class="tok-o">:</span> <span class="tok-kc">false</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;versionable&quot;</span><span class="tok-o">:</span> <span class="tok-kc">false</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;indexType&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;INDEX_NOT_ANALYZE&quot;</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;type&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;string&quot;</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;format&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;date-time&quot;</span>
+        <span class="tok-p">},</span>
+        <span class="tok-s2">&quot;amount&quot;</span><span class="tok-o">:</span> <span class="tok-p">{</span>
+          <span class="tok-s2">&quot;title&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;Consumption.amount&quot;</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;description&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;Amount&quot;</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;id&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;CE_Consumption_amount&quot;</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;storages&quot;</span><span class="tok-o">:</span> <span class="tok-p">[</span>
+            <span class="tok-s2">&quot;SQL&quot;</span>
+          <span class="tok-p">],</span>
+          <span class="tok-s2">&quot;nullable&quot;</span><span class="tok-o">:</span> <span class="tok-kc">false</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;readOnly&quot;</span><span class="tok-o">:</span> <span class="tok-kc">false</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;versionable&quot;</span><span class="tok-o">:</span> <span class="tok-kc">false</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;indexType&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;INDEX_NOT_ANALYZE&quot;</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;type&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;integer&quot;</span>
+        <span class="tok-p">},</span>
+        <span class="tok-s2">&quot;account&quot;</span><span class="tok-o">:</span> <span class="tok-p">{</span>
+          <span class="tok-s2">&quot;title&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;Consumption.account&quot;</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;description&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;Account&quot;</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;id&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;CE_Consumption_account&quot;</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;storages&quot;</span><span class="tok-o">:</span> <span class="tok-p">[</span>
+            <span class="tok-s2">&quot;SQL&quot;</span>
+          <span class="tok-p">],</span>
+          <span class="tok-s2">&quot;nullable&quot;</span><span class="tok-o">:</span> <span class="tok-kc">false</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;readOnly&quot;</span><span class="tok-o">:</span> <span class="tok-kc">false</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;versionable&quot;</span><span class="tok-o">:</span> <span class="tok-kc">false</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;indexType&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;INDEX_NOT_ANALYZE&quot;</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;type&quot;</span><span class="tok-o">:</span> <span class="tok-s2">&quot;string&quot;</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;minLength&quot;</span><span class="tok-o">:</span> <span class="tok-mi">1</span><span class="tok-p">,</span>
+          <span class="tok-s2">&quot;maxLength&quot;</span><span class="tok-o">:</span> <span class="tok-mi">255</span>
+        <span class="tok-p">}</span>
+      <span class="tok-p">},</span>
+      <span class="tok-s2">&quot;required&quot;</span><span class="tok-o">:</span> <span class="tok-p">[</span>
+        <span class="tok-s2">&quot;account&quot;</span><span class="tok-p">,</span>
+        <span class="tok-s2">&quot;amount&quot;</span><span class="tok-p">,</span>
+        <span class="tok-s2">&quot;date&quot;</span>
+      <span class="tok-p">]</span>
+    <span class="tok-p">}</span>
+  <span class="tok-p">}</span>
+<span class="tok-p">}</span>
+<span class="tok-p">}</span>
+
+<span class="tok-kr">export</span> <span class="tok-kr">const</span> <span class="tok-nx">executeApiCall</span> <span class="tok-o">=</span> <span class="tok-nx">async</span> <span class="tok-p">(</span>
+    <span class="tok-nx">component</span><span class="tok-p">,</span>
+    <span class="tok-nx">params</span><span class="tok-p">,</span>
+    <span class="tok-nx">successCallback</span><span class="tok-p">,</span> <span class="tok-c1">// optional</span>
+    <span class="tok-nx">errorCallback</span> <span class="tok-c1">// optional</span>
+<span class="tok-p">)</span> <span class="tok-p">=&gt;</span> <span class="tok-p">{</span>
+    <span class="tok-nx">registerEventListeners</span><span class="tok-p">(</span><span class="tok-nx">component</span><span class="tok-p">,</span> <span class="tok-nx">successCallback</span><span class="tok-p">,</span> <span class="tok-nx">errorCallback</span><span class="tok-p">);</span>
+    <span class="tok-kr">const</span> <span class="tok-nx">parameters</span> <span class="tok-o">=</span> <span class="tok-nx">params</span> <span class="tok-o">||</span> <span class="tok-p">{};</span>
+    <span class="tok-kr">const</span> <span class="tok-p">{</span>
+        <span class="tok-nx">token</span><span class="tok-p">,</span>
+        <span class="tok-nx">config</span>
+    <span class="tok-p">}</span> <span class="tok-o">=</span> <span class="tok-nx">parameters</span><span class="tok-p">;</span>
+
+    <span class="tok-c1">// the name of the config variable is the name of the module</span>
+    <span class="tok-kr">const</span> <span class="tok-p">{</span>
+        <span class="tok-nx">Updatepost</span><span class="tok-o">-</span><span class="tok-nx">OpenApiGenerateCetTest</span><span class="tok-o">-</span><span class="tok-nx">endpoint</span><span class="tok-o">:</span> <span class="tok-p">{</span>
+            <span class="tok-nx">OVERRIDE_URL</span><span class="tok-p">,</span>
+            <span class="tok-nx">USE_MOCK</span>
+        <span class="tok-p">}</span>
+    <span class="tok-p">}</span> <span class="tok-o">=</span> <span class="tok-nx">config</span> <span class="tok-o">||</span> <span class="tok-p">{};</span>
+
+    <span class="tok-c1">// the baseUrl can be overridden by indicating a OVERRIDE_URL in config,</span>
+    <span class="tok-c1">// by default it will use the same URL as the client application</span>
+    <span class="tok-c1">// or if this is auto-generated by meveo, it will have the server&#39;s host url</span>
+    <span class="tok-kr">const</span> <span class="tok-nx">baseUrl</span> <span class="tok-o">=</span> <span class="tok-nx">OVERRIDE_URL</span> <span class="tok-o">||</span> <span class="tok-nb">window</span><span class="tok-p">.</span><span class="tok-nx">location</span><span class="tok-p">.</span><span class="tok-nx">origin</span><span class="tok-p">;</span> <span class="tok-c1">// || server.host.url</span>
+
+    <span class="tok-c1">// just an example how to use the useMock parameter to switch between mock and actual endpoints.</span>
+    <span class="tok-kr">const</span> <span class="tok-nx">apiUrl</span> <span class="tok-o">=</span> <span class="tok-nx">USE_MOCK</span> <span class="tok-o">?</span>
+        <span class="tok-sb">`</span><span class="tok-si">${</span><span class="tok-nx">baseUrl</span><span class="tok-si">}</span><span class="tok-sb">/auth/realms/meveo/account?useMock=true`</span> <span class="tok-o">:</span>
+        <span class="tok-sb">`</span><span class="tok-si">${</span><span class="tok-nx">baseUrl</span><span class="tok-si">}</span><span class="tok-sb">/auth/realms/meveo/account`</span><span class="tok-p">;</span>
+
+    <span class="tok-c1">//fetch request schema to filter out optional parameters that should not be passed into the request</span>
+    <span class="tok-k">try</span> <span class="tok-p">{</span>
+        <span class="tok-kr">const</span> <span class="tok-nx">requestSchema</span> <span class="tok-o">=</span> <span class="tok-nx">await</span> <span class="tok-nx">getRequestSchema</span><span class="tok-p">(</span><span class="tok-nx">parameters</span><span class="tok-p">);</span>
+        <span class="tok-kr">const</span> <span class="tok-nx">requestParameters</span> <span class="tok-o">=</span> <span class="tok-nx">buildRequestParameters</span><span class="tok-p">(</span><span class="tok-nx">parameters</span><span class="tok-p">,</span> <span class="tok-nx">requestSchema</span><span class="tok-p">);</span>
+        <span class="tok-kr">const</span> <span class="tok-nx">parameterKeys</span> <span class="tok-o">=</span> <span class="tok-nb">Object</span><span class="tok-p">.</span><span class="tok-nx">keys</span><span class="tok-p">(</span><span class="tok-nx">requestParameters</span> <span class="tok-o">||</span> <span class="tok-p">{});</span>
+        <span class="tok-kr">const</span> <span class="tok-nx">hasParameters</span> <span class="tok-o">=</span> <span class="tok-nx">requestParameters</span> <span class="tok-o">&amp;&amp;</span> <span class="tok-nx">parameterKeys</span><span class="tok-p">.</span><span class="tok-nx">length</span> <span class="tok-o">&gt;</span> <span class="tok-mi">0</span><span class="tok-p">;</span>
+
+        <span class="tok-kr">const</span> <span class="tok-nx">requestUrl</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-nx">URL</span><span class="tok-p">(</span><span class="tok-nx">apiUrl</span><span class="tok-p">);</span>
+        <span class="tok-k">if</span> <span class="tok-p">(</span><span class="tok-nx">hasParameters</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+            <span class="tok-nx">parameterKeys</span><span class="tok-p">.</span><span class="tok-nx">forEach</span><span class="tok-p">(</span><span class="tok-nx">key</span> <span class="tok-p">=&gt;</span> <span class="tok-p">{</span>
+                <span class="tok-nx">requestUrl</span><span class="tok-p">.</span><span class="tok-nx">searchParams</span><span class="tok-p">.</span><span class="tok-nx">append</span><span class="tok-p">(</span><span class="tok-nx">key</span><span class="tok-p">,</span> <span class="tok-nx">requestParameters</span><span class="tok-p">[</span><span class="tok-nx">key</span><span class="tok-p">]);</span>
+            <span class="tok-p">});</span>
+        <span class="tok-p">}</span>
+
+        <span class="tok-kr">const</span> <span class="tok-nx">headers</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-nx">Headers</span><span class="tok-p">();</span>
+        <span class="tok-nx">headers</span><span class="tok-p">.</span><span class="tok-nx">append</span><span class="tok-p">(</span><span class="tok-s2">&quot;Content-Type&quot;</span><span class="tok-p">,</span> <span class="tok-s2">&quot;application/json&quot;</span><span class="tok-p">);</span>
+        <span class="tok-nx">headers</span><span class="tok-p">.</span><span class="tok-nx">append</span><span class="tok-p">(</span><span class="tok-s2">&quot;Accept&quot;</span><span class="tok-p">,</span> <span class="tok-s2">&quot;application/json&quot;</span><span class="tok-p">);</span>
+        <span class="tok-nx">headers</span><span class="tok-p">.</span><span class="tok-nx">append</span><span class="tok-p">(</span><span class="tok-s2">&quot;Authorization&quot;</span><span class="tok-p">,</span> <span class="tok-sb">`Bearer </span><span class="tok-si">${</span><span class="tok-nx">token</span><span class="tok-si">}</span><span class="tok-sb">`</span><span class="tok-p">);</span>
+
+        <span class="tok-kr">const</span> <span class="tok-nx">options</span> <span class="tok-o">=</span> <span class="tok-p">{</span>
+            <span class="tok-nx">method</span><span class="tok-o">:</span> <span class="tok-s2">&quot;GET&quot;</span><span class="tok-p">,</span>
+            <span class="tok-nx">headers</span>
+        <span class="tok-p">};</span>
+
+        <span class="tok-kr">const</span> <span class="tok-nx">response</span> <span class="tok-o">=</span> <span class="tok-nx">await</span> <span class="tok-nx">fetch</span><span class="tok-p">(</span><span class="tok-nx">requestUrl</span><span class="tok-p">,</span> <span class="tok-nx">options</span><span class="tok-p">);</span>
+        <span class="tok-k">if</span> <span class="tok-p">(</span><span class="tok-o">!</span><span class="tok-nx">response</span><span class="tok-p">.</span><span class="tok-nx">ok</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+            <span class="tok-k">throw</span> <span class="tok-p">[</span>
+                <span class="tok-sb">`Encountered error calling API: </span><span class="tok-si">${</span><span class="tok-nx">apiUrl</span><span class="tok-si">}</span><span class="tok-sb">`</span><span class="tok-p">,</span>
+                <span class="tok-sb">`Status code: </span><span class="tok-si">${</span><span class="tok-nx">response</span><span class="tok-p">.</span><span class="tok-nx">status</span><span class="tok-si">}</span><span class="tok-sb"> [</span><span class="tok-si">${</span><span class="tok-nx">response</span><span class="tok-p">.</span><span class="tok-nx">statusText</span><span class="tok-si">}</span><span class="tok-sb">]`</span>
+            <span class="tok-p">];</span>
+        <span class="tok-p">}</span>
+        <span class="tok-c1">// if accept = &quot;application/json&quot; otherwise return response.text()</span>
+        <span class="tok-kr">const</span> <span class="tok-nx">result</span> <span class="tok-o">=</span> <span class="tok-nx">await</span> <span class="tok-nx">response</span><span class="tok-p">.</span><span class="tok-nx">json</span><span class="tok-p">();</span>
+        <span class="tok-nx">component</span><span class="tok-p">.</span><span class="tok-nx">dispatchEvent</span><span class="tok-p">(</span>
+            <span class="tok-k">new</span> <span class="tok-nx">CustomEvent</span><span class="tok-p">(</span><span class="tok-nx">EVENT</span><span class="tok-p">.</span><span class="tok-nx">SUCCESS</span><span class="tok-p">,</span> <span class="tok-p">{</span>
+                <span class="tok-nx">detail</span><span class="tok-o">:</span> <span class="tok-p">{</span>
+                    <span class="tok-nx">result</span>
+                <span class="tok-p">},</span>
+                <span class="tok-nx">bubbles</span><span class="tok-o">:</span> <span class="tok-kc">true</span>
+            <span class="tok-p">})</span>
+        <span class="tok-p">);</span>
+    <span class="tok-p">}</span> <span class="tok-k">catch</span> <span class="tok-p">(</span><span class="tok-nx">error</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+        <span class="tok-nx">component</span><span class="tok-p">.</span><span class="tok-nx">dispatchEvent</span><span class="tok-p">(</span>
+            <span class="tok-k">new</span> <span class="tok-nx">CustomEvent</span><span class="tok-p">(</span><span class="tok-nx">EVENT</span><span class="tok-p">.</span><span class="tok-nx">ERROR</span><span class="tok-p">,</span> <span class="tok-p">{</span>
+                <span class="tok-nx">detail</span><span class="tok-o">:</span> <span class="tok-p">{</span>
+                    <span class="tok-nx">error</span>
+                <span class="tok-p">},</span>
+                <span class="tok-nx">bubbles</span><span class="tok-o">:</span> <span class="tok-kc">true</span>
+            <span class="tok-p">})</span>
+        <span class="tok-p">);</span>
+    <span class="tok-p">}</span>
+<span class="tok-p">};</span></code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
