@@ -575,6 +575,7 @@ p {
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
+<li><a href="#application">Configuration</a></li>
 <li><a href="#scripts">Scripts</a>
 <ul class="sectlevel2">
 <li><a href="#_java_scripts">Java scripts</a></li>
@@ -643,6 +644,33 @@ p {
 </div>
 </div>
 <div id="content">
+<div class="sect1">
+<h2 id="application"><a class="anchor" href="#application"></a>Configuration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section list the application properties that is used by the MEVEO system.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Property Code</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Max Upload Size</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">meveo.fileUpload.limitInMb</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This property sets the maximum file size the JSF components can handle. The maximum value it can accept is 100MB and is defined in JBoss application server in src/main/webapp/WEB-INF/undertow-handlers.conf. Which means, if we set this property to 150MB and uploaded a file with that size the system should throw an error.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <div class="sect1">
 <h2 id="scripts"><a class="anchor" href="#scripts"></a>Scripts</h2>
 <div class="sectionbody">
