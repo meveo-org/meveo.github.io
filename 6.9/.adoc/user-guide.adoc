@@ -2,7 +2,7 @@
 :nofooter:
 :source-highlighter: pygments
 
-[[Application]]
+[[application]]
 == Configuration
 This section list the application properties that is used by the MEVEO system.
 
@@ -15,7 +15,6 @@ This section list the application properties that is used by the MEVEO system.
 |This property sets the maximum file size the JSF components can handle. The maximum value it can accept is 100MB and is defined in JBoss application server in src/main/webapp/WEB-INF/undertow-handlers.conf. Which means, if we set this property to 150MB and uploaded a file with that size the system should throw an error.
 
 |===
-
 
 [[scripts]]
 == Scripts
