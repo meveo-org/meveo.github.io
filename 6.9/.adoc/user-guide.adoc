@@ -2,6 +2,26 @@
 :nofooter:
 :source-highlighter: pygments
 
+[[execution]]
+== Execution
+=== Logs
+==== Log explorer
+The log explorer can be accessed through the menu at _Execution > Logs > Log explorer_.
+
+The page has two inputs:
+
+* *Log file*: the location of the log file. This corresponds to the `meveo.log.file` property of the `meveo-admin.properties` file.
+* *Offset*: the number of lines to offset. Default value is 50.
+
+And 4 buttons: 
+
+* *Read*: it will display the last X lines (X = *Offset*) to the console
+* *Refresh*: only appears once *Read* or *Continuous reading* has been hit once. Allows to append into the console the logs written between the previous refresh / read
+* *Continuous reading*: append new logs to the console every seconds
+* *Pause*: only appears when *Continuous reading* is active. Pauses the continous reading
+
+/!\ If you chose a "0" offset and you click the *Read* button, nothing will happen until you hit the *Refresh* button /!\
+
 [[application]]
 == Configuration
 This section list the application properties that is used by the MEVEO system.
