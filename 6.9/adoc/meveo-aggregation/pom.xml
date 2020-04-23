@@ -38,7 +38,7 @@
 							<goal>copy-resources</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>${project.build.outputDirectory}/product-overview/</outputDirectory>
+							<outputDirectory>../../product-overview/</outputDirectory>
 							<resources>
 								<resource>
 									<directory>../product-overview/target/generated-docs</directory>
@@ -54,7 +54,7 @@
 							<goal>copy-resources</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>${project.build.outputDirectory}/functional-documentation/</outputDirectory>
+							<outputDirectory>../../functional-documentation/</outputDirectory>
 							<resources>
 								<resource>
 									<directory>../functional-documentation/target/generated-docs</directory>
@@ -70,7 +70,7 @@
 							<goal>copy-resources</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>${project.build.outputDirectory}/technical-documentation/</outputDirectory>
+							<outputDirectory>../../technical-documentation/</outputDirectory>
 							<resources>
 								<resource>
 									<directory>../technical-documentation/target/generated-docs</directory>
@@ -86,7 +86,7 @@
 							<goal>copy-resources</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>${project.build.outputDirectory}/installation-and-development/</outputDirectory>
+							<outputDirectory>../../installation-and-development/</outputDirectory>
 							<resources>
 								<resource>
 									<directory>../installation-and-development/target/generated-docs</directory>
@@ -103,7 +103,7 @@
 							<goal>copy-resources</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>${project.build.outputDirectory}/</outputDirectory>
+							<outputDirectory>../../</outputDirectory>
 							<resources>
 								<resource>
 									<directory>src</directory>
@@ -129,7 +129,7 @@
 						<configuration>
 							<target>
 								<echo>OUTPUT (no-frames):
-									file://${project.build.outputDirectory}/index.html</echo>
+									file://../../index.html</echo>
 							</target>
 						</configuration>
 					</execution>
