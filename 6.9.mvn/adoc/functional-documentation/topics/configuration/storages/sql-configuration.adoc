@@ -1,0 +1,70 @@
+
+[[sql_configuration]]
+==== SQL Configuration
+
+SQL Configuration is introduced in version 6.6.0. The idea is to have an option to store different studies on different database locations. For example, study a is stored on data source a while study b is on data source b. By default, the MEVEO manage connection is still available and save as the "default" SqlConfiguration and linked to a "default" repository stored in a database. Unchanged, this is still where the CETs are saved.
+
+[[sql_connection_provider]]
+===== SQL Connection Provider
+
+The default repository and SQL configuration are checked on the application start and created if they don't exist yet in the database. The code for this feature is in class _SQLConnectionProvider_. This class also contains the methods to open a new SQL connection with a given SQL configuration. See _SQLConnectionProvider.getSession(SQLConfiguration)_.
+
+[[sql_configuration_repository]]
+===== Repository
+
+A repository is a storage object that holds the connection setting for the different data sources. Currently, there are three supported data sources SQL, Neo4j and Binary or files.
+
+The data on two or more SQL data sources are not merged, that is why a repository filter is provided on both API and GUI.
+
+[[sql_configuration_table]]
+===== SQL Configuration Table
+
+Here are the fields of the table SqlConfiguration:
+
+.SQL Configuration Table 
+|===
+|Field |Description
+|String driverClass
+|The class used to load this data source, the appropriate jar must be in the classpath. By default, PostgreSQL and Neo4j are already loaded.
+
+|String url
+|This is the URL of this data source. For example jdbc:postgresql://localhost:5432/meveo.
+
+|String username
+|The data source's username.
+
+|String password
+|The data source's password.
+
+|String dialect
+|The data source's dialect. Hibernate uses dialect configuration to know which database you are using so that it can switch to the database-specific SQL generator code whenever necessary.
+
+|boolean initialized
+|True if this data source has already been initialized.
+
+|===
+
+[[sql_configuration_gui_api]]
+===== GUI & API
+
+In the GUI, A new CRUD page is created for SQL Configuration. It is available under Administration / Storages / SQL Configuration menu.
+
+An API endpoint is created for SQL Configuration CRUD operations accessible at `/api/rest/sql/configurations`.  Available operations are CREATE, UPDATE, DELETE, LIST, FIND.
+
+Here is an example request for creating an SQL Configuration:
+
+ Endpoint: /api/rest/sql/configurations
+ Method: POST
+
+[source,json]
+----
+{
+    "code": "POSTGRESQL2",
+    "description": "PostgreSQL Database",
+    "driverClass": "org.postgresql.Driver",
+    "url": "jdbc:postgresql://localhost/meveo",
+    "username": "meveo",
+    "password": "meveo",
+    "dialect": "org.hibernate.dialect.PostgreSQLDialect"
+}
+----

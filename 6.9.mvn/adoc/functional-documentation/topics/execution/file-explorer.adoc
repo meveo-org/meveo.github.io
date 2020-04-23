@@ -1,0 +1,62 @@
+
+[[file_explorer]]
+=== File Explorer
+
+When creating, updating or deleting a entity module, the file will be generated and stored to file explorer directory for the user's provider.
+
+[[file_gui_api]]
+==== GUI & API
+
+For GUI, File explorer can be modified under the Services / File explorer menu.
+
+An API for managing the app file system preset in a specific folder.
+
+Supported operations are:
+
+ - POST - Create directory from where to list files, zip file, zip directory, suppress file, suppress directory, upload file
+ - GET - Returns the list of files or list directory from where to list files, download file
+
+[[file_explorer_file_to_module]]
+==== Add file/folder from File Explorer to Module
+
+1.) GUI.From Services / File explorer menu, a file/folder can be added to a module by "Add To Module" button.
+
+2.) API.The URL of module <MEVEO_URL>/module/<code>/file/add and method=POST.
+Example: http://localhost:8080/meveo/module/moduleModule/file/add. With path="\classes\org\meveo".
+
+Note <code> is the code of module and path of file must exists inside the File Explorer.
+
+[[automatically_zip_export_module_related_to_file_explorer]]
+==== Export a module that is related to file(s)
+
+When exporting a module that is related to file(s), automatically zip it.
+
+A module that is related to file(s) can be exported and automatically zipped in 2 ways.
+
+1.) GUI.From Deployment / Module menu, selcet the module(s) containing the file(s) then click "Export Selection" button.
+
+2.) API. Which is accessible with /api/rest/module/export and method=GET.
+
+[[import_a_zipped_module_with_files]]
+==== Import a zipped module with files
+
+When importing a zipped module with files, put them into the file explorer under the same path.
+
+A zipped module with files can be imported in 2 ways.
+
+1.) GUI.From Deployment / Module menu, click "Import Data" button and select a zipped module to import.
+
+2.) API.A zipped module is imported with api/rest/module/importZip and method=POST.
+A module upload model contains the following fields.
+
+.Module Upload Fields
+|===
+|Field |Description
+
+|zipFile
+|Zipped module with files
+
+|filename
+|The name of the file
+
+|===

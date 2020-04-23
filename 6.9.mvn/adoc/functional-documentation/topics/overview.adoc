@@ -1,0 +1,4 @@
+
+== Overview
+
+This guide helps you get started with {project_name}. It covers server configuration and use of the default database. Advanced deployment options are not covered. For a deeper description of features or configuration options, consult the other reference guides.

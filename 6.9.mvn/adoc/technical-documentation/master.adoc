@@ -1,0 +1,12 @@
+:toc:
+:toclevels: 5
+:numbered:
+:linkattrs:
+
+include::topics/templates/document-attributes-product.adoc[]
+
+:technicaldocumentation_guide:
+
+= {technicaldocumentation_name}
+
+include::topics.adoc[]

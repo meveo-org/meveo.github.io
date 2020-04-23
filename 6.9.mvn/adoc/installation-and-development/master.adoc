@@ -1,0 +1,12 @@
+:toc:
+:toclevels: 5
+:numbered:
+:linkattrs:
+
+include::topics/templates/document-attributes-product.adoc[]
+
+:installationanddevelopment_guide:
+
+= {installationanddevelopment_name}
+
+include::topics.adoc[]

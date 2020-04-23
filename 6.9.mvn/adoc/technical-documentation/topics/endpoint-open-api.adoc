@@ -1,0 +1,406 @@
+
+[[endpoint_openapi_doc]]
+== Endpoint Open API Documentation
+
+[[endpoint_openapi_doc_swagger]]
+=== Swagger Dynamically Generated Document
+
+MEVEO has the capability to dynamically generate a Swagger standard schema of a given endpoint. This feature is available via API.
+
+[source,javascript]
+----
+GET
+/endpoint/openApi/{endpointCode}
+----
+
+[[endpoint_js_interface]]
+=== Javascript Auto-Generated Interface
+
+To automate the creation of GUI, MEVEO provides an endpoint that can be used to manage a custom entity template. It serves a dynamically generated endpoint javascript interface that can be used by the frontend application  to send CRUD requests to the server.
+
+[[endpoint_js_interface_request_schema]]
+==== Request Schema
+
+The request schema is an Open API v3 Draft7 standard document that is created from the non-path parameters of an endpoint (field parametersMapping).
+
+These parameters are passed to an endpoint and mapped to the linked script.
+
+Currently two types of parameters are supported. Get and Body. Get is basically the query parameters, it's data type corresponds to the Java native types. On the other hand a body parameter, is represented as a JSON object. It can be as complicated as needed. In Meveo, it can be a custom entity template on several layers, meaning custom entity template a can have a field custom entity template b.
+
+This feature is available via API at:
+
+[source,javascript]
+----
+GET
+/endpoint/schema/{endpointCode}/request
+----
+
+[[endpoint_js_interface_response_schema]]
+==== Response Schema
+
+The response schema is an Open API v3 Draft7 standard document. It represents the data type saved in endpoint's returnedVariableName.
+
+The returnedVariableName, is a name of a field inside a script where it is mapped from the endpoint. It can be a Java native data type and can be a custom entity template as well.
+
+For example, we have a script ScriptTest that is linked to our endpoint. This ScriptTest has a custom entity template property named Account.
+
+[source,java]
+----
+public class ScriptTest extends Script {
+	
+	private Account account;
+
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}
+}
+----
+
+To tell our endpoint that we want to return the value of the account after the execution, we need to set the value of endpoint.returnedVariableName=account.
+
+This feature is available via API at:
+
+[source,javascript]
+----
+GET
+/endpoint/schema/{endpointCode}/response
+----
+
+[[endpoint_js_interface_code]]
+==== Javascript Interface
+
+An API that provides a working service or interface for managing CRUD operations of a custom entity template is available. This interface is automatically created and save in Meveo's internal Git system, which is normally located at <PROVIDERS_DIR>\git\Meveo\endpoints.
+
+[source,javascript]
+----
+GET
+/endpoint/openApi/{endpointCode}
+----
+
+For reference, here is an example endpoint's javascript interface
+
+[source,javascript]
+----
+const buildRequestParameters = (parameters, schema) => {
+    if (schema) {
+        const errors = []
+        const requestParameters = Object.keys(
+            schema.properties,
+        ).reduce((reqParameters, property) => {
+            const value = parameters[property]
+            const isRequired = schema.properties[property].required
+
+            if (isRequired && !value) {
+                errors.push(`${property} is required.`)
+            } else if (!!value) {
+                return {
+                    ...reqParameters,
+                    [property]: value
+                }
+            }
+            return reqParameters
+        }, {})
+        if (errors.length > 0) {
+            throw errors
+        }
+        return requestParameters
+    }
+    return null
+}
+
+const EVENT = {
+    SUCCESS: "Updatepost-OpenApiGenerateCetTest-endpoint-SUCCESS",
+    ERROR: "Updatepost-OpenApiGenerateCetTest-endpoint-ERROR"
+};
+
+export const registerEventListeners = (
+    component,
+    successCallback,
+    errorCallback
+) => {
+    if (successCallback) {
+        component.addEventListener(EVENT.SUCCESS, successCallback);
+    }
+    if (errorCallback) {
+        component.addEventListener(EVENT.ERROR, errorCallback);
+    }
+};
+
+export const getRequestSchema = async (parameters, config) => {
+    return {
+  "title": "post-OpenApiGenerateCetTest-endpointRequest",
+  "id": "post-OpenApiGenerateCetTest-endpointRequest",
+  "default": "Schema definition for post-OpenApiGenerateCetTest-endpoint",
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "properties": {
+    "qparam3": {
+      "title": "Consumption",
+      "description": "Consumption",
+      "id": "Consumption",
+      "storages": [
+        "SQL"
+      ],
+      "type": "object",
+      "properties": {
+        "date": {
+          "title": "Consumption.date",
+          "description": "Date",
+          "id": "CE_Consumption_date",
+          "storages": [
+            "SQL"
+          ],
+          "nullable": false,
+          "readOnly": false,
+          "versionable": false,
+          "indexType": "INDEX_NOT_ANALYZE",
+          "type": "string",
+          "format": "date-time"
+        },
+        "amount": {
+          "title": "Consumption.amount",
+          "description": "Amount",
+          "id": "CE_Consumption_amount",
+          "storages": [
+            "SQL"
+          ],
+          "nullable": false,
+          "readOnly": false,
+          "versionable": false,
+          "indexType": "INDEX_NOT_ANALYZE",
+          "type": "integer"
+        },
+        "account": {
+          "title": "Consumption.account",
+          "description": "Account",
+          "id": "CE_Consumption_account",
+          "storages": [
+            "SQL"
+          ],
+          "nullable": false,
+          "readOnly": false,
+          "versionable": false,
+          "indexType": "INDEX_NOT_ANALYZE",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255
+        }
+      },
+      "required": [
+        "account",
+        "amount",
+        "date"
+      ]
+    },
+    "qparam2": {
+      "title": "Account",
+      "description": "Account",
+      "id": "Account",
+      "storages": [
+        "SQL"
+      ],
+      "type": "object",
+      "properties": {
+        "accountCode": {
+          "title": "Account.accountCode",
+          "description": "Account code",
+          "id": "CE_Account_accountCode",
+          "storages": [
+            "SQL"
+          ],
+          "nullable": false,
+          "readOnly": false,
+          "versionable": false,
+          "indexType": "INDEX_NOT_ANALYZE",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255
+        },
+        "accountType": {
+          "title": "Account.accountType",
+          "description": "Account type",
+          "id": "CE_Account_accountType",
+          "storages": [
+            "SQL"
+          ],
+          "nullable": false,
+          "readOnly": false,
+          "versionable": false,
+          "indexType": "INDEX_NOT_ANALYZE",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255
+        }
+      },
+      "required": [
+        "accountCode",
+        "accountType"
+      ]
+    },
+    "qparam1": {
+      "title": "qparam1",
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}
+};
+
+export const getResponseSchema = async (parameters, config) => {
+    return {
+  "title": "post-OpenApiGenerateCetTest-endpointResponse",
+  "id": "post-OpenApiGenerateCetTest-endpointResponse",
+  "default": "Schema definition for post-OpenApiGenerateCetTest-endpoint",
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "properties": {
+    "consumption": {
+      "title": "Consumption",
+      "description": "Consumption",
+      "id": "Consumption",
+      "storages": [
+        "SQL"
+      ],
+      "type": "object",
+      "properties": {
+        "date": {
+          "title": "Consumption.date",
+          "description": "Date",
+          "id": "CE_Consumption_date",
+          "storages": [
+            "SQL"
+          ],
+          "nullable": false,
+          "readOnly": false,
+          "versionable": false,
+          "indexType": "INDEX_NOT_ANALYZE",
+          "type": "string",
+          "format": "date-time"
+        },
+        "amount": {
+          "title": "Consumption.amount",
+          "description": "Amount",
+          "id": "CE_Consumption_amount",
+          "storages": [
+            "SQL"
+          ],
+          "nullable": false,
+          "readOnly": false,
+          "versionable": false,
+          "indexType": "INDEX_NOT_ANALYZE",
+          "type": "integer"
+        },
+        "account": {
+          "title": "Consumption.account",
+          "description": "Account",
+          "id": "CE_Consumption_account",
+          "storages": [
+            "SQL"
+          ],
+          "nullable": false,
+          "readOnly": false,
+          "versionable": false,
+          "indexType": "INDEX_NOT_ANALYZE",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255
+        }
+      },
+      "required": [
+        "account",
+        "amount",
+        "date"
+      ]
+    }
+  }
+}
+}
+
+export const executeApiCall = async (
+    component,
+    params,
+    successCallback, // optional
+    errorCallback // optional
+) => {
+    registerEventListeners(component, successCallback, errorCallback);
+    const parameters = params || {};
+    const {
+        token,
+        config
+    } = parameters;
+
+    // the name of the config variable is the name of the module
+    const {
+        Updatepost-OpenApiGenerateCetTest-endpoint: {
+            OVERRIDE_URL,
+            USE_MOCK
+        }
+    } = config || {};
+
+    // the baseUrl can be overridden by indicating a OVERRIDE_URL in config,
+    // by default it will use the same URL as the client application
+    // or if this is auto-generated by meveo, it will have the server's host url
+    const baseUrl = OVERRIDE_URL || window.location.origin; // || server.host.url
+
+    // just an example how to use the useMock parameter to switch between mock and actual endpoints.
+    const apiUrl = USE_MOCK ?
+        `${baseUrl}/auth/realms/meveo/account?useMock=true` :
+        `${baseUrl}/auth/realms/meveo/account`;
+
+    //fetch request schema to filter out optional parameters that should not be passed into the request
+    try {
+        const requestSchema = await getRequestSchema(parameters);
+        const requestParameters = buildRequestParameters(parameters, requestSchema);
+        const parameterKeys = Object.keys(requestParameters || {});
+        const hasParameters = requestParameters && parameterKeys.length > 0;
+
+        const requestUrl = new URL(apiUrl);
+        if (hasParameters) {
+            parameterKeys.forEach(key => {
+                requestUrl.searchParams.append(key, requestParameters[key]);
+            });
+        }
+
+        const headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        headers.append("Accept", "application/json");
+        headers.append("Authorization", `Bearer ${token}`);
+
+        const options = {
+            method: "GET",
+            headers
+        };
+
+        const response = await fetch(requestUrl, options);
+        if (!response.ok) {
+            throw [
+                `Encountered error calling API: ${apiUrl}`,
+                `Status code: ${response.status} [${response.statusText}]`
+            ];
+        }
+        // if accept = "application/json" otherwise return response.text()
+        const result = await response.json();
+        component.dispatchEvent(
+            new CustomEvent(EVENT.SUCCESS, {
+                detail: {
+                    result
+                },
+                bubbles: true
+            })
+        );
+    } catch (error) {
+        component.dispatchEvent(
+            new CustomEvent(EVENT.ERROR, {
+                detail: {
+                    error
+                },
+                bubbles: true
+            })
+        );
+    }
+};
+----

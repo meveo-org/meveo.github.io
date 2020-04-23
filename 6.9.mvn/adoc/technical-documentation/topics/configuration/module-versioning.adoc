@@ -1,0 +1,182 @@
+
+[[module_versioning]]
+=== Module Versioning
+
+To be able to introduced dependencies on Meveo module, it needed to be versioned.
+
+[[module_versioning_version]]
+==== Version Number
+
+The version number would be a compound of 3 numbers separated by a digit, and following this pattern : MAJOR.MINOR.PATCH. A major version may imply a complete incompatibility between two versions of a module. A minor version implies that we can upgrade from an older version using a patch. A patch version implies only bug fixes that do not require any patch to be run.
+
+[[module_versioning_meveo_version]]
+==== Meveo Version Number
+
+Sometimes, a module requires a specific version of meveo. For example, if it uses a connector, he will need a version superior to 6.1.0. However, if it needs a feature that was removed or refactored, like the scripting system before the refactor, the module will need a version inferior to 6.0.5. So we can set lower and upper bounds to the version.
+
+[cols="a,a,a"]
+|=== 
+
+| Module A | Module B | Module C
+
+|
+!=== 
+! Bounds ! Resolved Version
+!Min: 6.0.5 !>6.0.5
+
+!=== 
+
+|
+!=== 
+! Bounds ! Resolved Version
+!Max: 6.1.0 !<6.1.0
+!=== 
+
+|
+!=== 
+! Bounds ! Resolved Version
+!Min: 6.2.0, Max: 6.2.0 !6.2.0
+!=== 
+
+|=== 
+
+[[module_versioning_patch_update]]
+==== Update Patch
+
+An update patch is a script that has to be run in order to upgrade from a module version to another version. So it means that we need to add a mapping between old versions and a list of patches. For each patch, we must specify whether to execute it before or after the upgrade.
+
+*Here is an example :*
+
+Let’s suppose that we have made a module named “ExampleModule”, with the first version named “1.0.0”. It has no associated patch. Then, we run a Scrum Sprint and we end up having version “1.1.0” of our module. However, we changed the data type of a column from number to string so we need to apply a patch that saves the data, change the data type, and re-insert the data as string. So this patch, named “PatchA” is available for “1.0.0” -> “1.1.0” and must be executed before migration. Later, we don’t touch the module but a new version of Meveo is released that implies some change in the data structure of the tables, so a new version of our module is released at the same time, with version “1.2.0” that is tied to the new Meveo version. A patch script named “PatchB” is associated that allows you to upgrade from version “1.1.0” -> “1.2.0” and that must be executed before the upgrade. But we can also upgrade directly from version 1.0.0 to version 1.2.0 by executing the PatchA, then PatchB. Later,  we modify the module but the modifications do not require any patch, it’s the 1.2.1 release. If we recap this in a table, that would give :
+
+[cols="a,a,a,a"]
+|=== 
+
+| ExampleModule v1.0.0 | ExampleModule v1.1.0 | ExampleModule v1.2.0 | ExampleModule v1.2.1
+
+|
+|
+1.0.x->1.1.0
+!=== 
+! Before ! After
+!PatchA !None
+!=== 
+|
+1.1.x->1.2.0
+!=== 
+! Before ! After
+!PatchB !None
+!=== 
+|
+1.1.x->1.2.1
+!=== 
+! Before ! After
+!PatchB !None
+!=== 
+
+|
+|
+|
+1.0.x->1.2.0
+!=== 
+! Before ! After
+!PatchA !None
+!PatchB !None
+!=== 
+|
+1.0.x->1.2.1
+!=== 
+! Before ! After
+!PatchA !None
+!PatchB !None
+!=== 
+
+|
+|
+|
+|
+1.2.x->1.2.1
+
+|=== 
+
+[[module_versioning_release_process]]
+==== Release Process
+
+[[module_versioning_release_process_storage]]
+===== Storage
+
+For having a versioning process, we must have a release process. Once a release is done, we cannot modify it, it’s frozen. The deliverable file of a module is an XML file, so the release process should be easy. We can store them in a dedicated table (shared between meveo instances) along with the information defined previously.
+In the preliminary release, maybe we don’t need a shared database between meveo instances. In this case, we will need functionality to export / import releases. The export / import would consist of the following: the release information, the patches, and the XML file corresponding to the module.
+We should create a new listing to manage the releases of a module.
+
+[[module_versioning_release_process_action]]
+==== Releasing Action
+
+When releasing a module version, we must specify the next iteration version and the patches that allow migration from a version to the released version. Optionally, we can also write some changelog. It implies we have to add a  “current version” along with a “is in draft” field to the Meveo module model. A module that is not in draft cannot be modified, nor can its components.
+Before the release is done, we execute every test suite for the functions of the module and if there is a failure, we inform the user what has failed and the release is not realized. If the user still wants to make the release, he will either have to correct the function or remove the tests.
+
+[[module_versioning_migration]]
+==== Migration Upgrade Process
+
+[[module_versioning_migration_from_release]]
+===== Update from a release present in database
+
+In a module detail, we must add a button “Upgrade” that allows to trigger the upgrade of a module.  Only modules that are not in draft mode can be upgraded. The upgrade consists in : 
+
+1.) applying the “before” patches that match the current version of the module
+
+2.) importing the XML module file
+
+3.) applying the “after” patches that match the current version of the module
+
+The user can only choose a release that matches the current meveo version and that has an available “from version” matching the current version of the module.
+In case the user wants to upgrade from an old version to the newest version, we must find an available “path” that leads from old version to the newest by applying intermediary upgrade. For instance, if we have version 1.0.0 of a module, and that we want to upgrade to version 1.4.0 directly but there is no direct way but we have version 1.1.0, 1.2.0 and 1.3.0 in database, we can apply successively the upgrade from 1.0.0 -> 1.1.0 -> 1.2.0 -> 1.3.0 -> 1.4.0. If we imagine there is a direct upgrade available from 1.2.0 to 1.4.0 it would give : 1.0.0 -> 1.2.0 -> 1.4.0. So we must find the shortest path, and if there is no path (ie: we don’t have version 1.1.0), the upgrade cannot be applied.
+
+At the end of the update, each test suite of the function present in the module must be run and be ok, if not we will roll-back to the previous version of the module. Making a rollback implies that we must make backup of the concerned elements before starting the update.
+
+[[module_versioning_migration_from_xml_file]]
+===== Update from an XML file that is not present in database
+
+If we want to upgrade the module in an environment that does not have the release in its database, we should be able to provide an XML module release file. In this case, we will first upload it to the database and then we will apply the same process as before. We should also look for releases in sibling meveo instances if not found in our own environment.
+
+[[module_versioning_changelogs]]
+==== Module Changelogs
+
+To keep traceability of our module release, we should be able to see the differences from one version to another.
+
+[[module_versioning_changelog_comparison]]
+==== Module Comparison
+
+When in the detail of a module, we should have a “compare with version …” button that allow user to select any other version of the same module present in the database and to visualize, by type of entities, what have been change, for example : 
+ * Fields added / removed of a custom entity template
+
+ * Code differences in a script instance
+
+ * Different method (GET / POST) used for an endpoint
+
+[[module_versioning_changelog_algorithm]]
+==== Changelog Algorithm
+
+In order to produce a changelog, we first need to parse the XML of the other release, then convert it to module items that can be compared to items of current module. In order to do that, we have to find a way to mark comparable properties for each module item. For instance it is interesting for us to know if we changed the data store of a custom entity template, but we don’t want to compare its child templates. The output would look like the table below.
+
+|=== 
+
+| | Custom Entity Templates
+
+| v1.1.2 (current)
+| MyTemplate:
+
+ - myNewField: String - add (style=color: green)
+
+ - myField: String (Long) - modified (style=String is red, Long is green)
+
+ - myLastField: Long - remove (style=color: red)
+
+| v1.0.0
+| MyTemplate:
+ 
+ - myField: String
+ 
+ - myLastField: String
+
+|===

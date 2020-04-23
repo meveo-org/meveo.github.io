@@ -1,0 +1,16 @@
+:toc: left
+:toclevels: 3
+:sectanchors:
+:linkattrs:
+
+include::topics/templates/document-attributes-community.adoc[]
+
+:installationanddevelopment_guide:
+
+= {installationanddevelopment_name}
+
+:release_header_guide: {installationanddevelopment_name_short}
+:release_header_latest_link: {installationanddevelopment_link_latest}
+include::topics/templates/release-header.adoc[]
+
+include::topics.adoc[]

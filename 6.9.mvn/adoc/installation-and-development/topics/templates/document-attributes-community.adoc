@@ -1,0 +1,40 @@
+:project_name: Meveo
+:project_name_full: Meveo
+:project_community: true
+:project_product: false
+:project_version: 6.9.0
+:project_versionMvn: 6.9.0
+:project_versionNpm: 6.9.0
+:project_versionDoc: 6.9.0
+
+ifeval::["{project_buildType}" == "latest"]
+:project_versionLinks: latest
+endif::[]
+ifeval::["{project_buildType}" == "archive"]
+:project_versionLinks: {project_versionDoc}
+endif::[]
+
+:project_images: meveo-images
+:project_doc_base_url: https://meveo.org/{project_versionLinks}
+:project_doc_base_url_latest: https://meveo.org
+:project_dirref: MEVEO_HOME
+
+:productoverview_name: Product Overview
+:productoverview_name_short: Product Overview
+:productoverview_link: {project_doc_base_url}/product_overview/
+:productoverview_link_latest: {project_doc_base_url_latest}/product_overview/
+
+:functionaldocumentation_name: Functional Documentation
+:functionaldocumentation_name_short: Functional Doc
+:functionaldocumentation_link: {project_doc_base_url}/functional_documentation/
+:functionaldocumentation_link_latest: {project_doc_base_url_latest}/functional_documentation/
+
+:technicaldocumentation_name: Technical Documentation
+:technicaldocumentation_name_short: Technical Doc
+:technicaldocumentation_link: {project_doc_base_url}/technical_documentation/
+:technicaldocumentation_link_latest: {project_doc_base_url_latest}/technical_documentation/
+
+:installationanddevelopment_name: Installation and Development
+:installationanddevelopment_name_short: Installation and Dev
+:installationanddevelopment_link: {project_doc_base_url}/installation_and_development/
+:installationanddevelopment_link_latest: {project_doc_base_url_latest}/installation_and_development/

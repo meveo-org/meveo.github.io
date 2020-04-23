@@ -1,0 +1,16 @@
+:toc: left
+:toclevels: 3
+:sectanchors:
+:linkattrs:
+
+include::topics/templates/document-attributes-community.adoc[]
+
+:productoverview_guide:
+
+= {productoverview_name}
+
+:release_header_guide: {productoverview_name_short}
+:release_header_latest_link: {productoverview_link_latest}
+include::topics/templates/release-header.adoc[]
+
+include::topics.adoc[]
