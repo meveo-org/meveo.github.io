@@ -21,20 +21,20 @@ endif::[]
 
 :productoverview_name: Product Overview
 :productoverview_name_short: Product Overview
-:productoverview_link: {project_doc_base_url}/product_overview/
-:productoverview_link_latest: {project_doc_base_url_latest}/product_overview/
+:productoverview_link: {project_doc_base_url}/product-overview/
+:productoverview_link_latest: {project_doc_base_url_latest}/product-overview/
 
 :functionaldocumentation_name: Functional Documentation
 :functionaldocumentation_name_short: Functional Doc
-:functionaldocumentation_link: {project_doc_base_url}/functional_documentation/
-:functionaldocumentation_link_latest: {project_doc_base_url_latest}/functional_documentation/
+:functionaldocumentation_link: {project_doc_base_url}/functional-documentation/
+:functionaldocumentation_link_latest: {project_doc_base_url_latest}/functional-documentation/
 
 :technicaldocumentation_name: Technical Documentation
 :technicaldocumentation_name_short: Technical Doc
-:technicaldocumentation_link: {project_doc_base_url}/technical_documentation/
-:technicaldocumentation_link_latest: {project_doc_base_url_latest}/technical_documentation/
+:technicaldocumentation_link: {project_doc_base_url}/technical-documentation/
+:technicaldocumentation_link_latest: {project_doc_base_url_latest}/technical-documentation/
 
 :installationanddevelopment_name: Installation and Development
 :installationanddevelopment_name_short: Installation and Dev
-:installationanddevelopment_link: {project_doc_base_url}/installation_and_development/
-:installationanddevelopment_link_latest: {project_doc_base_url_latest}/installation_and_development/
+:installationanddevelopment_link: {project_doc_base_url}/installation-and-development/
+:installationanddevelopment_link_latest: {project_doc_base_url_latest}/installation-and-development/
