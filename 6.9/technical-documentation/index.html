@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 1.5.5">
+<meta name="generator" content="Asciidoctor 1.5.6.1">
 <title>Technical Documentation</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -89,13 +89,12 @@ strong,b{font-weight:bold;line-height:inherit}
 small{font-size:60%;line-height:inherit}
 code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
 ul,ol,dl{font-size:1em;line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
-ul,ol,ul.no-bullet,ol.no-bullet{margin-left:1.5em}
+ul,ol{margin-left:1.5em}
 ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0;font-size:1em}
 ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
 ul.square{list-style-type:square}
 ul.circle{list-style-type:circle}
 ul.disc{list-style-type:disc}
-ul.no-bullet{list-style:none}
 ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
 dl dt{margin-bottom:.3125em;font-weight:bold}
 dl dd{margin-bottom:1.25em}
@@ -131,7 +130,11 @@ strong strong{font-weight:400}
 kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background-color:#f7f7f7;border:1px solid #ccc;-webkit-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em white inset;box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em #fff inset;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
 .keyseq kbd:first-child{margin-left:0}
 .keyseq kbd:last-child{margin-right:0}
-.menuseq,.menu{color:rgba(0,0,0,.8)}
+.menuseq,.menuref{color:#000}
+.menuseq b:not(.caret),.menuref{font-weight:inherit}
+.menuseq{word-spacing:-.02em}
+.menuseq b.caret{font-size:1.25em;line-height:.8}
+.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
 b.button:before,b.button:after{position:relative;top:-1px;font-weight:400}
 b.button:before{content:"[";padding:0 3px 0 2px}
 b.button:after{content:"]";padding:0 2px 0 3px}
@@ -198,7 +201,7 @@ table.tableblock>caption.title{white-space:nowrap;overflow:visible;max-width:0}
 table.tableblock #preamble>.sectionbody>.paragraph:first-of-type p{font-size:inherit}
 .admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
 .admonitionblock>table td.icon{text-align:center;width:80px}
-.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon img{max-width:initial}
 .admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
 .admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #ddddd8;color:rgba(0,0,0,.6)}
 .admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
@@ -254,13 +257,13 @@ table.pyhltable .linenodiv{background:none!important;padding-right:0!important}
 table.tableblock{max-width:100%;border-collapse:separate}
 table.tableblock td>.paragraph:last-child p>p:last-child,table.tableblock th>p:last-child,table.tableblock td>p:last-child{margin-bottom:0}
 table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
-table.grid-all th.tableblock,table.grid-all td.tableblock{border-width:0 1px 1px 0}
-table.grid-all tfoot>tr>th.tableblock,table.grid-all tfoot>tr>td.tableblock{border-width:1px 1px 0 0}
-table.grid-cols th.tableblock,table.grid-cols td.tableblock{border-width:0 1px 0 0}
-table.grid-all *>tr>.tableblock:last-child,table.grid-cols *>tr>.tableblock:last-child{border-right-width:0}
-table.grid-rows th.tableblock,table.grid-rows td.tableblock{border-width:0 0 1px 0}
-table.grid-all tbody>tr:last-child>th.tableblock,table.grid-all tbody>tr:last-child>td.tableblock,table.grid-all thead:last-child>tr>th.tableblock,table.grid-rows tbody>tr:last-child>th.tableblock,table.grid-rows tbody>tr:last-child>td.tableblock,table.grid-rows thead:last-child>tr>th.tableblock{border-bottom-width:0}
-table.grid-rows tfoot>tr>th.tableblock,table.grid-rows tfoot>tr>td.tableblock{border-width:1px 0 0 0}
+table.grid-all>thead>tr>.tableblock,table.grid-all>tbody>tr>.tableblock{border-width:0 1px 1px 0}
+table.grid-all>tfoot>tr>.tableblock{border-width:1px 1px 0 0}
+table.grid-cols>*>tr>.tableblock{border-width:0 1px 0 0}
+table.grid-rows>thead>tr>.tableblock,table.grid-rows>tbody>tr>.tableblock{border-width:0 0 1px 0}
+table.grid-rows>tfoot>tr>.tableblock{border-width:1px 0 0 0}
+table.grid-all>*>tr>.tableblock:last-child,table.grid-cols>*>tr>.tableblock:last-child{border-right-width:0}
+table.grid-all>tbody>tr:last-child>.tableblock,table.grid-all>thead:last-child>tr>.tableblock,table.grid-rows>tbody>tr:last-child>.tableblock,table.grid-rows>thead:last-child>tr>.tableblock{border-bottom-width:0}
 table.frame-all{border-width:1px}
 table.frame-sides{border-width:0 1px}
 table.frame-topbot{border-width:1px 0}
@@ -281,10 +284,12 @@ ul li ol{margin-left:1.5em}
 dl dd{margin-left:1.125em}
 dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
 ol>li p,ul>li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
-ul.unstyled,ol.unnumbered,ul.checklist,ul.none{list-style-type:none}
-ul.unstyled,ol.unnumbered,ul.checklist{margin-left:.625em}
-ul.checklist li>p:first-child>.fa-square-o:first-child,ul.checklist li>p:first-child>.fa-check-square-o:first-child{width:1em;font-size:.85em}
-ul.checklist li>p:first-child>input[type="checkbox"]:first-child{width:1em;position:relative;top:1px}
+ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
+ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
+ul.unstyled,ol.unstyled{margin-left:0}
+ul.checklist{margin-left:.625em}
+ul.checklist li>p:first-child>.fa-square-o:first-child,ul.checklist li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
+ul.checklist li>p:first-child>input[type="checkbox"]:first-child{margin-right:.25em}
 ul.inline{margin:0 auto .625em auto;margin-left:-1.375em;margin-right:0;padding:0;list-style:none;overflow:hidden}
 ul.inline>li{list-style:none;float:left;margin-left:1.375em;display:block}
 ul.inline>li>*{display:block}
@@ -301,7 +306,8 @@ ol.lowergreek{list-style-type:lower-greek}
 td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
 td.hdlist1{font-weight:bold;padding-bottom:1.25em}
 .literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
-.colist>table tr>td:first-of-type{padding:0 .75em;line-height:1}
+.colist>table tr>td:first-of-type{padding:.4em .75em 0 .75em;line-height:1;vertical-align:top}
+.colist>table tr>td:first-of-type img{max-width:initial}
 .colist>table tr>td:last-of-type{padding:.25em 0}
 .thumb,.th{line-height:0;display:inline-block;border:solid 4px #fff;-webkit-box-shadow:0 0 0 1px #ddd;box-shadow:0 0 0 1px #ddd}
 .imageblock.left,.imageblock[style*="float: left"]{margin:.25em .625em 1.25em 0}
@@ -364,6 +370,7 @@ div.unbreakable{page-break-inside:avoid}
 .yellow{color:#bfbf00}
 .yellow-background{background-color:#fafa00}
 span.icon>.fa{cursor:default}
+a span.icon>.fa{cursor:inherit}
 .admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
 .admonitionblock td.icon .icon-note:before{content:"\f05a";color:#19407c}
 .admonitionblock td.icon .icon-tip:before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
@@ -818,23 +825,6 @@ table.CodeRay td.code>pre{padding:0}
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#overview">Overview</a></li>
-<li><a href="#configuration">Configuration</a>
-<ul class="sectlevel2">
-<li><a href="#module_versioning">Module Versioning</a>
-<ul class="sectlevel3">
-<li><a href="#module_versioning_version">Version Number</a></li>
-<li><a href="#module_versioning_meveo_version">Meveo Version Number</a></li>
-<li><a href="#module_versioning_patch_update">Update Patch</a></li>
-<li><a href="#module_versioning_release_process">Release Process</a></li>
-<li><a href="#module_versioning_release_process_action">Releasing Action</a></li>
-<li><a href="#module_versioning_migration">Migration Upgrade Process</a></li>
-<li><a href="#module_versioning_changelogs">Module Changelogs</a></li>
-<li><a href="#module_versioning_changelog_comparison">Module Comparison</a></li>
-<li><a href="#module_versioning_changelog_algorithm">Changelog Algorithm</a></li>
-</ul>
-</li>
-</ul>
-</li>
 <li><a href="#services">Services</a>
 <ul class="sectlevel2">
 <li><a href="#scripts">Scripts</a>
@@ -915,8 +905,8 @@ table.CodeRay td.code>pre{padding:0}
 <div class="sectionbody">
 <div class="sidebarblock page-links">
 <div class="content">
-<a href="https://github.com/meveo-org/meveo-documentation/blob/master/technical-documentation/topics/overview.adoc" target="_blank">Edit this section</a>
-<a href="https://github.com/meveo-org/meveo-documentation/description=File:%20technical-documentation/topics/overview.adoc" target="_blank">Report an issue</a>
+<a href="https://github.com/meveo-org/meveo-documentation/blob/master/technical-documentation/topics/overview.adoc" target="_blank" rel="noopener">Edit this section</a>
+<a href="https://github.com/meveo-org/meveo-documentation/description=File:%20technical-documentation/topics/overview.adoc" target="_blank" rel="noopener">Report an issue</a>
 </div>
 </div>
 <div class="paragraph">
@@ -925,382 +915,20 @@ table.CodeRay td.code>pre{padding:0}
 </div>
 </div>
 <div class="sect1">
-<h2 id="configuration"><a class="anchor" href="#configuration"></a>Configuration</h2>
-<div class="sectionbody">
-<div class="sidebarblock page-links">
-<div class="content">
-<a href="https://github.com/meveo-org/meveo-documentation/blob/master/technical-documentation/topics/configuration.adoc" target="_blank">Edit this section</a>
-<a href="https://github.com/meveo-org/meveo-documentation/description=File:%20technical-documentation/topics/configuration.adoc" target="_blank">Report an issue</a>
-</div>
-</div>
-<div class="sect2">
-<h3 id="module_versioning"><a class="anchor" href="#module_versioning"></a>Module Versioning</h3>
-<div class="sidebarblock page-links">
-<div class="content">
-<a href="https://github.com/meveo-org/meveo-documentation/blob/master/technical-documentation/topics/configuration/module-versioning.adoc" target="_blank">Edit this section</a>
-<a href="https://github.com/meveo-org/meveo-documentation/description=File:%20technical-documentation/topics/configuration/module-versioning.adoc" target="_blank">Report an issue</a>
-</div>
-</div>
-<div class="paragraph">
-<p>To be able to introduced dependencies on Meveo module, it needed to be versioned.</p>
-</div>
-<div class="sect3">
-<h4 id="module_versioning_version"><a class="anchor" href="#module_versioning_version"></a>Version Number</h4>
-<div class="paragraph">
-<p>The version number would be a compound of 3 numbers separated by a digit, and following this pattern : MAJOR.MINOR.PATCH. A major version may imply a complete incompatibility between two versions of a module. A minor version implies that we can upgrade from an older version using a patch. A patch version implies only bug fixes that do not require any patch to be run.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="module_versioning_meveo_version"><a class="anchor" href="#module_versioning_meveo_version"></a>Meveo Version Number</h4>
-<div class="paragraph">
-<p>Sometimes, a module requires a specific version of meveo. For example, if it uses a connector, he will need a version superior to 6.1.0. However, if it needs a feature that was removed or refactored, like the scripting system before the refactor, the module will need a version inferior to 6.0.5. So we can set lower and upper bounds to the version.</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><div><div class="paragraph">
-<p>Module A</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div><div class="paragraph">
-<p>Module B</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div><div class="paragraph">
-<p>Module C</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div><table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Bounds</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Resolved Version</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Min: 6.0.5</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&gt;6.0.5</p></td>
-</tr>
-</tbody>
-</table></div></td>
-<td class="tableblock halign-left valign-top"><div><table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Bounds</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Resolved Version</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Max: 6.1.0</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;6.1.0</p></td>
-</tr>
-</tbody>
-</table></div></td>
-<td class="tableblock halign-left valign-top"><div><table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Bounds</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Resolved Version</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Min: 6.2.0, Max: 6.2.0</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">6.2.0</p></td>
-</tr>
-</tbody>
-</table></div></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect3">
-<h4 id="module_versioning_patch_update"><a class="anchor" href="#module_versioning_patch_update"></a>Update Patch</h4>
-<div class="paragraph">
-<p>An update patch is a script that has to be run in order to upgrade from a module version to another version. So it means that we need to add a mapping between old versions and a list of patches. For each patch, we must specify whether to execute it before or after the upgrade.</p>
-</div>
-<div class="paragraph">
-<p><strong>Here is an example :</strong></p>
-</div>
-<div class="paragraph">
-<p>Let’s suppose that we have made a module named “ExampleModule”, with the first version named “1.0.0”. It has no associated patch. Then, we run a Scrum Sprint and we end up having version “1.1.0” of our module. However, we changed the data type of a column from number to string so we need to apply a patch that saves the data, change the data type, and re-insert the data as string. So this patch, named “PatchA” is available for “1.0.0” &#8594; “1.1.0” and must be executed before migration. Later, we don’t touch the module but a new version of Meveo is released that implies some change in the data structure of the tables, so a new version of our module is released at the same time, with version “1.2.0” that is tied to the new Meveo version. A patch script named “PatchB” is associated that allows you to upgrade from version “1.1.0” &#8594; “1.2.0” and that must be executed before the upgrade. But we can also upgrade directly from version 1.0.0 to version 1.2.0 by executing the PatchA, then PatchB. Later,  we modify the module but the modifications do not require any patch, it’s the 1.2.1 release. If we recap this in a table, that would give :</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><div><div class="paragraph">
-<p>ExampleModule v1.0.0</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div><div class="paragraph">
-<p>ExampleModule v1.1.0</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div><div class="paragraph">
-<p>ExampleModule v1.2.0</p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div><div class="paragraph">
-<p>ExampleModule v1.2.1</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div></div></td>
-<td class="tableblock halign-left valign-top"><div><div class="paragraph">
-<p>1.0.x&#8594;1.1.0</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Before</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">After</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">PatchA</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
-</tr>
-</tbody>
-</table></div></td>
-<td class="tableblock halign-left valign-top"><div><div class="paragraph">
-<p>1.1.x&#8594;1.2.0</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Before</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">After</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">PatchB</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
-</tr>
-</tbody>
-</table></div></td>
-<td class="tableblock halign-left valign-top"><div><div class="paragraph">
-<p>1.1.x&#8594;1.2.1</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Before</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">After</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">PatchB</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
-</tr>
-</tbody>
-</table></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div></div></td>
-<td class="tableblock halign-left valign-top"><div></div></td>
-<td class="tableblock halign-left valign-top"><div><div class="paragraph">
-<p>1.0.x&#8594;1.2.0</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Before</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">After</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">PatchA</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">PatchB</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
-</tr>
-</tbody>
-</table></div></td>
-<td class="tableblock halign-left valign-top"><div><div class="paragraph">
-<p>1.0.x&#8594;1.2.1</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Before</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">After</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">PatchA</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">PatchB</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
-</tr>
-</tbody>
-</table></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div></div></td>
-<td class="tableblock halign-left valign-top"><div></div></td>
-<td class="tableblock halign-left valign-top"><div></div></td>
-<td class="tableblock halign-left valign-top"><div><div class="paragraph">
-<p>1.2.x&#8594;1.2.1</p>
-</div></div></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect3">
-<h4 id="module_versioning_release_process"><a class="anchor" href="#module_versioning_release_process"></a>Release Process</h4>
-<div class="sect4">
-<h5 id="module_versioning_release_process_storage"><a class="anchor" href="#module_versioning_release_process_storage"></a>Storage</h5>
-<div class="paragraph">
-<p>For having a versioning process, we must have a release process. Once a release is done, we cannot modify it, it’s frozen. The deliverable file of a module is an XML file, so the release process should be easy. We can store them in a dedicated table (shared between meveo instances) along with the information defined previously.
-In the preliminary release, maybe we don’t need a shared database between meveo instances. In this case, we will need functionality to export / import releases. The export / import would consist of the following: the release information, the patches, and the XML file corresponding to the module.
-We should create a new listing to manage the releases of a module.</p>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="module_versioning_release_process_action"><a class="anchor" href="#module_versioning_release_process_action"></a>Releasing Action</h4>
-<div class="paragraph">
-<p>When releasing a module version, we must specify the next iteration version and the patches that allow migration from a version to the released version. Optionally, we can also write some changelog. It implies we have to add a  “current version” along with a “is in draft” field to the Meveo module model. A module that is not in draft cannot be modified, nor can its components.
-Before the release is done, we execute every test suite for the functions of the module and if there is a failure, we inform the user what has failed and the release is not realized. If the user still wants to make the release, he will either have to correct the function or remove the tests.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="module_versioning_migration"><a class="anchor" href="#module_versioning_migration"></a>Migration Upgrade Process</h4>
-<div class="sect4">
-<h5 id="module_versioning_migration_from_release"><a class="anchor" href="#module_versioning_migration_from_release"></a>Update from a release present in database</h5>
-<div class="paragraph">
-<p>In a module detail, we must add a button “Upgrade” that allows to trigger the upgrade of a module.  Only modules that are not in draft mode can be upgraded. The upgrade consists in :</p>
-</div>
-<div class="paragraph">
-<p>1.) applying the “before” patches that match the current version of the module</p>
-</div>
-<div class="paragraph">
-<p>2.) importing the XML module file</p>
-</div>
-<div class="paragraph">
-<p>3.) applying the “after” patches that match the current version of the module</p>
-</div>
-<div class="paragraph">
-<p>The user can only choose a release that matches the current meveo version and that has an available “from version” matching the current version of the module.
-In case the user wants to upgrade from an old version to the newest version, we must find an available “path” that leads from old version to the newest by applying intermediary upgrade. For instance, if we have version 1.0.0 of a module, and that we want to upgrade to version 1.4.0 directly but there is no direct way but we have version 1.1.0, 1.2.0 and 1.3.0 in database, we can apply successively the upgrade from 1.0.0 &#8594; 1.1.0 &#8594; 1.2.0 &#8594; 1.3.0 &#8594; 1.4.0. If we imagine there is a direct upgrade available from 1.2.0 to 1.4.0 it would give : 1.0.0 &#8594; 1.2.0 &#8594; 1.4.0. So we must find the shortest path, and if there is no path (ie: we don’t have version 1.1.0), the upgrade cannot be applied.</p>
-</div>
-<div class="paragraph">
-<p>At the end of the update, each test suite of the function present in the module must be run and be ok, if not we will roll-back to the previous version of the module. Making a rollback implies that we must make backup of the concerned elements before starting the update.</p>
-</div>
-</div>
-<div class="sect4">
-<h5 id="module_versioning_migration_from_xml_file"><a class="anchor" href="#module_versioning_migration_from_xml_file"></a>Update from an XML file that is not present in database</h5>
-<div class="paragraph">
-<p>If we want to upgrade the module in an environment that does not have the release in its database, we should be able to provide an XML module release file. In this case, we will first upload it to the database and then we will apply the same process as before. We should also look for releases in sibling meveo instances if not found in our own environment.</p>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="module_versioning_changelogs"><a class="anchor" href="#module_versioning_changelogs"></a>Module Changelogs</h4>
-<div class="paragraph">
-<p>To keep traceability of our module release, we should be able to see the differences from one version to another.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="module_versioning_changelog_comparison"><a class="anchor" href="#module_versioning_changelog_comparison"></a>Module Comparison</h4>
-<div class="paragraph">
-<p>When in the detail of a module, we should have a “compare with version …” button that allow user to select any other version of the same module present in the database and to visualize, by type of entities, what have been change, for example :
- * Fields added / removed of a custom entity template</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Code differences in a script instance</p>
-</li>
-<li>
-<p>Different method (GET / POST) used for an endpoint</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect3">
-<h4 id="module_versioning_changelog_algorithm"><a class="anchor" href="#module_versioning_changelog_algorithm"></a>Changelog Algorithm</h4>
-<div class="paragraph">
-<p>In order to produce a changelog, we first need to parse the XML of the other release, then convert it to module items that can be compared to items of current module. In order to do that, we have to find a way to mark comparable properties for each module item. For instance it is interesting for us to know if we changed the data store of a custom entity template, but we don’t want to compare its child templates. The output would look like the table below.</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Custom Entity Templates</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">v1.1.2 (current)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">MyTemplate:
-</p><p class="tableblock"> - myNewField: String - add (style=color: green)
-</p><p class="tableblock"> - myField: String (Long) - modified (style=String is red, Long is green)
-</p><p class="tableblock"> - myLastField: Long - remove (style=color: red)</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">v1.0.0</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">MyTemplate:
-</p><p class="tableblock"> - myField: String
-</p><p class="tableblock"> - myLastField: String</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
 <h2 id="services"><a class="anchor" href="#services"></a>Services</h2>
 <div class="sectionbody">
 <div class="sidebarblock page-links">
 <div class="content">
-<a href="https://github.com/meveo-org/meveo-documentation/blob/master/technical-documentation/topics/services.adoc" target="_blank">Edit this section</a>
-<a href="https://github.com/meveo-org/meveo-documentation/description=File:%20technical-documentation/topics/services.adoc" target="_blank">Report an issue</a>
+<a href="https://github.com/meveo-org/meveo-documentation/blob/master/technical-documentation/topics/services.adoc" target="_blank" rel="noopener">Edit this section</a>
+<a href="https://github.com/meveo-org/meveo-documentation/description=File:%20technical-documentation/topics/services.adoc" target="_blank" rel="noopener">Report an issue</a>
 </div>
 </div>
 <div class="sect2">
 <h3 id="scripts"><a class="anchor" href="#scripts"></a>Scripts</h3>
 <div class="sidebarblock page-links">
 <div class="content">
-<a href="https://github.com/meveo-org/meveo-documentation/blob/master/technical-documentation/topics/services/scripts.adoc" target="_blank">Edit this section</a>
-<a href="https://github.com/meveo-org/meveo-documentation/description=File:%20technical-documentation/topics/services/scripts.adoc" target="_blank">Report an issue</a>
+<a href="https://github.com/meveo-org/meveo-documentation/blob/master/technical-documentation/topics/services/scripts.adoc" target="_blank" rel="noopener">Edit this section</a>
+<a href="https://github.com/meveo-org/meveo-documentation/description=File:%20technical-documentation/topics/services/scripts.adoc" target="_blank" rel="noopener">Report an issue</a>
 </div>
 </div>
 <div class="paragraph">
@@ -1387,8 +1015,8 @@ methodContext.put('result2', declaredVar);</code></pre>
 <div class="sectionbody">
 <div class="sidebarblock page-links">
 <div class="content">
-<a href="https://github.com/meveo-org/meveo-documentation/blob/master/technical-documentation/topics/git.adoc" target="_blank">Edit this section</a>
-<a href="https://github.com/meveo-org/meveo-documentation/description=File:%20technical-documentation/topics/git.adoc" target="_blank">Report an issue</a>
+<a href="https://github.com/meveo-org/meveo-documentation/blob/master/technical-documentation/topics/git.adoc" target="_blank" rel="noopener">Edit this section</a>
+<a href="https://github.com/meveo-org/meveo-documentation/description=File:%20technical-documentation/topics/git.adoc" target="_blank" rel="noopener">Report an issue</a>
 </div>
 </div>
 <div class="sect2">
@@ -1491,8 +1119,8 @@ methodContext.put('result2', declaredVar);</code></pre>
 <div class="sectionbody">
 <div class="sidebarblock page-links">
 <div class="content">
-<a href="https://github.com/meveo-org/meveo-documentation/blob/master/technical-documentation/topics/endpoint-open-api.adoc" target="_blank">Edit this section</a>
-<a href="https://github.com/meveo-org/meveo-documentation/description=File:%20technical-documentation/topics/endpoint-open-api.adoc" target="_blank">Report an issue</a>
+<a href="https://github.com/meveo-org/meveo-documentation/blob/master/technical-documentation/topics/endpoint-open-api.adoc" target="_blank" rel="noopener">Edit this section</a>
+<a href="https://github.com/meveo-org/meveo-documentation/description=File:%20technical-documentation/topics/endpoint-open-api.adoc" target="_blank" rel="noopener">Report an issue</a>
 </div>
 </div>
 <div class="sect2">
@@ -1916,7 +1544,7 @@ const EVENT = {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-04-23 16:59:25 PST
+Last updated 2020-04-24 12:32:13 CST
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.js"></script>

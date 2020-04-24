@@ -24,14 +24,14 @@
 		<masterFile>index</masterFile>
 		<imagesDir>meveo-images</imagesDir>
 
-		<version.plugin.asciidoctor>1.5.5</version.plugin.asciidoctor>
-		<version.plugin.assembly>3.0.0</version.plugin.assembly>
-		<version.plugin.resources>3.0.2</version.plugin.resources>
-		<version.plugin.dependency>3.0.1</version.plugin.dependency>
-		<version.plugin.antrun>1.8</version.plugin.antrun>
-		<version.compiler.plugin>3.6.1</version.compiler.plugin>
-		<version.jar.plugin>3.0.2</version.jar.plugin>
-		<version.install.plugin>2.5.2</version.install.plugin>
+		<version.plugin.asciidoctor>1.5.6</version.plugin.asciidoctor>
+		<version.plugin.assembly>3.2.0</version.plugin.assembly>
+		<version.plugin.resources>3.1.0</version.plugin.resources>
+		<version.plugin.dependency>3.1.2</version.plugin.dependency>
+		<version.plugin.antrun>3.0.0</version.plugin.antrun>
+		<version.compiler.plugin>3.8.1</version.compiler.plugin>
+		<version.jar.plugin>3.2.0</version.jar.plugin>
+		<version.install.plugin>3.0.0-M1</version.install.plugin>
 
 		<buildType>archive</buildType>
 	</properties>

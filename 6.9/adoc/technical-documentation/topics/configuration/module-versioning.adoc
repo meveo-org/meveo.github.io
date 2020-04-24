@@ -47,7 +47,7 @@ An update patch is a script that has to be run in order to upgrade from a module
 
 *Here is an example :*
 
-Let’s suppose that we have made a module named “ExampleModule”, with the first version named “1.0.0”. It has no associated patch. Then, we run a Scrum Sprint and we end up having version “1.1.0” of our module. However, we changed the data type of a column from number to string so we need to apply a patch that saves the data, change the data type, and re-insert the data as string. So this patch, named “PatchA” is available for “1.0.0” -> “1.1.0” and must be executed before migration. Later, we don’t touch the module but a new version of Meveo is released that implies some change in the data structure of the tables, so a new version of our module is released at the same time, with version “1.2.0” that is tied to the new Meveo version. A patch script named “PatchB” is associated that allows you to upgrade from version “1.1.0” -> “1.2.0” and that must be executed before the upgrade. But we can also upgrade directly from version 1.0.0 to version 1.2.0 by executing the PatchA, then PatchB. Later,  we modify the module but the modifications do not require any patch, it’s the 1.2.1 release. If we recap this in a table, that would give :
+Let’s suppose that we have made a module named "ExampleModule", with the first version named "1.0.0". It has no associated patch. Then, we run a Scrum Sprint and we end up having version "1.1.0" of our module. However, we changed the data type of a column from number to string so we need to apply a patch that saves the data, change the data type, and re-insert the data as string. So this patch, named "PatchA" is available for "1.0.0" -> "1.1.0" and must be executed before migration. Later, we don’t touch the module but a new version of Meveo is released that implies some change in the data structure of the tables, so a new version of our module is released at the same time, with version "1.2.0" that is tied to the new Meveo version. A patch script named "PatchB" is associated that allows you to upgrade from version "1.1.0" -> "1.2.0" and that must be executed before the upgrade. But we can also upgrade directly from version 1.0.0 to version 1.2.0 by executing the PatchA, then PatchB. Later,  we modify the module but the modifications do not require any patch, it’s the 1.2.1 release. If we recap this in a table, that would give :
 
 [cols="a,a,a,a"]
 |=== 
@@ -112,7 +112,7 @@ We should create a new listing to manage the releases of a module.
 [[module_versioning_release_process_action]]
 ==== Releasing Action
 
-When releasing a module version, we must specify the next iteration version and the patches that allow migration from a version to the released version. Optionally, we can also write some changelog. It implies we have to add a  “current version” along with a “is in draft” field to the Meveo module model. A module that is not in draft cannot be modified, nor can its components.
+When releasing a module version, we must specify the next iteration version and the patches that allow migration from a version to the released version. Optionally, we can also write some changelog. It implies we have to add a  "current version" along with a "is in draft" field to the Meveo module model. A module that is not in draft cannot be modified, nor can its components.
 Before the release is done, we execute every test suite for the functions of the module and if there is a failure, we inform the user what has failed and the release is not realized. If the user still wants to make the release, he will either have to correct the function or remove the tests.
 
 [[module_versioning_migration]]
@@ -121,16 +121,16 @@ Before the release is done, we execute every test suite for the functions of the
 [[module_versioning_migration_from_release]]
 ===== Update from a release present in database
 
-In a module detail, we must add a button “Upgrade” that allows to trigger the upgrade of a module.  Only modules that are not in draft mode can be upgraded. The upgrade consists in : 
+In a module detail, we must add a button "Upgrade" that allows to trigger the upgrade of a module.  Only modules that are not in draft mode can be upgraded. The upgrade consists in : 
 
-1.) applying the “before” patches that match the current version of the module
+1.) applying the "before" patches that match the current version of the module
 
 2.) importing the XML module file
 
-3.) applying the “after” patches that match the current version of the module
+3.) applying the "after" patches that match the current version of the module
 
-The user can only choose a release that matches the current meveo version and that has an available “from version” matching the current version of the module.
-In case the user wants to upgrade from an old version to the newest version, we must find an available “path” that leads from old version to the newest by applying intermediary upgrade. For instance, if we have version 1.0.0 of a module, and that we want to upgrade to version 1.4.0 directly but there is no direct way but we have version 1.1.0, 1.2.0 and 1.3.0 in database, we can apply successively the upgrade from 1.0.0 -> 1.1.0 -> 1.2.0 -> 1.3.0 -> 1.4.0. If we imagine there is a direct upgrade available from 1.2.0 to 1.4.0 it would give : 1.0.0 -> 1.2.0 -> 1.4.0. So we must find the shortest path, and if there is no path (ie: we don’t have version 1.1.0), the upgrade cannot be applied.
+The user can only choose a release that matches the current meveo version and that has an available "from version" matching the current version of the module.
+In case the user wants to upgrade from an old version to the newest version, we must find an available "path" that leads from old version to the newest by applying intermediary upgrade. For instance, if we have version 1.0.0 of a module, and that we want to upgrade to version 1.4.0 directly but there is no direct way but we have version 1.1.0, 1.2.0 and 1.3.0 in database, we can apply successively the upgrade from 1.0.0 -> 1.1.0 -> 1.2.0 -> 1.3.0 -> 1.4.0. If we imagine there is a direct upgrade available from 1.2.0 to 1.4.0 it would give : 1.0.0 -> 1.2.0 -> 1.4.0. So we must find the shortest path, and if there is no path (ie: we don’t have version 1.1.0), the upgrade cannot be applied.
 
 At the end of the update, each test suite of the function present in the module must be run and be ok, if not we will roll-back to the previous version of the module. Making a rollback implies that we must make backup of the concerned elements before starting the update.
 
@@ -147,7 +147,7 @@ To keep traceability of our module release, we should be able to see the differe
 [[module_versioning_changelog_comparison]]
 ==== Module Comparison
 
-When in the detail of a module, we should have a “compare with version …” button that allow user to select any other version of the same module present in the database and to visualize, by type of entities, what have been change, for example : 
+When in the detail of a module, we should have a "compare with version …" button that allow user to select any other version of the same module present in the database and to visualize, by type of entities, what have been change, for example : 
  * Fields added / removed of a custom entity template
 
  * Code differences in a script instance
