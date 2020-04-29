@@ -1,0 +1,116 @@
+
+== Prerequisites
+
+The following binaries must be installed in your local environment:
+
+|===
+|Software           |Version        |Download Link
+|Java               |8              |https://developers.redhat.com/products/openjdk/download          
+|Git                |latest         |https://git-scm.com/downloads
+|Maven              |latest         |https://maven.apache.org/download.cgi
+|PostgreSQL         |9.5            |https://www.postgresql.org/download/
+|PGAdmin            |4              |https://www.pgadmin.org/download/
+|PostgreSQL Driver  |42.2.4         |https://jdbc.postgresql.org/download.html
+|Keycloak           |>5             |https://www.keycloak.org/downloads.html
+|Keycloak Adapter   |>5             |https://www.keycloak.org/downloads.html
+|Wildfly            |15.0.0.Final   |https://wildfly.org/downloads/
+|Eclipse            |JEE-latest     |https://www.eclipse.org/downloads/packages/
+|===
+
+== Installation Guide
+
+This guide is intended for Windows users. Minor changes to the instructions must be done to become applicable to other operating systems.
+
+=== Java
+
+. Install or extract the OpenJDK in your PC.
+. Set the environment variable JAVA_HOME, make sure it points to where you installed the OpenJDK. In Windows explorer, right click on This PC / Properties / Advance system settings / Environment variables / New. https://czetsuya-tech.blogspot.com/2020/04/how-to-add-java-home-in-windows-environment-variables.html[Refer to this guide].
+. Add %JAVA_HOME%\bin in the Windows Path environment variable. https://czetsuya-tech.blogspot.com/2020/04/how-to-add-java-binary-folder-to-windows-execution-path.html[Refer to this guide].
+. Open a Windows command prompt and type "java -version", hit enter. The Java version installed on your system should be shown.
+
+=== Git
+
+. Download and install Git.
+
+=== Maven
+
+. Download and extract the maven archive into your PC.
+. Add the M2_HOME with value pointing to where you extract maven to your Windows environment variable. See what we did in Java above. 
+Add the %M2_HOME%\bin folder to your Windows environment path just as we did with Java above.
+. Open a Windows command prompt and type "mvn -version", hit enter. Just like Java it should give us the version of maven installed.
+
+=== PostgreSQL
+
+. Download and install PostgreSQL. Take note of the admin password as we will use it later.
+
+=== PGAdmin
+
+. Download and install PGAdmin.
+. Open PGAdmin, it might ask you for a master password. Enter a password and make sure to remember it.
+. In the left panel, expand Servers / PostgreSQL 9.5.
+. Right click Login/Group Roles and select Create / Login/Group Role.
+. Under General tab set Name=meveo.
+. Under Description tab set Password=meveo.
+. Under Privileges tab toggle Can login and Superuser.
+. Hit Save.
+. Back in the left panel, right click on Databases and select Create / Database.
+. Under database tab set Database=meveo, Owner=meveo.
+. Hit Save.
+
+=== Wildfly and Keycloak Installation
+
+include::option1.adoc[]
+
+=== Eclipse
+
+. Download the eclipse installer.
+. Run the installer and select the Eclipse for JavaEE developers.
+
+==== Install JBoss Tools Plugin
+
+. Run Eclipse IDE.
+. Open menu Help / Eclipse Marketplace.
+. In the Find text field enter "jboss".
+. Find JBoss Tools and click Install.
+. Don't install all the components, select or filter maven, egit and jboss as.
+
+==== Add both the Keycloak and Wildfly Server for Debugging
+
+. Open the Server tab by clicking Window / Show View / Other and filter for server.
+. Select servers, a new tab should open.
+. Right click on the server panel, select New / Server and select Wildfly 15.
+. Click Next, select Create a new runtime.
+. Click Next, and browse the directory where you installed Wildfly - WILDFLY_HOME.
+. In the Configuration file field select standalone-full.xml. This is the one we modified earlier.
+. Click Next and then Finish.
+
+*Do the same with Keycloak.
+
+Now you can start running either the Keycloak and Wildfly server in debug mode by right clicking on it and selecting Debug. You can click the Debug icon too.
+
+=== Cloning the Meveo Project
+
+This is done inside Eclipse IDE. Since we have installed egit component from JBoss Tools plugin, we can use it to checkout from Github.
+
+. Open Window / Show View / Other and filter for git.
+. Select both Git Repositories and Git Staging. Two new panels should open.
+. Open Git Repositories.
+. Right click and then select Clone a Git Repository or click the green icon in the top right corner with the same label.
+. In the URI enter git@github.com:meveo-org/meveo.git, click Next.
+. A selection of branch that you wanted to checkout should appear. By default all branches are selected. Click Next.
+. Select the directory where you want to checkout the project, click Finish.
+. Once the cloning is done, meveo project should appear in your Git Repositories.
+. Right click on the meveo repository and select Import Maven Projects.
+. Make sure that all projects are selected. You can select a working set (use for grouping projects) and then hit finish.
+. Meveo projects should be visible in your Package or Project explorer, whichever is open.
+. Now you can start coding.
+
+=== Deploying Meveo to Wildfly
+
+. Open the server tab once again.
+. Select Add and Remove.
+. Select meveo-admin-web, click Finish.
+. Debug or start the server.
+. Open the console log from Window / Show View / Console.
+. If no error is shown, you should be able to access meveo from the URL http://localhost:8080/meveo.
+. Login using the account meveo.admin / meveo.

@@ -1,4 +1,8 @@
 
 == Overview
 
-This guide helps you get started with {project_name}. It covers server configuration and use of the default database. Advanced deployment options are not covered. For a deeper description of features or configuration options, consult the other reference guides.
+Meveo is a platform that allows to develop and execute enterprise backend and frontend applications. It is intended to be run on Wildfly 15 with full Jakarta EE stack.
+
+=== License Information
+
+AGPLv3.0 - https://www.gnu.org/licenses/agpl-3.0.en.html

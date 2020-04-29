@@ -1,4 +1,9 @@
-
 == Overview
 
-This guide helps you get started with {project_name}. It covers server configuration and use of the default database. Advanced deployment options are not covered. For a deeper description of features or configuration options, consult the other reference guides.
+Meveo is a JavaEE8 web application and runs on the following technology stack:
+
+ - JavaEE8
+ - Wildfly15
+ - Keycloak5
+ - PostgreSQL9.6
+ - ElasticSearch 2.3.4

@@ -825,6 +825,29 @@ table.CodeRay td.code>pre{padding:0}
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#overview">Overview</a></li>
+<li><a href="#prerequisites">Prerequisites</a></li>
+<li><a href="#installation-guide">Installation Guide</a>
+<ul class="sectlevel2">
+<li><a href="#java">Java</a></li>
+<li><a href="#git">Git</a></li>
+<li><a href="#maven">Maven</a></li>
+<li><a href="#postgresql">PostgreSQL</a></li>
+<li><a href="#pgadmin">PGAdmin</a></li>
+<li><a href="#wildfly-and-keycloak-installation">Wildfly and Keycloak Installation</a>
+<ul class="sectlevel3">
+<li><a href="#option-1-installing-as-standalone-serversw">Option 1 - Installing as Standalone Serversw.</a></li>
+</ul>
+</li>
+<li><a href="#eclipse">Eclipse</a>
+<ul class="sectlevel3">
+<li><a href="#install-jboss-tools-plugin">Install JBoss Tools Plugin</a></li>
+<li><a href="#add-both-the-keycloak-and-wildfly-server-for-debugging">Add both the Keycloak and Wildfly Server for Debugging</a></li>
+</ul>
+</li>
+<li><a href="#cloning-the-meveo-project">Cloning the Meveo Project</a></li>
+<li><a href="#deploying-meveo-to-wildfly">Deploying Meveo to Wildfly</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -871,6 +894,670 @@ table.CodeRay td.code>pre{padding:0}
 </div>
 <div class="paragraph">
 <p>This guide helps you get started with Meveo. It covers server configuration and use of the default database. Advanced deployment options are not covered. For a deeper description of features or configuration options, consult the other reference guides.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="prerequisites"><a class="anchor" href="#prerequisites"></a>Prerequisites</h2>
+<div class="sectionbody">
+<div class="sidebarblock page-links">
+<div class="content">
+<a href="https://github.com/meveo-org/meveo.github.io/blob/master/installation-and-development/topics/prerequisites.adoc" target="_blank" rel="noopener">Edit this section</a>
+<a href="https://github.com/meveo-org/meveo.github.io/issues" target="_blank" rel="noopener">Report an issue</a>
+</div>
+</div>
+<div class="paragraph">
+<p>The following binaries must be installed in your local environment:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Software</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Version</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Download Link</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Java</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://developers.redhat.com/products/openjdk/download" class="bare">https://developers.redhat.com/products/openjdk/download</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Git</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">latest</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://git-scm.com/downloads" class="bare">https://git-scm.com/downloads</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Maven</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">latest</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://maven.apache.org/download.cgi" class="bare">https://maven.apache.org/download.cgi</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PostgreSQL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9.5</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.postgresql.org/download/" class="bare">https://www.postgresql.org/download/</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PGAdmin</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.pgadmin.org/download/" class="bare">https://www.pgadmin.org/download/</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PostgreSQL Driver</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">42.2.4</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://jdbc.postgresql.org/download.html" class="bare">https://jdbc.postgresql.org/download.html</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Keycloak</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&gt;5</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.keycloak.org/downloads.html" class="bare">https://www.keycloak.org/downloads.html</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Keycloak Adapter</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&gt;5</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.keycloak.org/downloads.html" class="bare">https://www.keycloak.org/downloads.html</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Wildfly</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">15.0.0.Final</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://wildfly.org/downloads/" class="bare">https://wildfly.org/downloads/</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Eclipse</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JEE-latest</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.eclipse.org/downloads/packages/" class="bare">https://www.eclipse.org/downloads/packages/</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="installation-guide"><a class="anchor" href="#installation-guide"></a>Installation Guide</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This guide is intended for Windows users. Minor changes to the instructions must be done to become applicable to other operating systems.</p>
+</div>
+<div class="sect2">
+<h3 id="java"><a class="anchor" href="#java"></a>Java</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Install or extract the OpenJDK in your PC.</p>
+</li>
+<li>
+<p>Set the environment variable JAVA_HOME, make sure it points to where you installed the OpenJDK. In Windows explorer, right click on This PC / Properties / Advance system settings / Environment variables / New. <a href="https://czetsuya-tech.blogspot.com/2020/04/how-to-add-java-home-in-windows-environment-variables.html">Refer to this guide</a>.</p>
+</li>
+<li>
+<p>Add %JAVA_HOME%\bin in the Windows Path environment variable. <a href="https://czetsuya-tech.blogspot.com/2020/04/how-to-add-java-binary-folder-to-windows-execution-path.html">Refer to this guide</a>.</p>
+</li>
+<li>
+<p>Open a Windows command prompt and type "java -version", hit enter. The Java version installed on your system should be shown.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="git"><a class="anchor" href="#git"></a>Git</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Download and install Git.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="maven"><a class="anchor" href="#maven"></a>Maven</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Download and extract the maven archive into your PC.</p>
+</li>
+<li>
+<p>Add the M2_HOME with value pointing to where you extract maven to your Windows environment variable. See what we did in Java above.
+Add the %M2_HOME%\bin folder to your Windows environment path just as we did with Java above.</p>
+</li>
+<li>
+<p>Open a Windows command prompt and type "mvn -version", hit enter. Just like Java it should give us the version of maven installed.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="postgresql"><a class="anchor" href="#postgresql"></a>PostgreSQL</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Download and install PostgreSQL. Take note of the admin password as we will use it later.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="pgadmin"><a class="anchor" href="#pgadmin"></a>PGAdmin</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Download and install PGAdmin.</p>
+</li>
+<li>
+<p>Open PGAdmin, it might ask you for a master password. Enter a password and make sure to remember it.</p>
+</li>
+<li>
+<p>In the left panel, expand Servers / PostgreSQL 9.5.</p>
+</li>
+<li>
+<p>Right click Login/Group Roles and select Create / Login/Group Role.</p>
+</li>
+<li>
+<p>Under General tab set Name=meveo.</p>
+</li>
+<li>
+<p>Under Description tab set Password=meveo.</p>
+</li>
+<li>
+<p>Under Privileges tab toggle Can login and Superuser.</p>
+</li>
+<li>
+<p>Hit Save.</p>
+</li>
+<li>
+<p>Back in the left panel, right click on Databases and select Create / Database.</p>
+</li>
+<li>
+<p>Under database tab set Database=meveo, Owner=meveo.</p>
+</li>
+<li>
+<p>Hit Save.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="wildfly-and-keycloak-installation"><a class="anchor" href="#wildfly-and-keycloak-installation"></a>Wildfly and Keycloak Installation</h3>
+<div class="sect3">
+<h4 id="option-1-installing-as-standalone-serversw"><a class="anchor" href="#option-1-installing-as-standalone-serversw"></a>Option 1 - Installing as Standalone Serversw.</h4>
+<div class="sidebarblock page-links">
+<div class="content">
+<a href="https://github.com/meveo-org/meveo.github.io/blob/master/installation-and-development/topics/option1.adoc" target="_blank" rel="noopener">Edit this section</a>
+<a href="https://github.com/meveo-org/meveo.github.io/issues" target="_blank" rel="noopener">Report an issue</a>
+</div>
+</div>
+<div class="sect4">
+<h5 id="keycloak"><a class="anchor" href="#keycloak"></a>Keycloak</h5>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Download and extract Keycloak to your PC. Let&#8217;s call the folder where you extracted the files KEYCLOAK_HOME.</p>
+</li>
+<li>
+<p>Open the file KEYCLOAK_HOME/standalone/configuration/standalone.xml.</p>
+</li>
+<li>
+<p>Find this line &lt;socket-binding-group name="standard-sockets" default-interface="public" port-offset="${jboss.socket.binding.port-offset:0}"&gt; and replace the port-offset:0 with port-offset:1. This means 1 will be added to all default ports. Making the oauth url available at port 8081.</p>
+</li>
+<li>
+<p>To start the server run KEYCLOAK_HOME\bin\standalone.exe.</p>
+</li>
+<li>
+<p>Try accessing <a href="http://localhost:8081" class="bare">http://localhost:8081</a> from your web browser.</p>
+</li>
+<li>
+<p>Create an initial admin user by entering a username and password and proceed to login. You should be able to arrive at the Keycloak admin interface.</p>
+</li>
+<li>
+<p>In the left panel, hover on Master and click Add Realm.</p>
+</li>
+<li>
+<p>In the right panel, click Select a file and choose meveo-realm.json file. <a href="meveo-realm.json">Meveo Realm</a></p>
+</li>
+<li>
+<p>Click create. The Meveo realm should be created and it should now be the selected realm.</p>
+</li>
+<li>
+<p>Back in the left panel, click Import / Select a file and select meveo-users-0.json file. <a href="meveo-users-0.json">Meveo Users</a></p>
+</li>
+<li>
+<p>Hit import.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>To check if meveo realm is correctly configured:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Click the Users menu and you should see 9 users.</p>
+</li>
+<li>
+<p>Click the Clients menu and you should see meveo-web.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In the eclipse section, we will discuss how we can integrate Keycloak so we can start it from there.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="wildfly"><a class="anchor" href="#wildfly"></a>Wildfly</h5>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Download the PostgreSQL driver.</p>
+</li>
+<li>
+<p>Download and extract Wildfly into your PC. Let&#8217;s call the folder where you extracted the files WILDFLY_HOME.</p>
+</li>
+<li>
+<p>Inside WILDFLY_HOME/modules folder create this folder hierarchy org/postgresql/main.</p>
+</li>
+<li>
+<p>Navigate to this folder.</p>
+</li>
+<li>
+<p>Copy and paste the PostgreSQL driver (postgresql-42.2.4.jar) here.</p>
+</li>
+<li>
+<p>Create a new file module.xml with the content below.</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="preprocessor">&lt;?xml version='1.0' encoding='UTF-8'?&gt;</span>
+<span class="tag">&lt;module</span> <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">urn:jboss:module:1.1</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">org.postgresql</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+    <span class="tag">&lt;resources&gt;</span>
+        <span class="tag">&lt;resource-root</span> <span class="attribute-name">path</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">postgresql-42.2.4.jar</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+    <span class="tag">&lt;/resources&gt;</span>
+
+    <span class="tag">&lt;dependencies&gt;</span>
+        <span class="tag">&lt;module</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">javax.api</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+        <span class="tag">&lt;module</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">javax.transaction.api</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+    <span class="tag">&lt;/dependencies&gt;</span>
+<span class="tag">&lt;/module&gt;</span></code></pre>
+</div>
+</div>
+<div class="sect5">
+<h6 id="add-the-keycloak-adapter-to-wildfly"><a class="anchor" href="#add-the-keycloak-adapter-to-wildfly"></a>Add the Keycloak Adapter to Wildfly</h6>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Download the Keycloak Adapter with the same version as the downloaded Keycloak Server.</p>
+</li>
+<li>
+<p>Copy the downloaded file into WILDFLY_HOME and extract.</p>
+</li>
+<li>
+<p>Run command prompt and navigate to WILDFLY_HOME\bin folder.</p>
+</li>
+<li>
+<p>Open WILDFLY_HOME\bin\adapter-install-offline.cli and change the standalone to standalone-full.</p>
+</li>
+<li>
+<p>Execute: jboss-cli.bat --file=adapter-install-offline.cli.</p>
+</li>
+<li>
+<p>A success message should be shown.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect5">
+<h6 id="add-system-properties"><a class="anchor" href="#add-system-properties"></a>Add System Properties</h6>
+<div class="paragraph">
+<p>At the end of extensions tag add the following properties.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;system-properties&gt;</span>
+    <span class="tag">&lt;property</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">jboss.as.management.blocking.timeout</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">value</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">900</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+    <span class="tag">&lt;property</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">meveo.instance.name</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">value</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">demo</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+    <span class="tag">&lt;property</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">java.net.preferIPv4Stack</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">value</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+    <span class="tag">&lt;property</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">meveo.keycloak.url</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">value</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://localhost:8081/auth</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+    <span class="tag">&lt;property</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">meveo.keycloak.secret</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">value</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">afe07e5a-68cb-4fb0-8b75-5b6053b07dc3</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+    <span class="tag">&lt;property</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">meveo.keycloak.realm</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">value</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">meveo</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+    <span class="tag">&lt;property</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">meveo.keycloak.client</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">value</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">meveo-web</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+    <span class="tag">&lt;property</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">meveo.admin.server.name</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">value</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">localhost</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+    <span class="tag">&lt;property</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">meveo.admin.port.number</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">value</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">5432</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+    <span class="tag">&lt;property</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">meveo.admin.database.name</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">value</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">meveo</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+    <span class="tag">&lt;property</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">meveo.admin.database.driver</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">value</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">postgresql</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+    <span class="tag">&lt;property</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">meveo.admin.database.username</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">value</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">postgres</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+    <span class="tag">&lt;property</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">meveo.admin.database.password</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">value</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">&lt;your-postgresql-admin-password</span></span><span class="error">&gt;</span>&quot;/<span class="error">&gt;</span>
+    <span class="tag">&lt;property</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">jboss.tx.node.id</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">value</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">meveo-default</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+    <span class="tag">&lt;property</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">meveo.keycloak.fixed-hostname</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">value</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">localhost</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+    <span class="tag">&lt;property</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">resteasy.preferJacksonOverJsonB</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">value</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+<span class="tag">&lt;/system-properties&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>*Note that we are using the postgres admin account here.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="add-a-datasource"><a class="anchor" href="#add-a-datasource"></a>Add a Datasource</h6>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open the file WILDFLY_HOME\standalone\configuration\standalone.xml.</p>
+</li>
+<li>
+<p>Search for "subsystem xmlns="urn:jboss:domain:datasources".</p>
+</li>
+<li>
+<p>Add the following datasource configuration.</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>&lt;xa-datasource jndi-name="java:jboss/datasources/MeveoAdminDatasource" pool-name="meveo" enabled="true" use-java-context="true" use-ccm="false"&gt;
+    &lt;xa-datasource-property name="ServerName"&gt;
+        ${meveo.admin.server.name}
+    &lt;/xa-datasource-property&gt;
+    &lt;xa-datasource-property name="PortNumber"&gt;
+        5432
+    &lt;/xa-datasource-property&gt;
+    &lt;xa-datasource-property name="DatabaseName"&gt;
+        meveo
+    &lt;/xa-datasource-property&gt;
+    &lt;driver&gt;postgresql&lt;/driver&gt;
+    &lt;xa-pool&gt;
+        &lt;min-pool-size&gt;10&lt;/min-pool-size&gt;
+        &lt;max-pool-size&gt;200&lt;/max-pool-size&gt;
+        &lt;prefill&gt;false&lt;/prefill&gt;
+        &lt;use-strict-min&gt;false&lt;/use-strict-min&gt;
+        &lt;flush-strategy&gt;FailingConnectionOnly&lt;/flush-strategy&gt;
+    &lt;/xa-pool&gt;
+    &lt;security&gt;
+        &lt;user-name&gt;${meveo.admin.database.username:meveo}&lt;/user-name&gt;
+        &lt;password&gt;${meveo.admin.database.password:meveo}&lt;/password&gt;
+    &lt;/security&gt;
+    &lt;validation&gt;
+        &lt;valid-connection-checker class-name="org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLValidConnectionChecker"/&gt;
+        &lt;validate-on-match&gt;true&lt;/validate-on-match&gt;
+        &lt;background-validation&gt;false&lt;/background-validation&gt;
+        &lt;use-fast-fail&gt;true&lt;/use-fast-fail&gt;
+        &lt;exception-sorter class-name="org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLExceptionSorter"/&gt;
+    &lt;/validation&gt;
+    &lt;timeout&gt;
+        &lt;blocking-timeout-millis&gt;60000&lt;/blocking-timeout-millis&gt;
+        &lt;idle-timeout-minutes&gt;15&lt;/idle-timeout-minutes&gt;
+    &lt;/timeout&gt;
+    &lt;statement&gt;
+        &lt;share-prepared-statements&gt;true&lt;/share-prepared-statements&gt;
+    &lt;/statement&gt;
+&lt;/xa-datasource&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Add the PostgreSQL driver as well in the drivers section:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;driver</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">postgresql</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">module</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">org.postgresql</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+    <span class="tag">&lt;driver-class&gt;</span>org.postgresql.Driver<span class="tag">&lt;/driver-class&gt;</span>
+    <span class="tag">&lt;xa-datasource-class&gt;</span>org.postgresql.xa.PGXADataSource<span class="tag">&lt;/xa-datasource-class&gt;</span>
+<span class="tag">&lt;/driver&gt;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="add-infinispan-cache"><a class="anchor" href="#add-infinispan-cache"></a>Add Infinispan Cache</h6>
+<div class="paragraph">
+<p>Search for "subsystem xmlns="urn:jboss:domain:infinispan" and add the cache container below.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;cache-container</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">meveo</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+    <span class="tag">&lt;local-cache</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">meveo-multiTenant-cache</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+    <span class="tag">&lt;local-cache</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">meveo-price-plan</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+    <span class="tag">&lt;local-cache</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">meveo-usage-charge-template-cache</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+    <span class="tag">&lt;local-cache</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">meveo-charge-instance-cache</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+    <span class="tag">&lt;local-cache</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">meveo-counter-cache</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+    <span class="tag">&lt;local-cache</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">meveo-edr-cache</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+        <span class="tag">&lt;object-memory</span> <span class="attribute-name">size</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">100000</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+    <span class="tag">&lt;/local-cache&gt;</span>
+    <span class="tag">&lt;local-cache</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">meveo-access-cache</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+    <span class="tag">&lt;local-cache</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">meveo-cft-cache</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+    <span class="tag">&lt;local-cache</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">meveo-cet-cache</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+    <span class="tag">&lt;local-cache</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">meveo-notification-cache</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+    <span class="tag">&lt;local-cache</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">meveo-balance</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+    <span class="tag">&lt;local-cache</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">meveo-reservedBalance</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+    <span class="tag">&lt;local-cache</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">meveo-usageChargeInstanceWallet</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+    <span class="tag">&lt;local-cache</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">meveo-running-jobs</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+    <span class="tag">&lt;local-cache</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">unique-crt</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+        <span class="tag">&lt;expiration</span> <span class="attribute-name">interval</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">300000</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">lifespan</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">300000</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+    <span class="tag">&lt;/local-cache&gt;</span>
+    <span class="tag">&lt;local-cache</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">endpoints-results</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+        <span class="tag">&lt;expiration</span> <span class="attribute-name">interval</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">604800000</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">lifespan</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">604800000</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+    <span class="tag">&lt;/local-cache&gt;</span>
+    <span class="tag">&lt;local-cache</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">meveo-es-index-cache</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+    <span class="tag">&lt;local-cache</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">meveo-crt-cache</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+    <span class="tag">&lt;local-cache</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">meveo-rows-page-cache</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+<span class="tag">&lt;/cache-container&gt;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="download-meveo-properties"><a class="anchor" href="#download-meveo-properties"></a>Download Meveo Properties</h6>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Download this file <a href="meveo-admin.properties">Meveo properties file</a>.</p>
+</li>
+<li>
+<p>Make sure to make the necessary changes depending on your local configuration. See keys like meveo.log.file, binary.storage.path and providers.rootDir.</p>
+</li>
+<li>
+<p>Copy this file into WILDFLY_HOME\standalone\configuration.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect5">
+<h6 id="create-a-wildfly-admin-user"><a class="anchor" href="#create-a-wildfly-admin-user"></a>Create a Wildfly Admin User</h6>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open a command prompt.</p>
+</li>
+<li>
+<p>Navigate to WILDFLY_HOME\bin.</p>
+</li>
+<li>
+<p>Run add-user.bat.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Select management User</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Enter your desired user account.</p>
+</li>
+<li>
+<p>An "admin" account already exists, so you must update it instead.</p>
+</li>
+<li>
+<p>Enter any String for group.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect5">
+<h6 id="login-to-wildfly-server"><a class="anchor" href="#login-to-wildfly-server"></a>Login to Wildfly Server</h6>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open your favorite browser.</p>
+</li>
+<li>
+<p>Enter the url localhost:8080.</p>
+</li>
+<li>
+<p>Click Administration Console.</p>
+</li>
+<li>
+<p>Login using your newly created account.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>A completely configured file is available for reference <a href="standalone.xml">here</a>.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="eclipse"><a class="anchor" href="#eclipse"></a>Eclipse</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Download the eclipse installer.</p>
+</li>
+<li>
+<p>Run the installer and select the Eclipse for JavaEE developers.</p>
+</li>
+</ol>
+</div>
+<div class="sect3">
+<h4 id="install-jboss-tools-plugin"><a class="anchor" href="#install-jboss-tools-plugin"></a>Install JBoss Tools Plugin</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Run Eclipse IDE.</p>
+</li>
+<li>
+<p>Open menu Help / Eclipse Marketplace.</p>
+</li>
+<li>
+<p>In the Find text field enter "jboss".</p>
+</li>
+<li>
+<p>Find JBoss Tools and click Install.</p>
+</li>
+<li>
+<p>Don&#8217;t install all the components, select or filter maven, egit and jboss as.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="add-both-the-keycloak-and-wildfly-server-for-debugging"><a class="anchor" href="#add-both-the-keycloak-and-wildfly-server-for-debugging"></a>Add both the Keycloak and Wildfly Server for Debugging</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open the Server tab by clicking Window / Show View / Other and filter for server.</p>
+</li>
+<li>
+<p>Select servers, a new tab should open.</p>
+</li>
+<li>
+<p>Right click on the server panel, select New / Server and select Wildfly 15.</p>
+</li>
+<li>
+<p>Click Next, select Create a new runtime.</p>
+</li>
+<li>
+<p>Click Next, and browse the directory where you installed Wildfly - WILDFLY_HOME.</p>
+</li>
+<li>
+<p>In the Configuration file field select standalone-full.xml. This is the one we modified earlier.</p>
+</li>
+<li>
+<p>Click Next and then Finish.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>*Do the same with Keycloak.</p>
+</div>
+<div class="paragraph">
+<p>Now you can start running either the Keycloak and Wildfly server in debug mode by right clicking on it and selecting Debug. You can click the Debug icon too.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="cloning-the-meveo-project"><a class="anchor" href="#cloning-the-meveo-project"></a>Cloning the Meveo Project</h3>
+<div class="paragraph">
+<p>This is done inside Eclipse IDE. Since we have installed egit component from JBoss Tools plugin, we can use it to checkout from Github.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open Window / Show View / Other and filter for git.</p>
+</li>
+<li>
+<p>Select both Git Repositories and Git Staging. Two new panels should open.</p>
+</li>
+<li>
+<p>Open Git Repositories.</p>
+</li>
+<li>
+<p>Right click and then select Clone a Git Repository or click the green icon in the top right corner with the same label.</p>
+</li>
+<li>
+<p>In the URI enter <a href="mailto:git@github.com">git@github.com</a>:meveo-org/meveo.git, click Next.</p>
+</li>
+<li>
+<p>A selection of branch that you wanted to checkout should appear. By default all branches are selected. Click Next.</p>
+</li>
+<li>
+<p>Select the directory where you want to checkout the project, click Finish.</p>
+</li>
+<li>
+<p>Once the cloning is done, meveo project should appear in your Git Repositories.</p>
+</li>
+<li>
+<p>Right click on the meveo repository and select Import Maven Projects.</p>
+</li>
+<li>
+<p>Make sure that all projects are selected. You can select a working set (use for grouping projects) and then hit finish.</p>
+</li>
+<li>
+<p>Meveo projects should be visible in your Package or Project explorer, whichever is open.</p>
+</li>
+<li>
+<p>Now you can start coding.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="deploying-meveo-to-wildfly"><a class="anchor" href="#deploying-meveo-to-wildfly"></a>Deploying Meveo to Wildfly</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open the server tab once again.</p>
+</li>
+<li>
+<p>Select Add and Remove.</p>
+</li>
+<li>
+<p>Select meveo-admin-web, click Finish.</p>
+</li>
+<li>
+<p>Debug or start the server.</p>
+</li>
+<li>
+<p>Open the console log from Window / Show View / Console.</p>
+</li>
+<li>
+<p>If no error is shown, you should be able to access meveo from the URL <a href="http://localhost:8080/meveo" class="bare">http://localhost:8080/meveo</a>.</p>
+</li>
+<li>
+<p>Login using the account meveo.admin / meveo.</p>
+</li>
+</ol>
+</div>
 </div>
 </div>
 </div>

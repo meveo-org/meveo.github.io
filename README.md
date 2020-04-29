@@ -1,2 +1,3 @@
-# meveo.github.io
-merveo.org github pages
+# Meveo Documentation
+
+Documentation available at https://meveo.org.

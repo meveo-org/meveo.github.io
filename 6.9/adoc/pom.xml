@@ -142,6 +142,9 @@
 									<resource>
 										<directory>${project.basedir}</directory>
 										<includes>
+											<include>**/*.json</include>
+											<include>**/*.properties</include>
+											<include>**/standalone.xml</include>
 											<include>images/**/*.png</include>
 											<include>${imagesDir}/**/*.png</include>
 										</includes>
