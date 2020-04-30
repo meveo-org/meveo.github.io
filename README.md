@@ -1,3 +1,5 @@
-# Meveo Documentation
+# Meveo  
 
-Documentation available at https://meveo.org.
+[Installation](https://github.com/meveo-org/install)
+
+[Documentation](https://meveo.org).
