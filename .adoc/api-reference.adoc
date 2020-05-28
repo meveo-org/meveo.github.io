@@ -86,6 +86,91 @@ Manage git repositories
 [[_functionrs_resource]]
 === FunctionRs
 
+[[_getfunction]]
+==== GET /function/{code}
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^4a"]
+|===
+|Type|Name|Schema
+|**Path**|**code** +
+__required__|string
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_functiondto,FunctionDto>>
+|===
+
+
+===== Produces
+
+* `application/json`
+
+
+[[_getsamples]]
+==== Get samples function by code
+....
+GET /function/sample/code/{code}
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**code** +
+__required__|Code of the function|string
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|< <<_sample,Sample>> > array
+|===
+
+
+===== Produces
+
+* `application/json`
+
+
+[[_getfunctions]]
+==== GET /function
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**codeOnly** +
+__optional__|Whether to retrieve only codes|boolean
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**default**|successful operation|No Content
+|===
+
+
+===== Produces
+
+* `application/json`
+
+
 [[_test]]
 ==== Test function
 ....
@@ -145,54 +230,6 @@ __optional__|Test suite file|file
 |HTTP Code|Description|Schema
 |**default**|successful operation|No Content
 |===
-
-
-[[_getsamples]]
-==== Get samples function by code
-....
-GET /function/sample/code/{code}
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Path**|**code** +
-__required__|Code of the function|string
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|< <<_sample,Sample>> > array
-|===
-
-
-===== Produces
-
-* `application/json`
-
-
-[[_getfunctions]]
-==== GET /function
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|< <<_functiondto,FunctionDto>> > array
-|===
-
-
-===== Produces
-
-* `application/json`
 
 
 [[_startjob]]
@@ -260,74 +297,6 @@ __optional__|Code of the category|string|
 [[_filesrs_resource]]
 === FilesRs
 
-[[_listfiles]]
-==== List directory from where to list files
-....
-GET /admin/files
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Query**|**dir** +
-__optional__|Directory from where to list files|string
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_getfilesresponsedto,GetFilesResponseDto>>
-|===
-
-
-[[_listfiles_1]]
-==== List of files
-....
-GET /admin/files/all
-....
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_getfilesresponsedto,GetFilesResponseDto>>
-|===
-
-
-[[_zipfile]]
-==== Zip file
-....
-POST /admin/files/zipFile
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Body**|**body** +
-__optional__|File to be zipped|string
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_actionstatus,ActionStatus>>
-|===
-
-
 [[_uploadfile]]
 ==== Upload file
 ....
@@ -385,6 +354,32 @@ __optional__|Directory from where to list files|string
 |===
 
 
+[[_zipfile]]
+==== Zip file
+....
+POST /admin/files/zipFile
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**body** +
+__optional__|File to be zipped|string
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_actionstatus,ActionStatus>>
+|===
+
+
 [[_zipdir]]
 ==== Zip directory
 ....
@@ -411,10 +406,10 @@ __optional__|Directory to be zipped|string
 |===
 
 
-[[_suppressfile]]
-==== Suppress file
+[[_renamefolder]]
+==== Rename folder
 ....
-POST /admin/files/suppressFile
+PUT /admin/files/renameFolder
 ....
 
 
@@ -423,8 +418,41 @@ POST /admin/files/suppressFile
 [options="header", cols=".^2a,.^3a,.^9a,.^4a"]
 |===
 |Type|Name|Description|Schema
-|**Body**|**body** +
-__optional__|File to be suppressed|string
+|**FormData**|**oldFolder** +
+__optional__|Old folder|string
+|**FormData**|**newFolder** +
+__optional__|New folder|string
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_actionstatus,ActionStatus>>
+|===
+
+
+===== Consumes
+
+* `application/x-www-form-urlencoded`
+
+
+[[_downloadfile]]
+==== Download file
+....
+GET /admin/files/downloadFile
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**file** +
+__optional__|File to be downloaded|string
 |===
 
 
@@ -463,10 +491,10 @@ __optional__|Directory to be suppressed|string
 |===
 
 
-[[_downloadfile]]
-==== Download file
+[[_suppressfile]]
+==== Suppress file
 ....
-GET /admin/files/downloadFile
+POST /admin/files/suppressFile
 ....
 
 
@@ -475,8 +503,8 @@ GET /admin/files/downloadFile
 [options="header", cols=".^2a,.^3a,.^9a,.^4a"]
 |===
 |Type|Name|Description|Schema
-|**Query**|**file** +
-__optional__|File to be downloaded|string
+|**Body**|**body** +
+__optional__|File to be suppressed|string
 |===
 
 
@@ -489,8 +517,71 @@ __optional__|File to be downloaded|string
 |===
 
 
+[[_listfiles]]
+==== List directory from where to list files
+....
+GET /admin/files
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**dir** +
+__optional__|Directory from where to list files|string
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_getfilesresponsedto,GetFilesResponseDto>>
+|===
+
+
+[[_listfiles_1]]
+==== List of files
+....
+GET /admin/files/all
+....
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_getfilesresponsedto,GetFilesResponseDto>>
+|===
+
+
 [[_cachers_resource]]
 === CacheRs
+
+[[_populateall]]
+==== Populate all caches
+....
+POST /caches/populate
+....
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**default**|successful operation|No Content
+|===
+
+
+===== Produces
+
+* `application/json`
+
 
 [[_refresh]]
 ==== Clean and popuplate a cache
@@ -627,27 +718,6 @@ GET /caches/status
 * `application/json`
 
 
-[[_populateall]]
-==== Populate all caches
-....
-POST /caches/populate
-....
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**default**|successful operation|No Content
-|===
-
-
-===== Produces
-
-* `application/json`
-
-
 [[_communicationrs_resource]]
 === CommunicationRs
 
@@ -679,6 +749,32 @@ __optional__|Communication request information|<<_communicationrequestdto,Commun
 
 [[_emailtemplaters_resource]]
 === EmailTemplateRs
+
+[[_createorupdate]]
+==== Create new or update an existing email template
+....
+POST /communication/emailTemplate/createOrUpdate
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**body** +
+__optional__|Email template information|<<_emailtemplatedto,EmailTemplateDto>>
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_actionstatus,ActionStatus>>
+|===
+
 
 [[_remove]]
 ==== Remove an email template
@@ -800,10 +896,13 @@ GET /communication/emailTemplate/list
 |===
 
 
-[[_createorupdate]]
-==== Create new or update an existing email template
+[[_meveoinstancers_resource]]
+=== MeveoInstanceRs
+
+[[_createorupdate_1]]
+==== Create or update meveo instance information
 ....
-POST /communication/emailTemplate/createOrUpdate
+POST /communication/meveoInstance/createOrUpdate
 ....
 
 
@@ -813,7 +912,7 @@ POST /communication/emailTemplate/createOrUpdate
 |===
 |Type|Name|Description|Schema
 |**Body**|**body** +
-__optional__|Email template information|<<_emailtemplatedto,EmailTemplateDto>>
+__optional__|Meveo instance information|<<_meveoinstancedto,MeveoInstanceDto>>
 |===
 
 
@@ -826,8 +925,27 @@ __optional__|Email template information|<<_emailtemplatedto,EmailTemplateDto>>
 |===
 
 
-[[_meveoinstancers_resource]]
-=== MeveoInstanceRs
+[[_syncrepositories]]
+==== PUT /communication/meveoInstance/{code}/syncRepositories
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^4a"]
+|===
+|Type|Name|Schema
+|**Path**|**code** +
+__required__|string
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_actionstatus,ActionStatus>>
+|===
+
 
 [[_remove_1]]
 ==== Remove meveo instance information
@@ -949,94 +1067,8 @@ GET /communication/meveoInstance/list
 |===
 
 
-[[_syncrepositories]]
-==== PUT /communication/meveoInstance/{code}/syncRepositories
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^4a"]
-|===
-|Type|Name|Schema
-|**Path**|**code** +
-__required__|string
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_actionstatus,ActionStatus>>
-|===
-
-
-[[_createorupdate_1]]
-==== Create or update meveo instance information
-....
-POST /communication/meveoInstance/createOrUpdate
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Body**|**body** +
-__optional__|Meveo instance information|<<_meveoinstancedto,MeveoInstanceDto>>
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_actionstatus,ActionStatus>>
-|===
-
-
 [[_mavenconfigurationrs_resource]]
 === MavenConfigurationRs
-
-[[_remove_2]]
-==== Remove remote repository by code
-....
-DELETE /mavenConfiguration/remoteRepository/{code}
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Path**|**code** +
-__required__|Code of the remote repository|string
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_actionstatus,ActionStatus>>
-|===
-
-
-===== Consumes
-
-* `application/json`
-* `application/xml`
-
-
-===== Produces
-
-* `application/json`
-* `application/xml`
-
 
 [[_list_2]]
 ==== List of remote repositories
@@ -1207,8 +1239,100 @@ __optional__|Upload form|<<_mavenconfigurationuploadform,MavenConfigurationUploa
 * `application/xml`
 
 
+[[_remove_2]]
+==== Remove remote repository by code
+....
+DELETE /mavenConfiguration/remoteRepository/{code}
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**code** +
+__required__|Code of the remote repository|string
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_actionstatus,ActionStatus>>
+|===
+
+
+===== Consumes
+
+* `application/json`
+* `application/xml`
+
+
+===== Produces
+
+* `application/json`
+* `application/xml`
+
+
 [[_customentitycategoryrs_resource]]
 === CustomEntityCategoryRs
+
+[[_createorupdateentitycategory]]
+==== Create or update custom entity category information 
+....
+POST /customEntityCategory/entity/createOrUpdate
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**body** +
+__optional__|Custom entity category information|<<_customentitycategorydto,CustomEntityCategoryDto>>
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_actionstatus,ActionStatus>>
+|===
+
+
+[[_removeentitycategory]]
+==== Remove custom entity category information by code 
+....
+DELETE /customEntityCategory/entity/{customEntityCategoryCode}
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a,.^2a"]
+|===
+|Type|Name|Description|Schema|Default
+|**Path**|**customEntityCategoryCode** +
+__required__|Code of the custom entity category|string|
+|**Query**|**deleteRelatedTemplates** +
+__optional__|Whether to delete the related templates|boolean|`"false"`
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_actionstatus,ActionStatus>>
+|===
+
 
 [[_update_2]]
 ==== Update custom entity category information 
@@ -1314,38 +1438,13 @@ __optional__|Paging and filtering information|<<_pagingandfiltering,PagingAndFil
 |===
 
 
-[[_removeentitycategory]]
-==== Remove custom entity category information by code 
+[[_customentityinstancers_resource]]
+=== CustomEntityInstanceRs
+
+[[_createorupdate_4]]
+==== Create or update code of the custom entity template
 ....
-DELETE /customEntityCategory/entity/{customEntityCategoryCode}
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a,.^2a"]
-|===
-|Type|Name|Description|Schema|Default
-|**Path**|**customEntityCategoryCode** +
-__required__|Code of the custom entity category|string|
-|**Query**|**deleteRelatedTemplates** +
-__optional__|Whether to delete the related templates|boolean|`"false"`
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_actionstatus,ActionStatus>>
-|===
-
-
-[[_createorupdateentitycategory]]
-==== Create or update custom entity category information 
-....
-POST /customEntityCategory/entity/createOrUpdate
+POST /customEntityInstance/{customEntityTemplateCode}/createOrUpdate
 ....
 
 
@@ -1354,8 +1453,10 @@ POST /customEntityCategory/entity/createOrUpdate
 [options="header", cols=".^2a,.^3a,.^9a,.^4a"]
 |===
 |Type|Name|Description|Schema
+|**Path**|**customEntityTemplateCode** +
+__required__|Code of the custom entity template|string
 |**Body**|**body** +
-__optional__|Custom entity category information|<<_customentitycategorydto,CustomEntityCategoryDto>>
+__optional__|Custom entity instance information|<<_customentityinstancedto,CustomEntityInstanceDto>>
 |===
 
 
@@ -1367,9 +1468,6 @@ __optional__|Custom entity category information|<<_customentitycategorydto,Custo
 |**200**|successful operation|<<_actionstatus,ActionStatus>>
 |===
 
-
-[[_customentityinstancers_resource]]
-=== CustomEntityInstanceRs
 
 [[_find_3]]
 ==== Find custom entity template by code
@@ -1509,10 +1607,13 @@ __required__|Code of the custom entity instance|string
 |===
 
 
-[[_createorupdate_4]]
-==== Create or update code of the custom entity template
+[[_customfieldtemplaters_resource]]
+=== CustomFieldTemplateRs
+
+[[_createorupdate_5]]
+==== Create or update custom field template information
 ....
-POST /customEntityInstance/{customEntityTemplateCode}/createOrUpdate
+POST /customFieldTemplate/createOrUpdate
 ....
 
 
@@ -1521,10 +1622,8 @@ POST /customEntityInstance/{customEntityTemplateCode}/createOrUpdate
 [options="header", cols=".^2a,.^3a,.^9a,.^4a"]
 |===
 |Type|Name|Description|Schema
-|**Path**|**customEntityTemplateCode** +
-__required__|Code of the custom entity template|string
 |**Body**|**body** +
-__optional__|Custom entity instance information|<<_customentityinstancedto,CustomEntityInstanceDto>>
+__optional__|Custom field template information|<<_customfieldtemplatedto,CustomFieldTemplateDto>>
 |===
 
 
@@ -1536,9 +1635,6 @@ __optional__|Custom entity instance information|<<_customentityinstancedto,Custo
 |**200**|successful operation|<<_actionstatus,ActionStatus>>
 |===
 
-
-[[_customfieldtemplaters_resource]]
-=== CustomFieldTemplateRs
 
 [[_remove_4]]
 ==== Remove custom field template information
@@ -1626,32 +1722,6 @@ __optional__|Custom field template information|<<_customfieldtemplatedto,CustomF
 ==== Create custom field template information
 ....
 POST /customFieldTemplate
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Body**|**body** +
-__optional__|Custom field template information|<<_customfieldtemplatedto,CustomFieldTemplateDto>>
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_actionstatus,ActionStatus>>
-|===
-
-
-[[_createorupdate_5]]
-==== Create or update custom field template information
-....
-POST /customFieldTemplate/createOrUpdate
 ....
 
 
@@ -1895,118 +1965,6 @@ __optional__|Paging and search criteria|<<_pagingandfiltering,PagingAndFiltering
 [[_entitycustomizationrs_resource]]
 === EntityCustomizationRs
 
-[[_execute]]
-==== Execute
-....
-POST /entityCustomization/entity/action/execute/{actionCode}/{appliesTo}/{entityCode}
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Path**|**actionCode** +
-__required__|Code of the action|string
-|**Path**|**appliesTo** +
-__required__|The action applies to the entity|string
-|**Path**|**entityCode** +
-__required__|Code of the entity|string
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_actionstatus,ActionStatus>>
-|===
-
-
-[[_removefield]]
-==== Remove custom field template information
-....
-DELETE /entityCustomization/field/{customFieldTemplateCode}/{appliesTo}
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Path**|**customFieldTemplateCode** +
-__required__|Code of the custom field template|string
-|**Path**|**appliesTo** +
-__required__|Entity custom field applies to|string
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_actionstatus,ActionStatus>>
-|===
-
-
-[[_listelfiltered]]
-==== List custom field template applies to the type of entity
-....
-GET /entityCustomization/entity/listELFiltered
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Query**|**appliesTo** +
-__optional__|The custom field template applies to the type of entity|string
-|**Query**|**entityCode** +
-__optional__|Code of the entity|string
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_entitycustomizationresponsedto,EntityCustomizationResponseDto>>
-|===
-
-
-[[_customizeentity]]
-==== Information of entity customization
-....
-PUT /entityCustomization/customize
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Body**|**body** +
-__optional__|Entity customization information|<<_entitycustomizationdto,EntityCustomizationDto>>
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_actionstatus,ActionStatus>>
-|===
-
-
 [[_findaction]]
 ==== Find entity custom action information
 ....
@@ -2167,84 +2125,6 @@ __optional__|Custom field template information|<<_customfieldtemplatedto,CustomF
 |===
 
 
-[[_listentitytemplates]]
-==== List custom entity template information
-....
-GET /entityCustomization/entity/list
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Query**|**customEntityTemplateCode** +
-__optional__|Code of the custom entity template|string
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_customentitytemplatesresponsedto,CustomEntityTemplatesResponseDto>>
-|===
-
-
-[[_createorupdateaction]]
-==== Create or update entity custom action information
-....
-POST /entityCustomization/action/createOrUpdate
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Body**|**body** +
-__optional__|Entity custom action information|<<_entitycustomactiondto,EntityCustomActionDto>>
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_actionstatus,ActionStatus>>
-|===
-
-
-[[_createorupdatefield]]
-==== Create or update custom field template information
-....
-POST /entityCustomization/field/createOrUpdate
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Body**|**body** +
-__optional__|Custom field template information|<<_customfieldtemplatedto,CustomFieldTemplateDto>>
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_actionstatus,ActionStatus>>
-|===
-
-
 [[_findentitytemplate]]
 ==== Find custom entity template information
 ....
@@ -2285,32 +2165,6 @@ DELETE /entityCustomization/entity/{customEntityTemplateCode}
 |Type|Name|Description|Schema
 |**Path**|**customEntityTemplateCode** +
 __required__|Code of the custom entity template|string
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_actionstatus,ActionStatus>>
-|===
-
-
-[[_createorupdateentitytemplate]]
-==== Create or update custom entity template information
-....
-POST /entityCustomization/cet/createOrUpdate
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Body**|**body** +
-__optional__|Custom entity template information|<<_customentitytemplatedto,CustomEntityTemplateDto>>
 |===
 
 
@@ -2375,6 +2229,220 @@ __optional__|Custom entity template information|<<_customentitytemplatedto,Custo
 |===
 
 
+[[_listelfiltered]]
+==== List custom field template applies to the type of entity
+....
+GET /entityCustomization/entity/listELFiltered
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**appliesTo** +
+__optional__|The custom field template applies to the type of entity|string
+|**Query**|**entityCode** +
+__optional__|Code of the entity|string
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_entitycustomizationresponsedto,EntityCustomizationResponseDto>>
+|===
+
+
+[[_customizeentity]]
+==== Information of entity customization
+....
+PUT /entityCustomization/customize
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**body** +
+__optional__|Entity customization information|<<_entitycustomizationdto,EntityCustomizationDto>>
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_actionstatus,ActionStatus>>
+|===
+
+
+[[_findentitycustomizations]]
+==== Find entity customized information
+....
+GET /entityCustomization/customize/{customizedEntityClass}
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**customizedEntityClass** +
+__required__|Standard meveo entity class name|string
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_entitycustomizationresponsedto,EntityCustomizationResponseDto>>
+|===
+
+
+[[_listbusinessentityforcfvbycode]]
+==== List custom field template by code
+....
+GET /entityCustomization/listBusinessEntityForCFVByCode
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**code** +
+__optional__|Code of the custom field template|string
+|**Query**|**wildcode** +
+__optional__|Code filter|string
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_businessentityresponsedto,BusinessEntityResponseDto>>
+|===
+
+
+[[_removefield]]
+==== Remove custom field template information
+....
+DELETE /entityCustomization/field/{customFieldTemplateCode}/{appliesTo}
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**customFieldTemplateCode** +
+__required__|Code of the custom field template|string
+|**Path**|**appliesTo** +
+__required__|Entity custom field applies to|string
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_actionstatus,ActionStatus>>
+|===
+
+
+[[_createorupdateentitytemplate]]
+==== Create or update custom entity template information
+....
+POST /entityCustomization/cet/createOrUpdate
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**body** +
+__optional__|Custom entity template information|<<_customentitytemplatedto,CustomEntityTemplateDto>>
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_actionstatus,ActionStatus>>
+|===
+
+
+[[_listentitytemplates]]
+==== List custom entity template information
+....
+GET /entityCustomization/entity/list
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**customEntityTemplateCode** +
+__optional__|Code of the custom entity template|string
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_customentitytemplatesresponsedto,CustomEntityTemplatesResponseDto>>
+|===
+
+
+[[_createorupdatefield]]
+==== Create or update custom field template information
+....
+POST /entityCustomization/field/createOrUpdate
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**body** +
+__optional__|Custom field template information|<<_customfieldtemplatedto,CustomFieldTemplateDto>>
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_actionstatus,ActionStatus>>
+|===
+
+
 [[_removeaction]]
 ==== Delete entity custom action information
 ....
@@ -2391,6 +2459,32 @@ DELETE /entityCustomization/action/{actionCode}/{appliesTo}
 __required__|Code of the entity action|string
 |**Path**|**appliesTo** +
 __required__|Entity that action applies to|string
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_actionstatus,ActionStatus>>
+|===
+
+
+[[_createorupdateaction]]
+==== Create or update entity custom action information
+....
+POST /entityCustomization/action/createOrUpdate
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**body** +
+__optional__|Entity custom action information|<<_entitycustomactiondto,EntityCustomActionDto>>
 |===
 
 
@@ -2429,38 +2523,10 @@ __optional__|Custom entity template information|<<_customentitytemplatedto,Custo
 |===
 
 
-[[_listbusinessentityforcfvbycode]]
-==== List custom field template by code
+[[_execute]]
+==== Execute
 ....
-GET /entityCustomization/listBusinessEntityForCFVByCode
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Query**|**code** +
-__optional__|Code of the custom field template|string
-|**Query**|**wildcode** +
-__optional__|Code filter|string
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_businessentityresponsedto,BusinessEntityResponseDto>>
-|===
-
-
-[[_findentitycustomizations]]
-==== Find entity customized information
-....
-GET /entityCustomization/customize/{customizedEntityClass}
+POST /entityCustomization/entity/action/execute/{actionCode}/{appliesTo}/{entityCode}
 ....
 
 
@@ -2469,8 +2535,12 @@ GET /entityCustomization/customize/{customizedEntityClass}
 [options="header", cols=".^2a,.^3a,.^9a,.^4a"]
 |===
 |Type|Name|Description|Schema
-|**Path**|**customizedEntityClass** +
-__required__|Standard meveo entity class name|string
+|**Path**|**actionCode** +
+__required__|Code of the action|string
+|**Path**|**appliesTo** +
+__required__|The action applies to the entity|string
+|**Path**|**entityCode** +
+__required__|Code of the entity|string
 |===
 
 
@@ -2479,7 +2549,7 @@ __required__|Standard meveo entity class name|string
 [options="header", cols=".^2a,.^14a,.^4a"]
 |===
 |HTTP Code|Description|Schema
-|**200**|successful operation|<<_entitycustomizationresponsedto,EntityCustomizationResponseDto>>
+|**200**|successful operation|<<_actionstatus,ActionStatus>>
 |===
 
 
@@ -2519,8 +2589,8 @@ __optional__|Query of graphql|string
 * `application/json`
 
 
-[[_executegraphqlrequest]]
-==== Execute graphQL request information
+[[_executegraphqlqueryinpost]]
+==== Execute query of graphql in post
 ....
 POST /graphql/{neo4jConfiguration}
 ....
@@ -2534,7 +2604,7 @@ POST /graphql/{neo4jConfiguration}
 |**Path**|**neo4jConfiguration** +
 __required__||string
 |**Body**|**body** +
-__optional__|GraphQL request information|<<_graphqlrequest,GraphQLRequest>>
+__optional__|Query of graphql|string
 |===
 
 
@@ -2549,7 +2619,7 @@ __optional__|GraphQL request information|<<_graphqlrequest,GraphQLRequest>>
 
 ===== Consumes
 
-* `application/json`
+* `application/graphql`
 
 
 ===== Produces
@@ -2604,34 +2674,6 @@ __required__|string
 [[_neo4j_persistence_resource]]
 === Neo4j Persistence
 
-[[_delete]]
-==== Delete data to be persisted
-....
-DELETE /neo4j/persist
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Query**|**neo4jConfiguration** +
-__optional__||string
-|**Body**|**body** +
-__optional__|Data to be persisted|< <<_persistencedto,PersistenceDto>> > array
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**default**|successful operation|No Content
-|===
-
-
 [[_persistentities]]
 ==== Persist entity data to be persisted
 ....
@@ -2660,39 +2702,41 @@ __optional__|Data to be persisted|< <<_persistencedto,PersistenceDto>> > array
 |===
 
 
+[[_delete]]
+==== Delete data to be persisted
+....
+DELETE /neo4j/persist
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**neo4jConfiguration** +
+__optional__||string
+|**Body**|**body** +
+__optional__|Data to be persisted|< <<_persistencedto,PersistenceDto>> > array
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**default**|successful operation|No Content
+|===
+
+
 [[_chartrs_resource]]
 === ChartRs
 
-[[_find_5]]
-==== Find char by code
+[[_createorupdate_6]]
+==== Create or update char
 ....
-GET /chart
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Query**|**chartCode** +
-__optional__|Code of the chart|string
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_getchartresponse,GetChartResponse>>
-|===
-
-
-[[_update_5]]
-==== Update an existing chart
-....
-PUT /chart
+POST /chart/createOrUpdate
 ....
 
 
@@ -2703,58 +2747,6 @@ PUT /chart
 |Type|Name|Description|Schema
 |**Body**|**body** +
 __optional__|Chart information|<<_chartdto,ChartDto>>
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_actionstatus,ActionStatus>>
-|===
-
-
-[[_create_5]]
-==== Create chart information
-....
-POST /chart
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Body**|**body** +
-__optional__|Chart information|<<_chartdto,ChartDto>>
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_actionstatus,ActionStatus>>
-|===
-
-
-[[_remove_5]]
-==== Remove char by code
-....
-DELETE /chart
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Query**|**chartCode** +
-__optional__|Code of the chart|string
 |===
 
 
@@ -2923,10 +2915,36 @@ __optional__|Line chart information|<<_linechartdto,LineChartDto>>
 |===
 
 
-[[_createorupdate_6]]
-==== Create or update char
+[[_find_5]]
+==== Find char by code
 ....
-POST /chart/createOrUpdate
+GET /chart
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**chartCode** +
+__optional__|Code of the chart|string
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_getchartresponse,GetChartResponse>>
+|===
+
+
+[[_update_5]]
+==== Update an existing chart
+....
+PUT /chart
 ....
 
 
@@ -2949,8 +2967,94 @@ __optional__|Chart information|<<_chartdto,ChartDto>>
 |===
 
 
+[[_create_5]]
+==== Create chart information
+....
+POST /chart
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**body** +
+__optional__|Chart information|<<_chartdto,ChartDto>>
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_actionstatus,ActionStatus>>
+|===
+
+
+[[_remove_5]]
+==== Remove char by code
+....
+DELETE /chart
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**chartCode** +
+__optional__|Code of the chart|string
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_actionstatus,ActionStatus>>
+|===
+
+
 [[_measurablequantityrs_resource]]
 === MeasurableQuantityRs
+
+[[_findmvbydateandperiod]]
+==== Find measurable quantity by date and period
+....
+GET /measurableQuantity/findMVByDateAndPeriod
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**code** +
+__optional__|Code of mesurable value|string
+|**Query**|**fromDate** +
+__optional__|From date|string (date-time)
+|**Query**|**toDate** +
+__optional__|To date|string (date-time)
+|**Query**|**period** +
+__optional__|Period in which mesurable value is calculated|enum (DAILY, WEEKLY, MONTHLY, YEARLY)
+|**Query**|**mqCode** +
+__optional__|Code of the measureable quantity|string
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**default**|successful operation|No Content
+|===
+
 
 [[_remove_6]]
 ==== Remove measurable quantity by code
@@ -3072,94 +3176,8 @@ GET /measurableQuantity/list
 |===
 
 
-[[_findmvbydateandperiod]]
-==== Find measurable quantity by date and period
-....
-GET /measurableQuantity/findMVByDateAndPeriod
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Query**|**code** +
-__optional__|Code of mesurable value|string
-|**Query**|**fromDate** +
-__optional__|From date|string (date-time)
-|**Query**|**toDate** +
-__optional__|To date|string (date-time)
-|**Query**|**period** +
-__optional__|Period in which mesurable value is calculated|enum (DAILY, WEEKLY, MONTHLY, YEARLY)
-|**Query**|**mqCode** +
-__optional__|Code of the measureable quantity|string
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**default**|successful operation|No Content
-|===
-
-
 [[_filteredlistrs_resource]]
 === FilteredListRs
-
-[[_search]]
-==== Search filter by classnames or cet code
-....
-GET /filteredList/search
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Query**|**classnamesOrCetCodes** +
-__optional__|Entity classes to match|< string > array(multi)
-|**Query**|**query** +
-__optional__|Query|string
-|**Query**|**from** +
-__optional__|Starting record|integer (int32)
-|**Query**|**size** +
-__optional__|Number of records per page|integer (int32)
-|**Query**|**sortField** +
-__optional__|Sort the results of field|string
-|**Query**|**sortOrder** +
-__optional__|Sort ASC or DESC order of the results|enum (ASC, DESC)
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**default**|successful operation|No Content
-|===
-
-
-[[_reindex]]
-==== Clean and reindex Elastic Search repository
-....
-GET /filteredList/reindex
-....
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**default**|successful operation|No Content
-|===
-
 
 [[_listbyfilter]]
 ==== List filter
@@ -3180,6 +3198,22 @@ __optional__|Starting record|integer (int32)
 |**Query**|**size** +
 __optional__|Number of records per page|integer (int32)
 |===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**default**|successful operation|No Content
+|===
+
+
+[[_reindex]]
+==== Clean and reindex Elastic Search repository
+....
+GET /filteredList/reindex
+....
 
 
 ===== Responses
@@ -3266,8 +3300,96 @@ __optional__|Sort ASC or DESC order of the results|enum (ASC, DESC)
 |===
 
 
+[[_search]]
+==== Search filter by classnames or cet code
+....
+GET /filteredList/search
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**classnamesOrCetCodes** +
+__optional__|Entity classes to match|< string > array(multi)
+|**Query**|**query** +
+__optional__|Query|string
+|**Query**|**from** +
+__optional__|Starting record|integer (int32)
+|**Query**|**size** +
+__optional__|Number of records per page|integer (int32)
+|**Query**|**sortField** +
+__optional__|Sort the results of field|string
+|**Query**|**sortOrder** +
+__optional__|Sort ASC or DESC order of the results|enum (ASC, DESC)
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**default**|successful operation|No Content
+|===
+
+
 [[_reportextractrs_resource]]
 === ReportExtractRs
+
+[[_createorupdate_7]]
+==== Create or update report extract
+....
+POST /finance/reportExtracts/createOrUpdate
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**body** +
+__optional__|Report extract information|<<_reportextractdto,ReportExtractDto>>
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_actionstatus,ActionStatus>>
+|===
+
+
+[[_runreport]]
+==== Run report extract
+....
+POST /finance/reportExtracts/run
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**body** +
+__optional__|Run report extract information|<<_runreportextractdto,RunReportExtractDto>>
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_actionstatus,ActionStatus>>
+|===
+
 
 [[_find_7]]
 ==== Find report extract by code
@@ -3363,273 +3485,8 @@ GET /finance/reportExtracts/list
 |===
 
 
-[[_runreport]]
-==== Run report extract
-....
-POST /finance/reportExtracts/run
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Body**|**body** +
-__optional__|Run report extract information|<<_runreportextractdto,RunReportExtractDto>>
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_actionstatus,ActionStatus>>
-|===
-
-
-[[_createorupdate_7]]
-==== Create or update report extract
-....
-POST /finance/reportExtracts/createOrUpdate
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Body**|**body** +
-__optional__|Report extract information|<<_reportextractdto,ReportExtractDto>>
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_actionstatus,ActionStatus>>
-|===
-
-
 [[_gitrepositoryrs_resource]]
 === GitRepositoryRs
-
-[[_exportzip]]
-==== Get zipped repository content
-....
-GET /git/repositories/{code}
-....
-
-
-===== Description
-If no branch are provided, will export the current branch
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Path**|**code** +
-__required__|Code of the repository|string
-|**Query**|**branch** +
-__optional__|Branch to export|string
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**default**|successful operation|No Content
-|===
-
-
-===== Consumes
-
-* `application/json`
-* `application/xml`
-* `multipart/form-data`
-* `text/csv`
-
-
-===== Produces
-
-* `application/octet-stream`
-
-
-[[_importzipoverride]]
-==== Upload a repository
-....
-PUT /git/repositories/{code}
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Body**|**body** +
-__optional__|Upload form|<<_gitrepositoryuploadform,GitRepositoryUploadForm>>
-|**Path**|**code** +
-__required__|Code of the repository|string
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**default**|successful operation|No Content
-|===
-
-
-===== Consumes
-
-* `multipart/form-data`
-
-
-===== Produces
-
-* `application/json`
-* `application/xml`
-* `text/csv`
-
-
-[[_update_7]]
-==== Update an existing repository
-....
-POST /git/repositories/{code}
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Body**|**body** +
-__optional__|Repository information|<<_gitrepositorydto,GitRepositoryDto>>
-|**Path**|**code** +
-__required__|Code of the repository|string
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|If update is ok|No Content
-|**404**|If specified repository does not exists|No Content
-|===
-
-
-===== Consumes
-
-* `application/json`
-* `application/xml`
-* `multipart/form-data`
-* `text/csv`
-
-
-===== Produces
-
-* `application/json`
-* `application/xml`
-* `text/csv`
-
-
-[[_remove_8]]
-==== Remove a repository by code
-....
-DELETE /git/repositories/{code}
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Path**|**code** +
-__required__|Code of the repository|string
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**default**|successful operation|No Content
-|===
-
-
-===== Consumes
-
-* `application/json`
-* `application/xml`
-* `multipart/form-data`
-* `text/csv`
-
-
-===== Produces
-
-* `application/json`
-* `application/xml`
-* `text/csv`
-
-
-[[_push]]
-==== Push the commit to remote origin
-....
-POST /git/repositories/{code}/push
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Path**|**code** +
-__required__|Code of the repository|string
-|**FormData**|**username** +
-__optional__|Username to use during push|string
-|**FormData**|**password** +
-__optional__|Password to use during push|string
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|If push is successful|No Content
-|**400**|If repository has no remote|No Content
-|===
-
-
-===== Consumes
-
-* `application/x-www-form-urlencoded`
-
-
-===== Produces
-
-* `application/json`
-* `application/xml`
-* `text/csv`
-
 
 [[_list_9]]
 ==== List all existing repositories
@@ -3662,11 +3519,15 @@ GET /git/repositories
 * `text/csv`
 
 
-[[_importzip]]
-==== Upload a new repository
+[[_create_8]]
+==== Create a new repository
 ....
 POST /git/repositories
 ....
+
+
+===== Description
+If branch is specified and does not exist, will create it
 
 
 ===== Parameters
@@ -3675,140 +3536,13 @@ POST /git/repositories
 |===
 |Type|Name|Description|Schema
 |**Body**|**body** +
-__optional__|Upload form|<<_gitrepositoryuploadform,GitRepositoryUploadForm>>
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**default**|successful operation|No Content
-|===
-
-
-===== Consumes
-
-* `multipart/form-data`
-
-
-===== Produces
-
-* `application/json`
-* `application/xml`
-* `text/csv`
-
-
-[[_merge]]
-==== Merge one branch into another
-....
-POST /git/repositories/{code}/branches/merge
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Path**|**code** +
-__required__|Code of the repository|string
-|**FormData**|**source** +
-__required__|Source branch of the merge|string
-|**FormData**|**target** +
-__required__|Target branch of the merge|string
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**default**|successful operation|No Content
-|===
-
-
-===== Consumes
-
-* `application/json`
-* `application/xml`
-* `multipart/form-data`
-* `text/csv`
-
-
-===== Produces
-
-* `application/json`
-* `application/xml`
-* `text/csv`
-
-
-[[_commit]]
-==== Commit content of a repository
-....
-POST /git/repositories/{code}/commit
-....
-
-
-===== Description
-Will commit every file if patterns is empty
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Path**|**code** +
-__required__|Code of the repository|string
-|**FormData**|**message** +
-__optional__|Commit message|string
-|**FormData**|**pattern** +
-__optional__|Patterns of the files to commit|< string > array(multi)
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**default**|successful operation|No Content
-|===
-
-
-===== Consumes
-
-* `application/x-www-form-urlencoded`
-
-
-===== Produces
-
-* `application/json`
-* `application/xml`
-* `text/csv`
-
-
-[[_checkout]]
-==== Checkout a branch
-....
-POST /git/repositories/{code}/branches/{branch}/checkout
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Path**|**code** +
-__required__|Code of the repository|string
-|**Path**|**branch** +
-__required__|Name of the branch to checkout|string
-|**Query**|**create** +
-__optional__|Whether to create branch if it does not exist|boolean
+__optional__|Repository information|<<_gitrepositorydto,GitRepositoryDto>>
+|**Query**|**username** +
+__optional__|Username to connect to remote|string
+|**Query**|**password** +
+__optional__|Password to connect to remote|string
+|**Query**|**branch** +
+__optional__|Branch to checkout|string
 |===
 
 
@@ -3965,10 +3699,10 @@ __required__|Name of the branch to delte|string
 * `text/csv`
 
 
-[[_importdata]]
-==== Import from multiple files
+[[_checkout]]
+==== Checkout a branch
 ....
-POST /git/import
+POST /git/repositories/{code}/branches/{branch}/checkout
 ....
 
 
@@ -3977,10 +3711,94 @@ POST /git/import
 [options="header", cols=".^2a,.^3a,.^9a,.^4a"]
 |===
 |Type|Name|Description|Schema
-|**Query**|**overwrite** +
-__optional__|Whether to overwrite existing data|boolean
-|**FormData**|**file** +
-__required__|File contained serialized data|< file > array(multi)
+|**Path**|**code** +
+__required__|Code of the repository|string
+|**Path**|**branch** +
+__required__|Name of the branch to checkout|string
+|**Query**|**create** +
+__optional__|Whether to create branch if it does not exist|boolean
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**default**|successful operation|No Content
+|===
+
+
+===== Consumes
+
+* `application/json`
+* `application/xml`
+* `multipart/form-data`
+* `text/csv`
+
+
+===== Produces
+
+* `application/json`
+* `application/xml`
+* `text/csv`
+
+
+[[_find_8]]
+==== Retrieve one repository by code
+....
+GET /git/repositories/{code}
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**code** +
+__required__|Code of the repository|string
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_gitrepositorydto,GitRepositoryDto>>
+|===
+
+
+===== Consumes
+
+* `application/json`
+* `application/xml`
+* `multipart/form-data`
+* `text/csv`
+
+
+===== Produces
+
+* `application/json`
+
+
+[[_importzipoverride]]
+==== Upload a repository
+....
+PUT /git/repositories/{code}
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**body** +
+__optional__|Upload form|<<_gitrepositoryuploadform,GitRepositoryUploadForm>>
+|**Path**|**code** +
+__required__|Code of the repository|string
 |===
 
 
@@ -4005,7 +3823,226 @@ __required__|File contained serialized data|< file > array(multi)
 * `text/csv`
 
 
-[[_exportxml]]
+[[_update_7]]
+==== Update an existing repository
+....
+POST /git/repositories/{code}
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**body** +
+__optional__|Repository information|<<_gitrepositorydto,GitRepositoryDto>>
+|**Path**|**code** +
+__required__|Code of the repository|string
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|If update is ok|No Content
+|**404**|If specified repository does not exists|No Content
+|===
+
+
+===== Consumes
+
+* `application/json`
+* `application/xml`
+* `multipart/form-data`
+* `text/csv`
+
+
+===== Produces
+
+* `application/json`
+* `application/xml`
+* `text/csv`
+
+
+[[_remove_8]]
+==== Remove a repository by code
+....
+DELETE /git/repositories/{code}
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**code** +
+__required__|Code of the repository|string
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**default**|successful operation|No Content
+|===
+
+
+===== Consumes
+
+* `application/json`
+* `application/xml`
+* `multipart/form-data`
+* `text/csv`
+
+
+===== Produces
+
+* `application/json`
+* `application/xml`
+* `text/csv`
+
+
+[[_commit]]
+==== Commit content of a repository
+....
+POST /git/repositories/{code}/commit
+....
+
+
+===== Description
+Will commit every file if patterns is empty
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**code** +
+__required__|Code of the repository|string
+|**FormData**|**message** +
+__optional__|Commit message|string
+|**FormData**|**pattern** +
+__optional__|Patterns of the files to commit|< string > array(multi)
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**default**|successful operation|No Content
+|===
+
+
+===== Consumes
+
+* `application/x-www-form-urlencoded`
+
+
+===== Produces
+
+* `application/json`
+* `application/xml`
+* `text/csv`
+
+
+[[_push]]
+==== Push the commit to remote origin
+....
+POST /git/repositories/{code}/push
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**code** +
+__required__|Code of the repository|string
+|**FormData**|**username** +
+__optional__|Username to use during push|string
+|**FormData**|**password** +
+__optional__|Password to use during push|string
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|If push is successful|No Content
+|**400**|If repository has no remote|No Content
+|===
+
+
+===== Consumes
+
+* `application/x-www-form-urlencoded`
+
+
+===== Produces
+
+* `application/json`
+* `application/xml`
+* `text/csv`
+
+
+[[_merge]]
+==== Merge one branch into another
+....
+POST /git/repositories/{code}/branches/merge
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**code** +
+__required__|Code of the repository|string
+|**FormData**|**source** +
+__required__|Source branch of the merge|string
+|**FormData**|**target** +
+__required__|Target branch of the merge|string
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**default**|successful operation|No Content
+|===
+
+
+===== Consumes
+
+* `application/json`
+* `application/xml`
+* `multipart/form-data`
+* `text/csv`
+
+
+===== Produces
+
+* `application/json`
+* `application/xml`
+* `text/csv`
+
+
+[[_exportcsv]]
 ==== Export to a file
 ....
 POST /git/export
@@ -4046,91 +4083,53 @@ __optional__|<<_pagingandfiltering,PagingAndFiltering>>
 * `application/json`
 
 
+[[_importdata]]
+==== Import from multiple files
+....
+POST /git/import
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**overwrite** +
+__optional__|Whether to overwrite existing data|boolean
+|**FormData**|**file** +
+__required__|File contained serialized data|< file > array(multi)
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**default**|successful operation|No Content
+|===
+
+
+===== Consumes
+
+* `multipart/form-data`
+
+
+===== Produces
+
+* `application/json`
+* `application/xml`
+* `text/csv`
+
+
 [[_userhierarchylevelrs_resource]]
 === UserHierarchyLevelRs
 
-[[_remove_9]]
-==== Remove user hierarchy level by code
+[[_createorupdate_8]]
+==== Create or update user hierarchy level
 ....
-DELETE /hierarchy/userGroupLevel/{hierarchyLevelCode}
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Path**|**hierarchyLevelCode** +
-__required__|Code of the user hierarchy level|string
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_actionstatus,ActionStatus>>
-|===
-
-
-[[_find_8]]
-==== Find user hierarchy level by code
-....
-GET /hierarchy/userGroupLevel
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Query**|**hierarchyLevelCode** +
-__optional__|Code of the user hierarchy level|string
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_userhierarchylevelresponsedto,UserHierarchyLevelResponseDto>>
-|===
-
-
-[[_update_8]]
-==== Update user hierarchy level
-....
-PUT /hierarchy/userGroupLevel
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Body**|**body** +
-__optional__|User hierarchy level information|<<_userhierarchyleveldto,UserHierarchyLevelDto>>
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_actionstatus,ActionStatus>>
-|===
-
-
-[[_create_8]]
-==== Create user hierarchy level
-....
-POST /hierarchy/userGroupLevel
+POST /hierarchy/userGroupLevel/createOrUpdate
 ....
 
 
@@ -4215,10 +4214,88 @@ __optional__|Pagination and filtering criteria|<<_pagingandfiltering,PagingAndFi
 |===
 
 
-[[_createorupdate_8]]
-==== Create or update user hierarchy level
+[[_remove_9]]
+==== Remove user hierarchy level by code
 ....
-POST /hierarchy/userGroupLevel/createOrUpdate
+DELETE /hierarchy/userGroupLevel/{hierarchyLevelCode}
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**hierarchyLevelCode** +
+__required__|Code of the user hierarchy level|string
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_actionstatus,ActionStatus>>
+|===
+
+
+[[_find_9]]
+==== Find user hierarchy level by code
+....
+GET /hierarchy/userGroupLevel
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**hierarchyLevelCode** +
+__optional__|Code of the user hierarchy level|string
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_userhierarchylevelresponsedto,UserHierarchyLevelResponseDto>>
+|===
+
+
+[[_update_8]]
+==== Update user hierarchy level
+....
+PUT /hierarchy/userGroupLevel
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**body** +
+__optional__|User hierarchy level information|<<_userhierarchyleveldto,UserHierarchyLevelDto>>
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_actionstatus,ActionStatus>>
+|===
+
+
+[[_create_9]]
+==== Create user hierarchy level
+....
+POST /hierarchy/userGroupLevel
 ....
 
 
@@ -4243,6 +4320,32 @@ __optional__|User hierarchy level information|<<_userhierarchyleveldto,UserHiera
 
 [[_calendarrs_resource]]
 === CalendarRs
+
+[[_createorupdate_9]]
+==== Create or update calendar information
+....
+POST /calendar/createOrUpdate
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**body** +
+__optional__|Calendar information|<<_calendardto,CalendarDto>>
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_actionstatus,ActionStatus>>
+|===
+
 
 [[_remove_10]]
 ==== Remove calendar information
@@ -4270,7 +4373,7 @@ __required__|Code of the calendar|string
 |===
 
 
-[[_find_9]]
+[[_find_10]]
 ==== Find calendar information
 ....
 GET /calendar
@@ -4322,7 +4425,7 @@ __optional__|Calendar information|<<_calendardto,CalendarDto>>
 |===
 
 
-[[_create_9]]
+[[_create_10]]
 ==== Create calendar information
 ....
 POST /calendar
@@ -4364,10 +4467,13 @@ GET /calendar/list
 |===
 
 
-[[_createorupdate_9]]
-==== Create or update calendar information
+[[_countryisors_resource]]
+=== CountryIsoRs
+
+[[_createorupdate_10]]
+==== Create or update country iso information
 ....
-POST /calendar/createOrUpdate
+POST /countryIso/createOrUpdate
 ....
 
 
@@ -4377,7 +4483,7 @@ POST /calendar/createOrUpdate
 |===
 |Type|Name|Description|Schema
 |**Body**|**body** +
-__optional__|Calendar information|<<_calendardto,CalendarDto>>
+__optional__|Country iso information|<<_countryisodto,CountryIsoDto>>
 |===
 
 
@@ -4389,9 +4495,6 @@ __optional__|Calendar information|<<_calendardto,CalendarDto>>
 |**200**|successful operation|<<_actionstatus,ActionStatus>>
 |===
 
-
-[[_countryisors_resource]]
-=== CountryIsoRs
 
 [[_remove_11]]
 ==== Remove country iso information
@@ -4419,7 +4522,7 @@ __required__|Code of the country|string
 |===
 
 
-[[_find_10]]
+[[_find_11]]
 ==== Find country iso information
 ....
 GET /countryIso
@@ -4471,7 +4574,7 @@ __optional__|Country iso information|<<_countryisodto,CountryIsoDto>>
 |===
 
 
-[[_create_10]]
+[[_create_11]]
 ==== Create country iso information
 ....
 POST /countryIso
@@ -4513,10 +4616,13 @@ GET /countryIso/list
 |===
 
 
-[[_createorupdate_10]]
-==== Create or update country iso information
+[[_countryrs_resource]]
+=== CountryRs
+
+[[_createorupdate_11]]
+==== Create or update country information
 ....
-POST /countryIso/createOrUpdate
+POST /country/createOrUpdate
 ....
 
 
@@ -4526,7 +4632,7 @@ POST /countryIso/createOrUpdate
 |===
 |Type|Name|Description|Schema
 |**Body**|**body** +
-__optional__|Country iso information|<<_countryisodto,CountryIsoDto>>
+__optional__|Country information|<<_countrydto,CountryDto>>
 |===
 
 
@@ -4538,9 +4644,6 @@ __optional__|Country iso information|<<_countryisodto,CountryIsoDto>>
 |**200**|successful operation|<<_actionstatus,ActionStatus>>
 |===
 
-
-[[_countryrs_resource]]
-=== CountryRs
 
 [[_remove_12]]
 ==== Remove country information
@@ -4570,7 +4673,7 @@ __required__|Code of the currency|string
 |===
 
 
-[[_find_11]]
+[[_find_12]]
 ==== Find country information
 ....
 GET /country
@@ -4622,7 +4725,7 @@ __optional__|Country information|<<_countrydto,CountryDto>>
 |===
 
 
-[[_create_11]]
+[[_create_12]]
 ==== Create country information
 ....
 POST /country
@@ -4648,10 +4751,13 @@ __optional__|Country information|<<_countrydto,CountryDto>>
 |===
 
 
-[[_createorupdate_11]]
-==== Create or update country information
+[[_currencyisors_resource]]
+=== CurrencyIsoRs
+
+[[_createorupdate_12]]
+==== Create or update currency iso information
 ....
-POST /country/createOrUpdate
+POST /currencyIso/createOrUpdate
 ....
 
 
@@ -4661,7 +4767,7 @@ POST /country/createOrUpdate
 |===
 |Type|Name|Description|Schema
 |**Body**|**body** +
-__optional__|Country information|<<_countrydto,CountryDto>>
+__optional__|Currency iso information|<<_currencyisodto,CurrencyIsoDto>>
 |===
 
 
@@ -4673,9 +4779,6 @@ __optional__|Country information|<<_countrydto,CountryDto>>
 |**200**|successful operation|<<_actionstatus,ActionStatus>>
 |===
 
-
-[[_currencyisors_resource]]
-=== CurrencyIsoRs
 
 [[_remove_13]]
 ==== Remove currency iso information
@@ -4745,7 +4848,7 @@ __optional__|Currency iso information|<<_currencyisodto,CurrencyIsoDto>>
 |===
 
 
-[[_create_12]]
+[[_create_13]]
 ==== Create currency iso information
 ....
 POST /currencyIso
@@ -4771,10 +4874,13 @@ __optional__|Currency iso information|<<_currencyisodto,CurrencyIsoDto>>
 |===
 
 
-[[_createorupdate_12]]
-==== Create or update currency iso information
+[[_currencyrs_resource]]
+=== CurrencyRs
+
+[[_createorupdate_13]]
+==== Create or update currency information
 ....
-POST /currencyIso/createOrUpdate
+POST /currency/createOrUpdate
 ....
 
 
@@ -4784,7 +4890,7 @@ POST /currencyIso/createOrUpdate
 |===
 |Type|Name|Description|Schema
 |**Body**|**body** +
-__optional__|Currency iso information|<<_currencyisodto,CurrencyIsoDto>>
+__optional__|Currency information|<<_currencydto,CurrencyDto>>
 |===
 
 
@@ -4796,9 +4902,6 @@ __optional__|Currency iso information|<<_currencyisodto,CurrencyIsoDto>>
 |**200**|successful operation|<<_actionstatus,ActionStatus>>
 |===
 
-
-[[_currencyrs_resource]]
-=== CurrencyRs
 
 [[_remove_14]]
 ==== Remove currency information
@@ -4826,7 +4929,7 @@ __required__|Code of the currency|string
 |===
 
 
-[[_find_12]]
+[[_find_13]]
 ==== Find currency information
 ....
 GET /currency
@@ -4878,7 +4981,7 @@ __optional__|Currency information|<<_currencydto,CurrencyDto>>
 |===
 
 
-[[_create_13]]
+[[_create_14]]
 ==== Create currency information
 ....
 POST /currency
@@ -4904,60 +5007,8 @@ __optional__|Currency information|<<_currencydto,CurrencyDto>>
 |===
 
 
-[[_createorupdate_13]]
-==== Create or update currency information
-....
-POST /currency/createOrUpdate
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Body**|**body** +
-__optional__|Currency information|<<_currencydto,CurrencyDto>>
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_actionstatus,ActionStatus>>
-|===
-
-
 [[_filterrs_resource]]
 === FilterRs
-
-[[_find_13]]
-==== Find filter by code
-....
-GET /filter
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Query**|**filterCode** +
-__optional__|Code of the filter|string
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_getfilterresponsedto,GetFilterResponseDto>>
-|===
-
 
 [[_createorupdate_14]]
 ==== Create or update filter
@@ -4985,8 +5036,60 @@ __optional__|Filter information|<<_filterdto,FilterDto>>
 |===
 
 
+[[_find_14]]
+==== Find filter by code
+....
+GET /filter
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**filterCode** +
+__optional__|Code of the filter|string
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_getfilterresponsedto,GetFilterResponseDto>>
+|===
+
+
 [[_languageisors_resource]]
 === LanguageIsoRs
+
+[[_createorupdate_15]]
+==== Create or update language iso
+....
+POST /languageIso/createOrUpdate
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**body** +
+__optional__|Language iso information|<<_languageisodto,LanguageIsoDto>>
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_actionstatus,ActionStatus>>
+|===
+
 
 [[_remove_15]]
 ==== Remove language iso by code
@@ -5056,7 +5159,7 @@ __optional__|Language iso information|<<_languageisodto,LanguageIsoDto>>
 |===
 
 
-[[_create_14]]
+[[_create_15]]
 ==== Create language iso
 ....
 POST /languageIso
@@ -5082,10 +5185,13 @@ __optional__|Language iso information|<<_languageisodto,LanguageIsoDto>>
 |===
 
 
-[[_createorupdate_15]]
-==== Create or update language iso
+[[_languagers_resource]]
+=== LanguageRs
+
+[[_createorupdate_16]]
+==== Create or update language
 ....
-POST /languageIso/createOrUpdate
+POST /language/createOrUpdate
 ....
 
 
@@ -5095,7 +5201,7 @@ POST /languageIso/createOrUpdate
 |===
 |Type|Name|Description|Schema
 |**Body**|**body** +
-__optional__|Language iso information|<<_languageisodto,LanguageIsoDto>>
+__optional__|Language information|<<_languagedto,LanguageDto>>
 |===
 
 
@@ -5107,9 +5213,6 @@ __optional__|Language iso information|<<_languageisodto,LanguageIsoDto>>
 |**200**|successful operation|<<_actionstatus,ActionStatus>>
 |===
 
-
-[[_languagers_resource]]
-=== LanguageRs
 
 [[_remove_16]]
 ==== Remove language by code
@@ -5137,7 +5240,7 @@ __required__|Code of the language|string
 |===
 
 
-[[_find_14]]
+[[_find_15]]
 ==== Find language by code
 ....
 GET /language
@@ -5189,36 +5292,10 @@ __optional__|Language information|<<_languagedto,LanguageDto>>
 |===
 
 
-[[_create_15]]
+[[_create_16]]
 ==== Create language
 ....
 POST /language
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Body**|**body** +
-__optional__|Language information|<<_languagedto,LanguageDto>>
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_actionstatus,ActionStatus>>
-|===
-
-
-[[_createorupdate_16]]
-==== Create or update language
-....
-POST /language/createOrUpdate
 ....
 
 
@@ -5273,11 +5350,25 @@ __optional__|Mailer configuration information|<<_mailerconfigurationdto,MailerCo
 [[_permissionrs_resource]]
 === PermissionRs
 
-[[_list_14]]
-==== List of permissions
+[[_addtowhitelist]]
+==== Add to white list information
 ....
-GET /permission/list
+PUT /permission/whitelist
 ....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**FormData**|**permission** +
+__optional__|Permission|string
+|**FormData**|**id** +
+__optional__|Id|string
+|**FormData**|**role** +
+__optional__|Role|string
+|===
 
 
 ===== Responses
@@ -5285,7 +5376,37 @@ GET /permission/list
 [options="header", cols=".^2a,.^14a,.^4a"]
 |===
 |HTTP Code|Description|Schema
-|**200**|successful operation|<<_permissionresponsedto,PermissionResponseDto>>
+|**default**|successful operation|No Content
+|===
+
+
+[[_removefromwhitelist]]
+==== Remove from white list by permission and id and role
+....
+DELETE /permission/whitelist
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**FormData**|**permission** +
+__optional__|Permission|string
+|**FormData**|**id** +
+__optional__|Id|string
+|**FormData**|**role** +
+__optional__|Role|string
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**default**|successful operation|No Content
 |===
 
 
@@ -5349,25 +5470,11 @@ __optional__|Role|string
 |===
 
 
-[[_addtowhitelist]]
-==== Add to white list information
+[[_list_14]]
+==== List of permissions
 ....
-PUT /permission/whitelist
+GET /permission/list
 ....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**FormData**|**permission** +
-__optional__|Permission|string
-|**FormData**|**id** +
-__optional__|Id|string
-|**FormData**|**role** +
-__optional__|Role|string
-|===
 
 
 ===== Responses
@@ -5375,99 +5482,17 @@ __optional__|Role|string
 [options="header", cols=".^2a,.^14a,.^4a"]
 |===
 |HTTP Code|Description|Schema
-|**default**|successful operation|No Content
-|===
-
-
-[[_removefromwhitelist]]
-==== Remove from white list by permission and id and role
-....
-DELETE /permission/whitelist
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**FormData**|**permission** +
-__optional__|Permission|string
-|**FormData**|**id** +
-__optional__|Id|string
-|**FormData**|**role** +
-__optional__|Role|string
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**default**|successful operation|No Content
+|**200**|successful operation|<<_permissionresponsedto,PermissionResponseDto>>
 |===
 
 
 [[_providerrs_resource]]
 === ProviderRs
 
-[[_find_15]]
-==== Find provider by code
+[[_createorupdate_18]]
+==== Create or update provider
 ....
-GET /provider
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Query**|**providerCode** +
-__optional__|Code of the provider|string
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_getproviderresponse,GetProviderResponse>>
-|===
-
-
-[[_update_16]]
-==== Update provider
-....
-PUT /provider
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Body**|**body** +
-__optional__|Provider information|<<_providerdto,ProviderDto>>
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_actionstatus,ActionStatus>>
-|===
-
-
-[[_create_16]]
-==== Create provider
-....
-POST /provider
+POST /provider/createOrUpdate
 ....
 
 
@@ -5504,6 +5529,32 @@ DELETE /provider/{providerCode}
 |Type|Name|Description|Schema
 |**Path**|**providerCode** +
 __required__|Code of the provider|string
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_actionstatus,ActionStatus>>
+|===
+
+
+[[_updateprovidercf]]
+==== Update provider cf
+....
+PUT /provider/updateProviderCF
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**body** +
+__optional__|Provider information|<<_providerdto,ProviderDto>>
 |===
 
 
@@ -5584,10 +5635,36 @@ GET /provider/listTenants
 |===
 
 
-[[_updateprovidercf]]
-==== Update provider cf
+[[_find_16]]
+==== Find provider by code
 ....
-PUT /provider/updateProviderCF
+GET /provider
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**providerCode** +
+__optional__|Code of the provider|string
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_getproviderresponse,GetProviderResponse>>
+|===
+
+
+[[_update_16]]
+==== Update provider
+....
+PUT /provider
 ....
 
 
@@ -5610,10 +5687,10 @@ __optional__|Provider information|<<_providerdto,ProviderDto>>
 |===
 
 
-[[_createorupdate_18]]
-==== Create or update provider
+[[_create_17]]
+==== Create provider
 ....
-POST /provider/createOrUpdate
+POST /provider
 ....
 
 
@@ -5639,62 +5716,10 @@ __optional__|Provider information|<<_providerdto,ProviderDto>>
 [[_rolers_resource]]
 === RoleRs
 
-[[_remove_17]]
-==== Remove role by roleName
+[[_createorupdate_19]]
+==== Create or update role
 ....
-DELETE /role/{roleName}/{provider}
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Path**|**roleName** +
-__required__|Name of the role|string
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_actionstatus,ActionStatus>>
-|===
-
-
-[[_find_16]]
-==== Find role by roleName
-....
-GET /role
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Query**|**roleName** +
-__optional__|Name of the role|string
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_getroleresponse,GetRoleResponse>>
-|===
-
-
-[[_update_17]]
-==== Update role
-....
-PUT /role
+POST /role/createOrUpdate
 ....
 
 
@@ -5717,21 +5742,11 @@ __optional__|Role information|<<_roledto,RoleDto>>
 |===
 
 
-[[_create_17]]
-==== Create role
+[[_listexternalroles]]
+==== List external roles
 ....
-POST /role
+GET /role/external
 ....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Body**|**body** +
-__optional__|Role information|<<_roledto,RoleDto>>
-|===
 
 
 ===== Responses
@@ -5739,7 +5754,7 @@ __optional__|Role information|<<_roledto,RoleDto>>
 [options="header", cols=".^2a,.^14a,.^4a"]
 |===
 |HTTP Code|Description|Schema
-|**200**|successful operation|<<_actionstatus,ActionStatus>>
+|**200**|successful operation|<<_rolesdto,RolesDto>>
 |===
 
 
@@ -5805,11 +5820,21 @@ __optional__|Pagination and filtering criteria|<<_pagingandfiltering,PagingAndFi
 |===
 
 
-[[_listexternalroles]]
-==== List external roles
+[[_remove_17]]
+==== Remove role by roleName
 ....
-GET /role/external
+DELETE /role/{roleName}/{provider}
 ....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**roleName** +
+__required__|Name of the role|string
+|===
 
 
 ===== Responses
@@ -5817,14 +5842,66 @@ GET /role/external
 [options="header", cols=".^2a,.^14a,.^4a"]
 |===
 |HTTP Code|Description|Schema
-|**200**|successful operation|<<_rolesdto,RolesDto>>
+|**200**|successful operation|<<_actionstatus,ActionStatus>>
 |===
 
 
-[[_createorupdate_19]]
-==== Create or update role
+[[_find_17]]
+==== Find role by roleName
 ....
-POST /role/createOrUpdate
+GET /role
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**roleName** +
+__optional__|Name of the role|string
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_getroleresponse,GetRoleResponse>>
+|===
+
+
+[[_update_17]]
+==== Update role
+....
+PUT /role
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**body** +
+__optional__|Role information|<<_roledto,RoleDto>>
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_actionstatus,ActionStatus>>
+|===
+
+
+[[_create_18]]
+==== Create role
+....
+POST /role
 ....
 
 
@@ -5849,6 +5926,49 @@ __optional__|Role information|<<_roledto,RoleDto>>
 
 [[_scriptinstancers_resource]]
 === ScriptInstanceRs
+
+[[_createorupdate_20]]
+==== Create or update script instance
+....
+POST /scriptInstance/createOrUpdate
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**body** +
+__optional__|ScriptInstance information|<<_scriptinstancedto,ScriptInstanceDto>>
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_scriptinstancereponsedto,ScriptInstanceReponseDto>>
+|===
+
+
+[[_getcodes]]
+==== GET /scriptInstance/codes
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|string
+|===
+
+
+===== Produces
+
+* `application/json`
+
 
 [[_remove_18]]
 ==== Remove script instance by code
@@ -5876,7 +5996,7 @@ __required__|Code of the script instance|string
 |===
 
 
-[[_find_17]]
+[[_find_18]]
 ==== Find script instance by code
 ....
 GET /scriptInstance
@@ -5928,7 +6048,7 @@ __optional__|ScriptInstance information|<<_scriptinstancedto,ScriptInstanceDto>>
 |===
 
 
-[[_create_18]]
+[[_create_19]]
 ==== Create script instance
 ....
 POST /scriptInstance
@@ -5954,108 +6074,13 @@ __optional__|ScriptInstance information|<<_scriptinstancedto,ScriptInstanceDto>>
 |===
 
 
-[[_getcodes]]
-==== GET /scriptInstance/codes
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|string
-|===
-
-
-===== Produces
-
-* `application/json`
-
-
-[[_createorupdate_20]]
-==== Create or update script instance
-....
-POST /scriptInstance/createOrUpdate
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Body**|**body** +
-__optional__|ScriptInstance information|<<_scriptinstancedto,ScriptInstanceDto>>
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_scriptinstancereponsedto,ScriptInstanceReponseDto>>
-|===
-
-
 [[_userrs_resource]]
 === UserRs
 
-[[_remove_19]]
-==== Remove user by username
+[[_createorupdate_21]]
+==== Create or update user
 ....
-DELETE /user/{username}
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Path**|**username** +
-__required__|The name of user|string
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_actionstatus,ActionStatus>>
-|===
-
-
-[[_find_18]]
-==== Find user by username
-....
-GET /user
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Query**|**username** +
-__optional__|The name of user|string
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_getuserresponse,GetUserResponse>>
-|===
-
-
-[[_update_19]]
-==== Update user
-....
-PUT /user
+POST /user/createOrUpdate
 ....
 
 
@@ -6066,58 +6091,6 @@ PUT /user
 |Type|Name|Description|Schema
 |**Body**|**body** +
 __optional__|User information|<<_userdto,UserDto>>
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_actionstatus,ActionStatus>>
-|===
-
-
-[[_create_19]]
-==== Create user
-....
-POST /user
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Body**|**body** +
-__optional__|User information|<<_userdto,UserDto>>
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_actionstatus,ActionStatus>>
-|===
-
-
-[[_deleteexternaluser]]
-==== Remove external user by username
-....
-DELETE /user/external/{username}
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Path**|**username** +
-__required__|The name of user|string
 |===
 
 
@@ -6182,6 +6155,65 @@ __optional__|User information|<<_userdto,UserDto>>
 |===
 
 
+[[_deleteexternaluser]]
+==== Remove external user by username
+....
+DELETE /user/external/{username}
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**username** +
+__required__|The name of user|string
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_actionstatus,ActionStatus>>
+|===
+
+
+[[_generateshkey]]
+==== Generate SH key by username
+....
+POST /user/ssh/generate
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**username** +
+__optional__|Username to connect|string
+|**Body**|**body** +
+__optional__|Pass phrase|string
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_rsakeypair,RSAKeyPair>>
+|===
+
+
+===== Consumes
+
+* `text/plain`
+
+
 [[_listget_2]]
 ==== List get user
 ....
@@ -6244,10 +6276,36 @@ __optional__|Pagination and filtering criteria|<<_pagingandfiltering,PagingAndFi
 |===
 
 
-[[_generateshkey]]
-==== Generate SH key by username
+[[_remove_19]]
+==== Remove user by username
 ....
-POST /user/ssh/generate
+DELETE /user/{username}
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**username** +
+__required__|The name of user|string
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_actionstatus,ActionStatus>>
+|===
+
+
+[[_find_19]]
+==== Find user by username
+....
+GET /user
 ....
 
 
@@ -6257,9 +6315,7 @@ POST /user/ssh/generate
 |===
 |Type|Name|Description|Schema
 |**Query**|**username** +
-__optional__|Username to connect|string
-|**Body**|**body** +
-__optional__|Pass phrase|string
+__optional__|The name of user|string
 |===
 
 
@@ -6268,19 +6324,40 @@ __optional__|Pass phrase|string
 [options="header", cols=".^2a,.^14a,.^4a"]
 |===
 |HTTP Code|Description|Schema
-|**200**|successful operation|<<_rsakeypair,RSAKeyPair>>
+|**200**|successful operation|<<_getuserresponse,GetUserResponse>>
 |===
 
 
-===== Consumes
-
-* `text/plain`
-
-
-[[_createorupdate_21]]
-==== Create or update user
+[[_update_19]]
+==== Update user
 ....
-POST /user/createOrUpdate
+PUT /user
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**body** +
+__optional__|User information|<<_userdto,UserDto>>
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_actionstatus,ActionStatus>>
+|===
+
+
+[[_create_20]]
+==== Create user
+....
+POST /user
 ....
 
 
@@ -6366,6 +6443,32 @@ __optional__|The execution id|string
 [[_jobinstancers_resource]]
 === JobInstanceRs
 
+[[_createorupdate_22]]
+==== Create or update job instance
+....
+POST /jobInstance/createOrUpdate
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**body** +
+__optional__|Job instance information|<<_jobinstancedto,JobInstanceDto>>
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_actionstatus,ActionStatus>>
+|===
+
+
 [[_remove_20]]
 ==== Remove job instance by code
 ....
@@ -6418,7 +6521,7 @@ __optional__|Job instance information|<<_jobinstancedto,JobInstanceDto>>
 |===
 
 
-[[_find_19]]
+[[_find_20]]
 ==== Find job instance by code
 ....
 GET /jobInstance
@@ -6444,7 +6547,7 @@ __optional__|Code of the job instance|string
 |===
 
 
-[[_create_20]]
+[[_create_21]]
 ==== Create job instance
 ....
 POST /jobInstance/create
@@ -6470,91 +6573,13 @@ __optional__|Job instance information|<<_jobinstancedto,JobInstanceDto>>
 |===
 
 
-[[_createorupdate_22]]
-==== Create or update job instance
-....
-POST /jobInstance/createOrUpdate
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Body**|**body** +
-__optional__|Job instance information|<<_jobinstancedto,JobInstanceDto>>
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_actionstatus,ActionStatus>>
-|===
-
-
 [[_jobrs_resource]]
 === JobRs
 
-[[_remove_21]]
-==== Remove job by code
+[[_createorupdate_23]]
+==== Create or update job
 ....
-DELETE /job/{jobInstanceCode}
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Path**|**jobInstanceCode** +
-__required__|Code of the job instance|string
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_actionstatus,ActionStatus>>
-|===
-
-
-[[_find_20]]
-==== Find job by code
-....
-GET /job
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Query**|**jobInstanceCode** +
-__optional__|Code of the job instance|string
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_jobinstanceresponsedto,JobInstanceResponseDto>>
-|===
-
-
-[[_update_21]]
-==== Update job
-....
-PUT /job
+POST /job/createOrUpdate
 ....
 
 
@@ -6577,10 +6602,10 @@ __optional__|Job instance info information|<<_jobinstancedto,JobInstanceDto>>
 |===
 
 
-[[_execute_1]]
-==== Execute job
+[[_findjobexecutionresult]]
+==== Find job execution result by code
 ....
-POST /job/execute
+GET /job/jobReport
 ....
 
 
@@ -6589,8 +6614,10 @@ POST /job/execute
 [options="header", cols=".^2a,.^3a,.^9a,.^4a"]
 |===
 |Type|Name|Description|Schema
-|**Body**|**body** +
-__optional__|Job instance info information|<<_jobinstanceinfodto,JobInstanceInfoDto>>
+|**Query**|**code** +
+__optional__|Code of the job instance to match|string
+|**Query**|**id** +
+__optional__|A job execution result id|integer (int64)
 |===
 
 
@@ -6600,58 +6627,6 @@ __optional__|Job instance info information|<<_jobinstanceinfodto,JobInstanceInfo
 |===
 |HTTP Code|Description|Schema
 |**200**|successful operation|<<_jobexecutionresultresponsedto,JobExecutionResultResponseDto>>
-|===
-
-
-[[_create_21]]
-==== Create job
-....
-POST /job/create
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Body**|**body** +
-__optional__|Job instance info information|<<_jobinstancedto,JobInstanceDto>>
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_actionstatus,ActionStatus>>
-|===
-
-
-[[_stop]]
-==== Stop job
-....
-POST /job/stop
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Path**|**jobInstanceCode** +
-__required__|Code of the job instance|string
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_actionstatus,ActionStatus>>
 |===
 
 
@@ -6733,86 +6708,6 @@ __optional__|Timer entity information|<<_timerentitydto,TimerEntityDto>>
 |===
 
 
-[[_removetimer]]
-==== Remove timer entity by code
-....
-DELETE /job/timer/{timerCode}
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Path**|**timerCode** +
-__required__|Code of the time|string
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_actionstatus,ActionStatus>>
-|===
-
-
-[[_createorupdate_23]]
-==== Create or update job
-....
-POST /job/createOrUpdate
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Body**|**body** +
-__optional__|Job instance info information|<<_jobinstancedto,JobInstanceDto>>
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_actionstatus,ActionStatus>>
-|===
-
-
-[[_findjobexecutionresult]]
-==== Find job execution result by code
-....
-GET /job/jobReport
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Query**|**code** +
-__optional__|Code of the job instance to match|string
-|**Query**|**id** +
-__optional__|A job execution result id|integer (int64)
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_jobexecutionresultresponsedto,JobExecutionResultResponseDto>>
-|===
-
-
 [[_createorupdatetimer]]
 ==== Create or update timer entity
 ....
@@ -6839,8 +6734,216 @@ __optional__|Timer entity information|<<_timerentitydto,TimerEntityDto>>
 |===
 
 
+[[_removetimer]]
+==== Remove timer entity by code
+....
+DELETE /job/timer/{timerCode}
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**timerCode** +
+__required__|Code of the time|string
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_actionstatus,ActionStatus>>
+|===
+
+
+[[_remove_21]]
+==== Remove job by code
+....
+DELETE /job/{jobInstanceCode}
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**jobInstanceCode** +
+__required__|Code of the job instance|string
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_actionstatus,ActionStatus>>
+|===
+
+
+[[_find_21]]
+==== Find job by code
+....
+GET /job
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**jobInstanceCode** +
+__optional__|Code of the job instance|string
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_jobinstanceresponsedto,JobInstanceResponseDto>>
+|===
+
+
+[[_update_21]]
+==== Update job
+....
+PUT /job
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**body** +
+__optional__|Job instance info information|<<_jobinstancedto,JobInstanceDto>>
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_actionstatus,ActionStatus>>
+|===
+
+
+[[_execute_1]]
+==== Execute job
+....
+POST /job/execute
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**body** +
+__optional__|Job instance info information|<<_jobinstanceinfodto,JobInstanceInfoDto>>
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_jobexecutionresultresponsedto,JobExecutionResultResponseDto>>
+|===
+
+
+[[_create_22]]
+==== Create job
+....
+POST /job/create
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**body** +
+__optional__|Job instance info information|<<_jobinstancedto,JobInstanceDto>>
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_actionstatus,ActionStatus>>
+|===
+
+
+[[_stop]]
+==== Stop job
+....
+POST /job/stop
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**jobInstanceCode** +
+__required__|Code of the job instance|string
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_actionstatus,ActionStatus>>
+|===
+
+
 [[_timerentityrs_resource]]
 === TimerEntityRs
+
+[[_createorupdate_24]]
+==== Create or update time entity
+....
+POST /timerEntity/createOrUpdate
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**body** +
+__optional__|Time entity information|<<_timerentitydto,TimerEntityDto>>
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_actionstatus,ActionStatus>>
+|===
+
 
 [[_update_22]]
 ==== Update time entity
@@ -6868,7 +6971,7 @@ __optional__|Time entity information|<<_timerentitydto,TimerEntityDto>>
 |===
 
 
-[[_find_21]]
+[[_find_22]]
 ==== Find time entity by code
 ....
 GET /timerEntity/{timerEntityCode}
@@ -6894,7 +6997,7 @@ __required__|Code of the timer entity|string
 |===
 
 
-[[_create_22]]
+[[_create_23]]
 ==== Create time entity
 ....
 POST /timerEntity/create
@@ -6932,36 +7035,10 @@ __optional__|Time entity information|<<_timerentitydto,TimerEntityDto>>
 |===
 
 
-[[_createorupdate_24]]
-==== Create or update time entity
-....
-POST /timerEntity/createOrUpdate
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Body**|**body** +
-__optional__|Time entity information|<<_timerentitydto,TimerEntityDto>>
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_actionstatus,ActionStatus>>
-|===
-
-
 [[_modulepatchesrs_resource]]
 === ModulePatchesRs
 
-[[_find_22]]
+[[_find_23]]
 ==== GET /module/patches
 
 ===== Parameters
@@ -7001,7 +7078,7 @@ __optional__|string
 * `application/xml`
 
 
-[[_create_23]]
+[[_create_24]]
 ==== POST /module/patches
 
 ===== Parameters
@@ -7112,36 +7189,10 @@ __required__|string
 [[_modulers_resource]]
 === ModuleRs
 
-[[_get]]
-==== Get meveo module by code
+[[_createorupdate_25]]
+==== Create or update meveo module
 ....
-GET /module
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Query**|**code** +
-__optional__|Code of the meveo module|string
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_meveomoduledtoresponse,MeveoModuleDtoResponse>>
-|===
-
-
-[[_update_23]]
-==== Update meveo module
-....
-PUT /module
+POST /module/createOrUpdate
 ....
 
 
@@ -7164,82 +7215,22 @@ __optional__|Meveo module information|<<_meveomoduledto,MeveoModuleDto>>
 |===
 
 
-[[_create_24]]
-==== Create meveo module
+[[_importzip]]
+==== Import from a zip
 ....
-POST /module
+POST /module/importZip
 ....
 
 
 ===== Parameters
 
-[options="header", cols=".^2a,.^3a,.^9a,.^4a,.^2a"]
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
 |===
-|Type|Name|Description|Schema|Default
+|Type|Name|Description|Schema
 |**Body**|**body** +
-__optional__|Meveo module information|<<_meveomoduledto,MeveoModuleDto>>|
-|**Query**|**development** +
-__optional__|Whether to development meveo module|boolean|`"false"`
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_actionstatus,ActionStatus>>
-|===
-
-
-[[_delete_2]]
-==== Remove meveo module by code
-....
-DELETE /module/{code}
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Path**|**code** +
-__required__|Code of the module|string
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_actionstatus,ActionStatus>>
-|===
-
-
-[[_list_17]]
-==== List meveo module
-....
-GET /module/list
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Query**|**codesOnly** +
-__optional__|Whether to codes only for list of modules|boolean
-|**Query**|**active** +
-__optional__|Meveo module filters information|boolean
-|**Query**|**downloaded** +
-__optional__|Meveo module filters information|boolean
-|**Query**|**itemCode** +
-__optional__|Meveo module filters information|string
-|**Query**|**itemType** +
-__optional__|Meveo module filters information|string
+__optional__|Upload module|<<_moduleuploadform,ModuleUploadForm>>
+|**Query**|**overwrite** +
+__optional__|Whether to overwrite existing data|boolean
 |===
 
 
@@ -7252,10 +7243,15 @@ __optional__|Meveo module filters information|string
 |===
 
 
-[[_disable]]
-==== Disable meveo module
+===== Consumes
+
+* `multipart/form-data`
+
+
+[[_addtomodule]]
+==== Add to module
 ....
-GET /module/disable
+POST /module/{code}/items/add
 ....
 
 
@@ -7264,8 +7260,12 @@ GET /module/disable
 [options="header", cols=".^2a,.^3a,.^9a,.^4a"]
 |===
 |Type|Name|Description|Schema
-|**Query**|**code** +
-__optional__|Code of the meveo module|string
+|**Path**|**code** +
+__required__|Code of the module to modify|string
+|**FormData**|**itemCode** +
+__optional__|Code of the item to add|string
+|**FormData**|**itemType** +
+__optional__|Type of the item to add|string
 |===
 
 
@@ -7274,14 +7274,19 @@ __optional__|Code of the meveo module|string
 [options="header", cols=".^2a,.^14a,.^4a"]
 |===
 |HTTP Code|Description|Schema
-|**200**|successful operation|<<_actionstatus,ActionStatus>>
+|**200**|successful operation|<<_meveomoduledto,MeveoModuleDto>>
 |===
 
 
-[[_enable]]
-==== Enable meveo module
+===== Consumes
+
+* `application/x-www-form-urlencoded`
+
+
+[[_removefrommodule]]
+==== Remove from module
 ....
-GET /module/enable
+POST /module/{code}/items/remove
 ....
 
 
@@ -7290,8 +7295,109 @@ GET /module/enable
 [options="header", cols=".^2a,.^3a,.^9a,.^4a"]
 |===
 |Type|Name|Description|Schema
-|**Query**|**code** +
-__optional__|Code of the meveo module|string
+|**Path**|**code** +
+__required__|Code of the module to modify|string
+|**FormData**|**itemCode** +
+__optional__|Code of the item to remove|string
+|**FormData**|**itemType** +
+__optional__|Type of the item to remove|string
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_meveomoduledto,MeveoModuleDto>>
+|===
+
+
+===== Consumes
+
+* `application/x-www-form-urlencoded`
+
+
+[[_addfiletomodule]]
+==== Add file to module
+....
+POST /module/{code}/file/add
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**code** +
+__required__|Code of the module to modify|string
+|**FormData**|**path** +
+__optional__|Path of file/folder to add|string
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_meveomoduledto,MeveoModuleDto>>
+|===
+
+
+===== Consumes
+
+* `application/x-www-form-urlencoded`
+
+
+[[_removefilefrommodule]]
+==== Remove from module
+....
+POST /module/{code}/file/remove
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**code** +
+__required__|Code of the module to modify|string
+|**FormData**|**path** +
+__optional__|Path of file/folder to remove|string
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_meveomoduledto,MeveoModuleDto>>
+|===
+
+
+===== Consumes
+
+* `application/x-www-form-urlencoded`
+
+
+[[_fork]]
+==== Fork meveo module by code
+....
+PUT /module/fork/{code}
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**code** +
+__required__|Code of the module|string
 |===
 
 
@@ -7414,43 +7520,10 @@ __optional__|Whether to remove elements|boolean|`"false"`
 |===
 
 
-[[_importzip_1]]
-==== Import from a zip
+[[_get]]
+==== Get meveo module by code
 ....
-POST /module/importZip
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Body**|**body** +
-__optional__|Upload module|<<_moduleuploadform,ModuleUploadForm>>
-|**Query**|**overwrite** +
-__optional__|Whether to overwrite existing data|boolean
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**default**|successful operation|No Content
-|===
-
-
-===== Consumes
-
-* `multipart/form-data`
-
-
-[[_addfiletomodule]]
-==== Add file to module
-....
-POST /module/{code}/file/add
+GET /module
 ....
 
 
@@ -7459,10 +7532,8 @@ POST /module/{code}/file/add
 [options="header", cols=".^2a,.^3a,.^9a,.^4a"]
 |===
 |Type|Name|Description|Schema
-|**Path**|**code** +
-__required__|Code of the module to modify|string
-|**FormData**|**path** +
-__optional__|Path of file/folder to add|string
+|**Query**|**code** +
+__optional__|Code of the meveo module|string
 |===
 
 
@@ -7471,148 +7542,14 @@ __optional__|Path of file/folder to add|string
 [options="header", cols=".^2a,.^14a,.^4a"]
 |===
 |HTTP Code|Description|Schema
-|**200**|successful operation|<<_meveomoduledto,MeveoModuleDto>>
+|**200**|successful operation|<<_meveomoduledtoresponse,MeveoModuleDtoResponse>>
 |===
 
 
-===== Consumes
-
-* `application/x-www-form-urlencoded`
-
-
-[[_addtomodule]]
-==== Add to module
+[[_update_23]]
+==== Update meveo module
 ....
-POST /module/{code}/items/add
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Path**|**code** +
-__required__|Code of the module to modify|string
-|**FormData**|**itemCode** +
-__optional__|Code of the item to add|string
-|**FormData**|**itemType** +
-__optional__|Type of the item to add|string
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_meveomoduledto,MeveoModuleDto>>
-|===
-
-
-===== Consumes
-
-* `application/x-www-form-urlencoded`
-
-
-[[_removefrommodule]]
-==== Remove from module
-....
-POST /module/{code}/items/remove
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Path**|**code** +
-__required__|Code of the module to modify|string
-|**FormData**|**itemCode** +
-__optional__|Code of the item to remove|string
-|**FormData**|**itemType** +
-__optional__|Type of the item to remove|string
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_meveomoduledto,MeveoModuleDto>>
-|===
-
-
-===== Consumes
-
-* `application/x-www-form-urlencoded`
-
-
-[[_fork]]
-==== Fork meveo module by code
-....
-PUT /module/fork/{code}
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Path**|**code** +
-__required__|Code of the module|string
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_actionstatus,ActionStatus>>
-|===
-
-
-[[_removefilefrommodule]]
-==== Remove from module
-....
-POST /module/{code}/file/remove
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Path**|**code** +
-__required__|Code of the module to modify|string
-|**FormData**|**path** +
-__optional__|Path of file/folder to remove|string
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_meveomoduledto,MeveoModuleDto>>
-|===
-
-
-===== Consumes
-
-* `application/x-www-form-urlencoded`
-
-
-[[_createorupdate_25]]
-==== Create or update meveo module
-....
-POST /module/createOrUpdate
+PUT /module
 ....
 
 
@@ -7635,10 +7572,178 @@ __optional__|Meveo module information|<<_meveomoduledto,MeveoModuleDto>>
 |===
 
 
+[[_create_25]]
+==== Create meveo module
+....
+POST /module
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a,.^2a"]
+|===
+|Type|Name|Description|Schema|Default
+|**Body**|**body** +
+__optional__|Meveo module information|<<_meveomoduledto,MeveoModuleDto>>|
+|**Query**|**development** +
+__optional__|Whether to development meveo module|boolean|`"false"`
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_actionstatus,ActionStatus>>
+|===
+
+
+[[_delete_2]]
+==== Remove meveo module by code
+....
+DELETE /module/{code}
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a,.^2a"]
+|===
+|Type|Name|Description|Schema|Default
+|**Path**|**code** +
+__required__|Code of the module|string|
+|**Query**|**deleteFiles** +
+__optional__|Delete the module files|boolean|`"false"`
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_actionstatus,ActionStatus>>
+|===
+
+
+[[_list_17]]
+==== List meveo module
+....
+GET /module/list
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**codesOnly** +
+__optional__|Whether to codes only for list of modules|boolean
+|**Query**|**active** +
+__optional__|Meveo module filters information|boolean
+|**Query**|**downloaded** +
+__optional__|Meveo module filters information|boolean
+|**Query**|**itemCode** +
+__optional__|Meveo module filters information|string
+|**Query**|**itemType** +
+__optional__|Meveo module filters information|string
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**default**|successful operation|No Content
+|===
+
+
+[[_enable]]
+==== Enable meveo module
+....
+GET /module/enable
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**code** +
+__optional__|Code of the meveo module|string
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_actionstatus,ActionStatus>>
+|===
+
+
+[[_disable]]
+==== Disable meveo module
+....
+GET /module/disable
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**code** +
+__optional__|Code of the meveo module|string
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_actionstatus,ActionStatus>>
+|===
+
+
 [[_neo4jconfigurationrs_resource]]
 === Neo4jConfigurationRs
 
-[[_find_23]]
+[[_createorupdate_26]]
+==== Create or update neo4j configuration
+....
+POST /neo4j/configurations/createOrUpdate
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**body** +
+__optional__|Binary storage information|<<_neo4jconfigurationdto,Neo4jConfigurationDto>>
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_actionstatus,ActionStatus>>
+|===
+
+
+[[_find_24]]
 ==== Find neo4j configuration by code
 ....
 GET /neo4j/configurations/{code}
@@ -7732,7 +7837,7 @@ __optional__|Binary storage information|<<_neo4jconfigurationdto,Neo4jConfigurat
 |===
 
 
-[[_create_25]]
+[[_create_26]]
 ==== Create neo4j configuration
 ....
 POST /neo4j/configurations
@@ -7758,10 +7863,13 @@ __optional__|Binary storage information|<<_neo4jconfigurationdto,Neo4jConfigurat
 |===
 
 
-[[_createorupdate_26]]
-==== Create or update neo4j configuration
+[[_jobtriggerrs_resource]]
+=== JobTriggerRs
+
+[[_createorupdate_27]]
+==== Create or update job trigger
 ....
-POST /neo4j/configurations/createOrUpdate
+POST /notification/jobTrigger/createOrUpdate
 ....
 
 
@@ -7771,7 +7879,7 @@ POST /neo4j/configurations/createOrUpdate
 |===
 |Type|Name|Description|Schema
 |**Body**|**body** +
-__optional__|Binary storage information|<<_neo4jconfigurationdto,Neo4jConfigurationDto>>
+__optional__|Job trigger information|<<_jobtriggerdto,JobTriggerDto>>
 |===
 
 
@@ -7783,9 +7891,6 @@ __optional__|Binary storage information|<<_neo4jconfigurationdto,Neo4jConfigurat
 |**200**|successful operation|<<_actionstatus,ActionStatus>>
 |===
 
-
-[[_jobtriggerrs_resource]]
-=== JobTriggerRs
 
 [[_remove_23]]
 ==== Remove job trigger by code
@@ -7813,7 +7918,7 @@ __required__|Code of the job trigger|string
 |===
 
 
-[[_find_24]]
+[[_find_25]]
 ==== Find job trigger by code
 ....
 GET /notification/jobTrigger
@@ -7865,7 +7970,7 @@ __optional__|Job trigger information|<<_jobtriggerdto,JobTriggerDto>>
 |===
 
 
-[[_create_26]]
+[[_create_27]]
 ==== Create job trigger
 ....
 POST /notification/jobTrigger
@@ -7891,10 +7996,13 @@ __optional__|Job trigger information|<<_jobtriggerdto,JobTriggerDto>>
 |===
 
 
-[[_createorupdate_27]]
-==== Create or update job trigger
+[[_notificationrs_resource]]
+=== NotificationRs
+
+[[_createorupdate_28]]
+==== Create or update notification
 ....
-POST /notification/jobTrigger/createOrUpdate
+POST /notification/createOrUpdate
 ....
 
 
@@ -7904,7 +8012,7 @@ POST /notification/jobTrigger/createOrUpdate
 |===
 |Type|Name|Description|Schema
 |**Body**|**body** +
-__optional__|Job trigger information|<<_jobtriggerdto,JobTriggerDto>>
+__optional__|Notification information|<<_notificationdto,NotificationDto>>
 |===
 
 
@@ -7917,8 +8025,29 @@ __optional__|Job trigger information|<<_jobtriggerdto,JobTriggerDto>>
 |===
 
 
-[[_notificationrs_resource]]
-=== NotificationRs
+[[_listnotificationhistory]]
+==== GET /notification/listNotificationHistory
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_notificationhistoriesresponsedto,NotificationHistoriesResponseDto>>
+|===
+
+
+[[_listinboundrequest]]
+==== GET /notification/listInboundRequest
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_inboundrequestsresponsedto,InboundRequestsResponseDto>>
+|===
+
 
 [[_remove_24]]
 ==== Remove notification by code
@@ -7946,7 +8075,7 @@ __required__|Code of the notification|string
 |===
 
 
-[[_find_25]]
+[[_find_26]]
 ==== Find notification by code
 ....
 GET /notification
@@ -7998,7 +8127,7 @@ __optional__|Notification information|<<_notificationdto,NotificationDto>>
 |===
 
 
-[[_create_27]]
+[[_create_28]]
 ==== Create notification
 ....
 POST /notification
@@ -8024,34 +8153,13 @@ __optional__|Notification information|<<_notificationdto,NotificationDto>>
 |===
 
 
-[[_listnotificationhistory]]
-==== GET /notification/listNotificationHistory
+[[_webhooknotificationrs_resource]]
+=== WebHookNotificationRs
 
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_notificationhistoriesresponsedto,NotificationHistoriesResponseDto>>
-|===
-
-
-[[_listinboundrequest]]
-==== GET /notification/listInboundRequest
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_inboundrequestsresponsedto,InboundRequestsResponseDto>>
-|===
-
-
-[[_createorupdate_28]]
-==== Create or update notification
+[[_createorupdate_29]]
+==== Create or update web hook notification
 ....
-POST /notification/createOrUpdate
+POST /notification/webhook/createOrUpdate
 ....
 
 
@@ -8061,7 +8169,7 @@ POST /notification/createOrUpdate
 |===
 |Type|Name|Description|Schema
 |**Body**|**body** +
-__optional__|Notification information|<<_notificationdto,NotificationDto>>
+__optional__|Web hook information|<<_webhookdto,WebHookDto>>
 |===
 
 
@@ -8073,9 +8181,6 @@ __optional__|Notification information|<<_notificationdto,NotificationDto>>
 |**200**|successful operation|<<_actionstatus,ActionStatus>>
 |===
 
-
-[[_webhooknotificationrs_resource]]
-=== WebHookNotificationRs
 
 [[_remove_25]]
 ==== Remove web hook notification by code
@@ -8103,7 +8208,7 @@ __required__|Code of the web hook|string
 |===
 
 
-[[_find_26]]
+[[_find_27]]
 ==== Find web hook notification by code
 ....
 GET /notification/webhook
@@ -8155,7 +8260,7 @@ __optional__|Web hook information|<<_webhookdto,WebHookDto>>
 |===
 
 
-[[_create_28]]
+[[_create_29]]
 ==== Create web hook notification
 ....
 POST /notification/webhook
@@ -8181,20 +8286,25 @@ __optional__|Web hook information|<<_webhookdto,WebHookDto>>
 |===
 
 
-[[_createorupdate_29]]
-==== Create or update web hook notification
+[[_persistencers_resource]]
+=== PersistenceRs
+
+[[_persist_1]]
+==== List persistence
 ....
-POST /notification/webhook/createOrUpdate
+POST /{repository}/persistence
 ....
 
 
 ===== Parameters
 
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+[options="header", cols=".^2a,.^3a,.^4a"]
 |===
-|Type|Name|Description|Schema
+|Type|Name|Schema
+|**Path**|**repository** +
+__required__|string
 |**Body**|**body** +
-__optional__|Web hook information|<<_webhookdto,WebHookDto>>
+__optional__|<<_multipartformdatainput,MultipartFormDataInput>>
 |===
 
 
@@ -8203,12 +8313,54 @@ __optional__|Web hook information|<<_webhookdto,WebHookDto>>
 [options="header", cols=".^2a,.^14a,.^4a"]
 |===
 |HTTP Code|Description|Schema
-|**200**|successful operation|<<_actionstatus,ActionStatus>>
+|**200**|successful operation|< <<_persisteditem,PersistedItem>> > array
 |===
 
 
-[[_persistencers_resource]]
-=== PersistenceRs
+===== Consumes
+
+* `multipart/form-data`
+
+
+===== Produces
+
+* `application/json`
+
+
+[[_listexamples]]
+==== List data for a given CET
+....
+POST /{repository}/persistence/{cetCode}/examples
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**repository** +
+__required__||string
+|**Path**|**cetCode** +
+__required__|Code of the custom entity template|string
+|**Body**|**body** +
+__optional__|Pagination configuration|<<_paginationconfiguration,PaginationConfiguration>>
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|< < string, string > map > array
+|===
+
+
+===== Produces
+
+* `application/json`
+
 
 [[_get_1]]
 ==== Get persistence
@@ -8346,10 +8498,13 @@ __optional__|Pagination configuration information|<<_paginationconfiguration,Pag
 * `application/json`
 
 
-[[_listexamples]]
-==== List data for a given CET
+[[_sqlconfigurationrs_resource]]
+=== SqlConfigurationRs
+
+[[_createorupdate_30]]
+==== Create new or update an existing sqlConfiguration
 ....
-POST /{repository}/persistence/{cetCode}/examples
+POST /sql/configurations/createOrUpdate
 ....
 
 
@@ -8358,12 +8513,8 @@ POST /{repository}/persistence/{cetCode}/examples
 [options="header", cols=".^2a,.^3a,.^9a,.^4a"]
 |===
 |Type|Name|Description|Schema
-|**Path**|**repository** +
-__required__||string
-|**Path**|**cetCode** +
-__required__|Code of the custom entity template|string
 |**Body**|**body** +
-__optional__|Pagination configuration|<<_paginationconfiguration,PaginationConfiguration>>
+__optional__|Data source configuration info|<<_sqlconfigurationdto,SqlConfigurationDto>>
 |===
 
 
@@ -8372,52 +8523,11 @@ __optional__|Pagination configuration|<<_paginationconfiguration,PaginationConfi
 [options="header", cols=".^2a,.^14a,.^4a"]
 |===
 |HTTP Code|Description|Schema
-|**200**|successful operation|< < string, string > map > array
+|**200**|successful operation|<<_actionstatus,ActionStatus>>
 |===
 
 
-===== Produces
-
-* `application/json`
-
-
-[[_persist_1]]
-==== Persist many entities
-....
-POST /{repository}/persistence
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^4a"]
-|===
-|Type|Name|Schema
-|**Path**|**repository** +
-__required__|string
-|**Body**|**body** +
-__optional__|< <<_persistencedto,PersistenceDto>> > array
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|< <<_persisteditem,PersistedItem>> > array
-|===
-
-
-===== Produces
-
-* `application/json`
-
-
-[[_sqlconfigurationrs_resource]]
-=== SqlConfigurationRs
-
-[[_find_27]]
+[[_find_28]]
 ==== Search for sqlConfiguration with a given code
 ....
 GET /sql/configurations/{code}
@@ -8511,7 +8621,7 @@ __optional__|Data source configuration info|<<_sqlconfigurationdto,SqlConfigurat
 |===
 
 
-[[_create_29]]
+[[_create_30]]
 ==== Create a new sqlConfiguration
 ....
 POST /sql/configurations
@@ -8563,20 +8673,20 @@ __required__|Code of the configuration to initialize|string
 |===
 
 
-[[_createorupdate_30]]
-==== Create new or update an existing sqlConfiguration
+[[_exportcsv_1]]
+==== Export to a file
 ....
-POST /sql/configurations/createOrUpdate
+POST /sql/configurations/export
 ....
 
 
 ===== Parameters
 
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+[options="header", cols=".^2a,.^3a,.^4a"]
 |===
-|Type|Name|Description|Schema
+|Type|Name|Schema
 |**Body**|**body** +
-__optional__|Data source configuration info|<<_sqlconfigurationdto,SqlConfigurationDto>>
+__optional__|<<_pagingandfiltering,PagingAndFiltering>>
 |===
 
 
@@ -8585,8 +8695,15 @@ __optional__|Data source configuration info|<<_sqlconfigurationdto,SqlConfigurat
 [options="header", cols=".^2a,.^14a,.^4a"]
 |===
 |HTTP Code|Description|Schema
-|**200**|successful operation|<<_actionstatus,ActionStatus>>
+|**200**|successful operation|file
 |===
+
+
+===== Produces
+
+* `text/csv`
+* `application/xml`
+* `application/json`
 
 
 [[_importdata_2]]
@@ -8622,20 +8739,23 @@ __required__|File contained serialized data|< file > array(multi)
 * `multipart/form-data`
 
 
-[[_exportxml_1]]
-==== Export to a file
+[[_binarystorageconfigurationrs_resource]]
+=== BinaryStorageConfigurationRs
+
+[[_createorupdate_31]]
+==== Create or update binary storage
 ....
-POST /sql/configurations/export
+POST /storages/binaries/createOrUpdate
 ....
 
 
 ===== Parameters
 
-[options="header", cols=".^2a,.^3a,.^4a"]
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
 |===
-|Type|Name|Schema
+|Type|Name|Description|Schema
 |**Body**|**body** +
-__optional__|<<_pagingandfiltering,PagingAndFiltering>>
+__optional__|Binary storage information|<<_binarystorageconfigurationdto,BinaryStorageConfigurationDto>>
 |===
 
 
@@ -8644,21 +8764,11 @@ __optional__|<<_pagingandfiltering,PagingAndFiltering>>
 [options="header", cols=".^2a,.^14a,.^4a"]
 |===
 |HTTP Code|Description|Schema
-|**200**|successful operation|file
+|**200**|successful operation|<<_actionstatus,ActionStatus>>
 |===
 
 
-===== Produces
-
-* `text/csv`
-* `application/xml`
-* `application/json`
-
-
-[[_binarystorageconfigurationrs_resource]]
-=== BinaryStorageConfigurationRs
-
-[[_find_28]]
+[[_find_29]]
 ==== Find binary storage by code
 ....
 GET /storages/binaries/{code}
@@ -8752,7 +8862,7 @@ __optional__|Binary storage information|<<_binarystorageconfigurationdto,BinaryS
 |===
 
 
-[[_create_30]]
+[[_create_31]]
 ==== Create binary storage
 ....
 POST /storages/binaries
@@ -8778,20 +8888,20 @@ __optional__|Binary storage information|<<_binarystorageconfigurationdto,BinaryS
 |===
 
 
-[[_createorupdate_31]]
-==== Create or update binary storage
+[[_exportcsv_2]]
+==== Export to a file
 ....
-POST /storages/binaries/createOrUpdate
+POST /storages/binaries/export
 ....
 
 
 ===== Parameters
 
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+[options="header", cols=".^2a,.^3a,.^4a"]
 |===
-|Type|Name|Description|Schema
+|Type|Name|Schema
 |**Body**|**body** +
-__optional__|Binary storage information|<<_binarystorageconfigurationdto,BinaryStorageConfigurationDto>>
+__optional__|<<_pagingandfiltering,PagingAndFiltering>>
 |===
 
 
@@ -8800,8 +8910,15 @@ __optional__|Binary storage information|<<_binarystorageconfigurationdto,BinaryS
 [options="header", cols=".^2a,.^14a,.^4a"]
 |===
 |HTTP Code|Description|Schema
-|**200**|successful operation|<<_actionstatus,ActionStatus>>
+|**200**|successful operation|file
 |===
+
+
+===== Produces
+
+* `text/csv`
+* `application/xml`
+* `application/json`
 
 
 [[_importdata_3]]
@@ -8835,39 +8952,6 @@ __required__|File contained serialized data|< file > array(multi)
 ===== Consumes
 
 * `multipart/form-data`
-
-
-[[_exportxml_2]]
-==== Export to a file
-....
-POST /storages/binaries/export
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^4a"]
-|===
-|Type|Name|Schema
-|**Body**|**body** +
-__optional__|<<_pagingandfiltering,PagingAndFiltering>>
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|file
-|===
-
-
-===== Produces
-
-* `text/csv`
-* `application/xml`
-* `application/json`
 
 
 [[_filesystemrs_resource]]
@@ -8910,7 +8994,33 @@ __required__|Code of the custom field template|string
 [[_repository_resource]]
 === Repository
 
-[[_find_29]]
+[[_createorupdate_32]]
+==== Create or update repository
+....
+POST /storages/repositories/createOrUpdate
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**body** +
+__optional__|Repository information|<<_repositorydto,RepositoryDto>>
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_actionstatus,ActionStatus>>
+|===
+
+
+[[_find_30]]
 ==== Find repository by code
 ....
 GET /storages/repositories/{code}
@@ -9006,7 +9116,7 @@ __optional__|Repository information|<<_repositorydto,RepositoryDto>>
 |===
 
 
-[[_create_31]]
+[[_create_32]]
 ==== Create repository
 ....
 POST /storages/repositories
@@ -9032,20 +9142,20 @@ __optional__|Repository information|<<_repositorydto,RepositoryDto>>
 |===
 
 
-[[_createorupdate_32]]
-==== Create or update repository
+[[_exportcsv_3]]
+==== Export to a file
 ....
-POST /storages/repositories/createOrUpdate
+POST /storages/repositories/export
 ....
 
 
 ===== Parameters
 
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+[options="header", cols=".^2a,.^3a,.^4a"]
 |===
-|Type|Name|Description|Schema
+|Type|Name|Schema
 |**Body**|**body** +
-__optional__|Repository information|<<_repositorydto,RepositoryDto>>
+__optional__|<<_pagingandfiltering,PagingAndFiltering>>
 |===
 
 
@@ -9054,8 +9164,15 @@ __optional__|Repository information|<<_repositorydto,RepositoryDto>>
 [options="header", cols=".^2a,.^14a,.^4a"]
 |===
 |HTTP Code|Description|Schema
-|**200**|successful operation|<<_actionstatus,ActionStatus>>
+|**200**|successful operation|file
 |===
+
+
+===== Produces
+
+* `text/csv`
+* `application/xml`
+* `application/json`
 
 
 [[_importdata_4]]
@@ -9091,20 +9208,23 @@ __required__|File contained serialized data|< file > array(multi)
 * `multipart/form-data`
 
 
-[[_exportxml_3]]
-==== Export to a file
+[[_endpointrs_resource]]
+=== EndpointRs
+
+[[_requestschema]]
+==== Generates and returns the request schema of a given endpoint.
 ....
-POST /storages/repositories/export
+GET /endpoint/schema/{code}/request
 ....
 
 
 ===== Parameters
 
-[options="header", cols=".^2a,.^3a,.^4a"]
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
 |===
-|Type|Name|Schema
-|**Body**|**body** +
-__optional__|<<_pagingandfiltering,PagingAndFiltering>>
+|Type|Name|Description|Schema
+|**Path**|**code** +
+__required__|Code of the endpoint|string
 |===
 
 
@@ -9113,21 +9233,134 @@ __optional__|<<_pagingandfiltering,PagingAndFiltering>>
 [options="header", cols=".^2a,.^14a,.^4a"]
 |===
 |HTTP Code|Description|Schema
-|**200**|successful operation|file
+|**200**|successful operation|string
+|===
+
+
+[[_list_23]]
+==== GET /endpoint
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^4a"]
+|===
+|Type|Name|Schema
+|**Query**|**service** +
+__optional__|string
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**default**|successful operation|No Content
 |===
 
 
 ===== Produces
 
-* `text/csv`
-* `application/xml`
 * `application/json`
 
 
-[[_endpointrs_resource]]
-=== EndpointRs
+[[_createorreplace]]
+==== PUT /endpoint
 
-[[_find_30]]
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^4a"]
+|===
+|Type|Name|Schema
+|**Body**|**body** +
+__optional__|<<_endpointdto,EndpointDto>>
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**default**|successful operation|No Content
+|===
+
+
+[[_create_33]]
+==== POST /endpoint
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^4a"]
+|===
+|Type|Name|Schema
+|**Body**|**body** +
+__optional__|<<_endpointdto,EndpointDto>>
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**default**|successful operation|No Content
+|===
+
+
+[[_generateopenapijson]]
+==== Generate open api json of the endpoint
+....
+GET /endpoint/openApi/{code}
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**code** +
+__required__|Code of the endpoint|string
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**default**|successful operation|No Content
+|===
+
+
+[[_responseschema]]
+==== Generates and returns the response schema of a given endpoint.
+....
+GET /endpoint/schema/{code}/response
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Path**|**code** +
+__required__|Code of the endpoint|string
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|string
+|===
+
+
+[[_find_31]]
 ==== Find endpoint by code
 ....
 GET /endpoint/{code}
@@ -9210,77 +9443,6 @@ __required__|Code of the endpoint|string
 |===
 
 
-[[_list_23]]
-==== GET /endpoint
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^4a"]
-|===
-|Type|Name|Schema
-|**Query**|**service** +
-__optional__|string
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**default**|successful operation|No Content
-|===
-
-
-===== Produces
-
-* `application/json`
-
-
-[[_createorreplace]]
-==== PUT /endpoint
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^4a"]
-|===
-|Type|Name|Schema
-|**Body**|**body** +
-__optional__|<<_endpointdto,EndpointDto>>
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**default**|successful operation|No Content
-|===
-
-
-[[_create_32]]
-==== POST /endpoint
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^4a"]
-|===
-|Type|Name|Schema
-|**Body**|**body** +
-__optional__|<<_endpointdto,EndpointDto>>
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**default**|successful operation|No Content
-|===
-
-
 [[_getscript]]
 ====  Get script of the endpoint
 ....
@@ -9312,86 +9474,92 @@ __required__|Code of the endpoint|string
 * `application/javascript`
 
 
-[[_requestschema]]
-==== Generates and returns the request schema of a given endpoint.
-....
-GET /endpoint/schema/{code}/request
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Path**|**code** +
-__required__|Code of the endpoint|string
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|string
-|===
-
-
-[[_responseschema]]
-==== Generates and returns the response schema of a given endpoint.
-....
-GET /endpoint/schema/{code}/response
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Path**|**code** +
-__required__|Code of the endpoint|string
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|string
-|===
-
-
-[[_generateopenapijson]]
-==== Generate open api json of the endpoint
-....
-GET /endpoint/openApi/{code}
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Path**|**code** +
-__required__|Code of the endpoint|string
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**default**|successful operation|No Content
-|===
-
-
 [[_workflowrs_resource]]
 === WorkflowRs
+
+[[_createorupdate_33]]
+==== Create or update workflow
+....
+POST /admin/workflow/createOrUpdate
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**body** +
+__optional__|Workflow information|<<_workflowdto,WorkflowDto>>
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_actionstatus,ActionStatus>>
+|===
+
+
+[[_findbyentity]]
+==== Find workflow by entity
+....
+GET /admin/workflow/findByEntity
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**baseEntityName** +
+__optional__|Name of the base entity|string
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_workflowsresponsedto,WorkflowsResponseDto>>
+|===
+
+
+[[_findhistory]]
+==== Find history workflow by code and from status and to status
+....
+GET /admin/workflow/history
+....
+
+
+===== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**entityInstanceCode** +
+__optional__|Code of the entity instance|string
+|**Query**|**workflowCode** +
+__optional__|Code of the workflow|string
+|**Query**|**fromStatus** +
+__optional__|From status|string
+|**Query**|**toStatus** +
+__optional__|To status|string
+|===
+
+
+===== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|successful operation|<<_workflowhistoryresponsedto,WorkflowHistoryResponseDto>>
+|===
+
 
 [[_remove_29]]
 ==== Remove workflow by code
@@ -9419,7 +9587,7 @@ __required__|Code of the workflow|string
 |===
 
 
-[[_find_31]]
+[[_find_32]]
 ==== Find workflow by code
 ....
 GET /admin/workflow
@@ -9471,7 +9639,7 @@ __optional__|Workflow information|<<_workflowdto,WorkflowDto>>
 |===
 
 
-[[_create_33]]
+[[_create_34]]
 ==== Create workflow
 ....
 POST /admin/workflow
@@ -9539,107 +9707,10 @@ __optional__|Code of the workflow|string
 |===
 
 
-[[_findbyentity]]
-==== Find workflow by entity
-....
-GET /admin/workflow/findByEntity
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Query**|**baseEntityName** +
-__optional__|Name of the base entity|string
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_workflowsresponsedto,WorkflowsResponseDto>>
-|===
-
-
-[[_findhistory]]
-==== Find history workflow by code and from status and to status
-....
-GET /admin/workflow/history
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Query**|**entityInstanceCode** +
-__optional__|Code of the entity instance|string
-|**Query**|**workflowCode** +
-__optional__|Code of the workflow|string
-|**Query**|**fromStatus** +
-__optional__|From status|string
-|**Query**|**toStatus** +
-__optional__|To status|string
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_workflowhistoryresponsedto,WorkflowHistoryResponseDto>>
-|===
-
-
-[[_createorupdate_33]]
-==== Create or update workflow
-....
-POST /admin/workflow/createOrUpdate
-....
-
-
-===== Parameters
-
-[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
-|===
-|Type|Name|Description|Schema
-|**Body**|**body** +
-__optional__|Workflow information|<<_workflowdto,WorkflowDto>>
-|===
-
-
-===== Responses
-
-[options="header", cols=".^2a,.^14a,.^4a"]
-|===
-|HTTP Code|Description|Schema
-|**200**|successful operation|<<_actionstatus,ActionStatus>>
-|===
-
-
 
 
 [[_definitions]]
 == Definitions
-
-[[_sample]]
-=== Sample
-
-[options="header", cols=".^3a,.^4a"]
-|===
-|Name|Schema
-|**inputs** +
-__optional__|< string, object > map
-|**outputs** +
-__optional__|< string, object > map
-|===
-
 
 [[_functiondto]]
 === FunctionDto
@@ -9683,6 +9754,19 @@ __optional__|string
 |===
 
 
+[[_sample]]
+=== Sample
+
+[options="header", cols=".^3a,.^4a"]
+|===
+|Name|Schema
+|**inputs** +
+__optional__|< string, object > map
+|**outputs** +
+__optional__|< string, object > map
+|===
+
+
 [[_actionstatus]]
 === ActionStatus
 
@@ -9697,6 +9781,19 @@ __optional__|Error code return by an api request|enum (ENTITY_DOES_NOT_EXISTS_EX
 __optional__|Message return by an api request|string
 |**getjson** +
 __optional__||string
+|===
+
+
+[[_fileuploadform]]
+=== FileUploadForm
+
+[options="header", cols=".^3a,.^4a"]
+|===
+|Name|Schema
+|**data** +
+__optional__|< string (byte) > array
+|**filename** +
+__optional__|string
 |===
 
 
@@ -9725,19 +9822,6 @@ __optional__||boolean
 __optional__||<<_actionstatus,ActionStatus>>
 |**files** +
 __optional__|List of files information|< <<_filedto,FileDto>> > array
-|===
-
-
-[[_fileuploadform]]
-=== FileUploadForm
-
-[options="header", cols=".^3a,.^4a"]
-|===
-|Name|Schema
-|**data** +
-__optional__|< string (byte) > array
-|**filename** +
-__optional__|string
 |===
 
 
@@ -9928,19 +10012,6 @@ __optional__|List of meveo instances information|< <<_meveoinstancedto,MeveoInst
 |===
 
 
-[[_remoterepositoriesrespondsedto]]
-=== RemoteRepositoriesRespondseDto
-
-[options="header", cols=".^3a,.^11a,.^4a"]
-|===
-|Name|Description|Schema
-|**actionStatus** +
-__optional__||<<_actionstatus,ActionStatus>>
-|**remoteRepositories** +
-__optional__|List of remote repositories information|< <<_remoterepositorydto,RemoteRepositoryDto>> > array
-|===
-
-
 [[_remoterepositorydto]]
 === RemoteRepositoryDto
 
@@ -9964,19 +10035,6 @@ __optional__|The url of remote repisitory|string
 __optional__|Maven executable path|string
 |**mavenRepositories** +
 __optional__|List of maven repositories|< string > array
-|===
-
-
-[[_mavenconfigurationresponsedto]]
-=== MavenConfigurationResponseDto
-
-[options="header", cols=".^3a,.^11a,.^4a"]
-|===
-|Name|Description|Schema
-|**actionStatus** +
-__optional__||<<_actionstatus,ActionStatus>>
-|**mavenConfiguration** +
-__optional__|Maven configuration information|<<_mavenconfigurationdto,MavenConfigurationDto>>
 |===
 
 
@@ -10006,14 +10064,46 @@ __optional__||string
 |===
 
 
+[[_mavenconfigurationresponsedto]]
+=== MavenConfigurationResponseDto
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**actionStatus** +
+__optional__||<<_actionstatus,ActionStatus>>
+|**mavenConfiguration** +
+__optional__|Maven configuration information|<<_mavenconfigurationdto,MavenConfigurationDto>>
+|===
+
+
+[[_remoterepositoriesrespondsedto]]
+=== RemoteRepositoriesRespondseDto
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**actionStatus** +
+__optional__||<<_actionstatus,ActionStatus>>
+|**remoteRepositories** +
+__optional__|List of remote repositories information|< <<_remoterepositorydto,RemoteRepositoryDto>> > array
+|===
+
+
 [[_customentitycategorydto]]
 === CustomEntityCategoryDto
 
 [options="header", cols=".^3a,.^11a,.^4a"]
 |===
 |Name|Description|Schema
+|**active** +
+__optional__|Whether this entity is active|boolean
 |**code** +
-__required__|Code of the custom entity category|string
+__required__|Business entity's code|string
+|**description** +
+__optional__|Description of the business entity|string
+|**updatedCode** +
+__optional__|Use when updating the code of the business entity|string
 |**name** +
 __required__|Name of the custom entity category|string
 |===
@@ -10310,12 +10400,12 @@ __optional__|If and how custom field values should be indexed in Elastic Search|
 __optional__|Tags assigned to custom field template|string
 |**displayFormat** +
 __optional__|Display format|string
-|**filter** +
-__optional__|Whether to filter|boolean
 |**unique** +
 __optional__|Whether to unique|boolean
 |**entityClazzCetCode** +
 __optional__||string
+|**filter** +
+__optional__|Whether to filter|boolean
 |**matrixColumns** +
 __optional__|A list of columns matrix consists of|< <<_customfieldmatrixcolumndto,CustomFieldMatrixColumnDto>> > array
 |**childEntityFieldsForSummary** +
@@ -10390,19 +10480,6 @@ __required__|End node code|string
 |===
 
 
-[[_customrelationshiptemplatesresponsedto]]
-=== CustomRelationshipTemplatesResponseDto
-
-[options="header", cols=".^3a,.^11a,.^4a"]
-|===
-|Name|Description|Schema
-|**actionStatus** +
-__optional__||<<_actionstatus,ActionStatus>>
-|**customRelationshipTemplates** +
-__optional__|List of custom relationship templates information|< <<_customrelationshiptemplatedto,CustomRelationshipTemplateDto>> > array
-|===
-
-
 [[_customrelationshiptemplateresponsedto]]
 === CustomRelationshipTemplateResponseDto
 
@@ -10413,6 +10490,19 @@ __optional__|List of custom relationship templates information|< <<_customrelati
 __optional__||<<_actionstatus,ActionStatus>>
 |**customRelationshipTemplate** +
 __optional__|Custom relationship template information|<<_customrelationshiptemplatedto,CustomRelationshipTemplateDto>>
+|===
+
+
+[[_customrelationshiptemplatesresponsedto]]
+=== CustomRelationshipTemplatesResponseDto
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**actionStatus** +
+__optional__||<<_actionstatus,ActionStatus>>
+|**customRelationshipTemplates** +
+__optional__|List of custom relationship templates information|< <<_customrelationshiptemplatedto,CustomRelationshipTemplateDto>> > array
 |===
 
 
@@ -10481,34 +10571,6 @@ __optional__|Button label translations|< <<_languagedescriptiondto,LanguageDescr
 __optional__|Script instance information|<<_scriptinstancedto,ScriptInstanceDto>>
 |**guiPosition** +
 __optional__|Gui position|string
-|===
-
-
-[[_entitycustomizationdto]]
-=== EntityCustomizationDto
-
-[options="header", cols=".^3a,.^11a,.^4a"]
-|===
-|Name|Description|Schema
-|**classname** +
-__required__|The classname|string
-|**fields** +
-__optional__|List of custom field templates information|< <<_customfieldtemplatedto,CustomFieldTemplateDto>> > array
-|**actions** +
-__optional__|List of entity custom actions information|< <<_entitycustomactiondto,EntityCustomActionDto>> > array
-|===
-
-
-[[_entitycustomizationresponsedto]]
-=== EntityCustomizationResponseDto
-
-[options="header", cols=".^3a,.^11a,.^4a"]
-|===
-|Name|Description|Schema
-|**actionStatus** +
-__optional__||<<_actionstatus,ActionStatus>>
-|**entityCustomization** +
-__optional__|Entity customization information|<<_entitycustomizationdto,EntityCustomizationDto>>
 |===
 
 
@@ -10658,19 +10720,6 @@ __required__|Order value use when sorting a list of this entity|integer (int32)
 |===
 
 
-[[_customentitytemplatesresponsedto]]
-=== CustomEntityTemplatesResponseDto
-
-[options="header", cols=".^3a,.^11a,.^4a"]
-|===
-|Name|Description|Schema
-|**actionStatus** +
-__optional__||<<_actionstatus,ActionStatus>>
-|**customEntityTemplates** +
-__optional__|List of custom entity templates|< <<_customentitytemplatedto,CustomEntityTemplateDto>> > array
-|===
-
-
 [[_graphqlqueryfield]]
 === GraphQLQueryField
 
@@ -10735,29 +10784,31 @@ __required__|boolean
 |===
 
 
-[[_customentitytemplateresponsedto]]
-=== CustomEntityTemplateResponseDto
+[[_entitycustomizationdto]]
+=== EntityCustomizationDto
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**classname** +
+__required__|The classname|string
+|**fields** +
+__optional__|List of custom field templates information|< <<_customfieldtemplatedto,CustomFieldTemplateDto>> > array
+|**actions** +
+__optional__|List of entity custom actions information|< <<_entitycustomactiondto,EntityCustomActionDto>> > array
+|===
+
+
+[[_entitycustomizationresponsedto]]
+=== EntityCustomizationResponseDto
 
 [options="header", cols=".^3a,.^11a,.^4a"]
 |===
 |Name|Description|Schema
 |**actionStatus** +
 __optional__||<<_actionstatus,ActionStatus>>
-|**customEntityTemplate** +
-__optional__|Custom entity template information|<<_customentitytemplatedto,CustomEntityTemplateDto>>
-|===
-
-
-[[_entitycustomactionresponsedto]]
-=== EntityCustomActionResponseDto
-
-[options="header", cols=".^3a,.^4a"]
-|===
-|Name|Schema
-|**actionStatus** +
-__optional__|<<_actionstatus,ActionStatus>>
-|**entityAction** +
-__optional__|<<_entitycustomactiondto,EntityCustomActionDto>>
+|**entityCustomization** +
+__optional__|Entity customization information|<<_entitycustomizationdto,EntityCustomizationDto>>
 |===
 
 
@@ -10788,6 +10839,45 @@ __optional__|Use when updating the code of the business entity|string
 __optional__|<<_actionstatus,ActionStatus>>
 |**businessEntities** +
 __optional__|< <<_businessentitydto,BusinessEntityDto>> > array
+|===
+
+
+[[_customentitytemplateresponsedto]]
+=== CustomEntityTemplateResponseDto
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**actionStatus** +
+__optional__||<<_actionstatus,ActionStatus>>
+|**customEntityTemplate** +
+__optional__|Custom entity template information|<<_customentitytemplatedto,CustomEntityTemplateDto>>
+|===
+
+
+[[_customentitytemplatesresponsedto]]
+=== CustomEntityTemplatesResponseDto
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**actionStatus** +
+__optional__||<<_actionstatus,ActionStatus>>
+|**customEntityTemplates** +
+__optional__|List of custom entity templates|< <<_customentitytemplatedto,CustomEntityTemplateDto>> > array
+|===
+
+
+[[_entitycustomactionresponsedto]]
+=== EntityCustomActionResponseDto
+
+[options="header", cols=".^3a,.^4a"]
+|===
+|Name|Schema
+|**actionStatus** +
+__optional__|<<_actionstatus,ActionStatus>>
+|**entityAction** +
+__optional__|<<_entitycustomactiondto,EntityCustomActionDto>>
 |===
 
 
@@ -10896,19 +10986,6 @@ __optional__|The measurement period|enum (DAILY, WEEKLY, MONTHLY, YEARLY)
 __optional__|The last measure date|integer (int64)
 |**codeOnly** +
 __optional__||boolean
-|===
-
-
-[[_getchartresponse]]
-=== GetChartResponse
-
-[options="header", cols=".^3a,.^11a,.^4a"]
-|===
-|Name|Description|Schema
-|**actionStatus** +
-__optional__||<<_actionstatus,ActionStatus>>
-|**chartDto** +
-__optional__|Chart information|<<_chartdto,ChartDto>>
 |===
 
 
@@ -11099,6 +11176,19 @@ __optional__|The legend rows|integer (int32)
 |===
 
 
+[[_getchartresponse]]
+=== GetChartResponse
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**actionStatus** +
+__optional__||<<_actionstatus,ActionStatus>>
+|**chartDto** +
+__optional__|Chart information|<<_chartdto,ChartDto>>
+|===
+
+
 [[_getmeasurablequantityresponse]]
 === GetMeasurableQuantityResponse
 
@@ -11179,6 +11269,19 @@ __optional__|The end date|string (date-time)
 |===
 
 
+[[_runreportextractdto]]
+=== RunReportExtractDto
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**code** +
+__required__|The code|string
+|**params** +
+__optional__|Map of params|< string, string > map
+|===
+
+
 [[_reportextractresponsedto]]
 === ReportExtractResponseDto
 
@@ -11202,19 +11305,6 @@ __optional__|Report extract information|<<_reportextractdto,ReportExtractDto>>
 __optional__||<<_actionstatus,ActionStatus>>
 |**reportExtracts** +
 __optional__|List of report extracts information|< <<_reportextractdto,ReportExtractDto>> > array
-|===
-
-
-[[_runreportextractdto]]
-=== RunReportExtractDto
-
-[options="header", cols=".^3a,.^11a,.^4a"]
-|===
-|Name|Description|Schema
-|**code** +
-__required__|The code|string
-|**params** +
-__optional__|Map of params|< string, string > map
 |===
 
 
@@ -11287,19 +11377,6 @@ __optional__|The order level|integer (int64)
 |===
 
 
-[[_userhierarchylevelresponsedto]]
-=== UserHierarchyLevelResponseDto
-
-[options="header", cols=".^3a,.^11a,.^4a"]
-|===
-|Name|Description|Schema
-|**actionStatus** +
-__optional__||<<_actionstatus,ActionStatus>>
-|**userHierarchyLevel** +
-__optional__|User hierarchy level information|<<_userhierarchyleveldto,UserHierarchyLevelDto>>
-|===
-
-
 [[_userhierarchylevelsdto]]
 === UserHierarchyLevelsDto
 
@@ -11312,6 +11389,19 @@ __optional__||<<_actionstatus,ActionStatus>>
 __optional__||<<_pagingandfiltering,PagingAndFiltering>>
 |**userHierarchyLevels** +
 __optional__|List of user hierarchy levels information|< <<_userhierarchyleveldto,UserHierarchyLevelDto>> > array
+|===
+
+
+[[_userhierarchylevelresponsedto]]
+=== UserHierarchyLevelResponseDto
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**actionStatus** +
+__optional__||<<_actionstatus,ActionStatus>>
+|**userHierarchyLevel** +
+__optional__|User hierarchy level information|<<_userhierarchyleveldto,UserHierarchyLevelDto>>
 |===
 
 
@@ -11762,19 +11852,6 @@ __optional__|List of providers information|< <<_providerdto,ProviderDto>> > arra
 |===
 
 
-[[_getroleresponse]]
-=== GetRoleResponse
-
-[options="header", cols=".^3a,.^11a,.^4a"]
-|===
-|Name|Description|Schema
-|**actionStatus** +
-__optional__||<<_actionstatus,ActionStatus>>
-|**roleDto** +
-__optional__|Role information|<<_roledto,RoleDto>>
-|===
-
-
 [[_rolesdto]]
 === RolesDto
 
@@ -11787,6 +11864,19 @@ __optional__||<<_actionstatus,ActionStatus>>
 __optional__||<<_pagingandfiltering,PagingAndFiltering>>
 |**roles** +
 __optional__|List of roles information|< <<_roledto,RoleDto>> > array
+|===
+
+
+[[_getroleresponse]]
+=== GetRoleResponse
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**actionStatus** +
+__optional__||<<_actionstatus,ActionStatus>>
+|**roleDto** +
+__optional__|Role information|<<_roledto,RoleDto>>
 |===
 
 
@@ -11881,16 +11971,16 @@ __optional__|Ssh public key|string
 |===
 
 
-[[_getuserresponse]]
-=== GetUserResponse
+[[_rsakeypair]]
+=== RSAKeyPair
 
-[options="header", cols=".^3a,.^11a,.^4a"]
+[options="header", cols=".^3a,.^4a"]
 |===
-|Name|Description|Schema
-|**actionStatus** +
-__optional__||<<_actionstatus,ActionStatus>>
-|**user** +
-__optional__|User information|<<_userdto,UserDto>>
+|Name|Schema
+|**privateKey** +
+__optional__|string
+|**publicKey** +
+__optional__|string
 |===
 
 
@@ -11909,16 +11999,16 @@ __optional__|List of users information|< <<_userdto,UserDto>> > array
 |===
 
 
-[[_rsakeypair]]
-=== RSAKeyPair
+[[_getuserresponse]]
+=== GetUserResponse
 
-[options="header", cols=".^3a,.^4a"]
+[options="header", cols=".^3a,.^11a,.^4a"]
 |===
-|Name|Schema
-|**privateKey** +
-__optional__|string
-|**publicKey** +
-__optional__|string
+|Name|Description|Schema
+|**actionStatus** +
+__optional__||<<_actionstatus,ActionStatus>>
+|**user** +
+__optional__|User information|<<_userdto,UserDto>>
 |===
 
 
@@ -11949,14 +12039,14 @@ __optional__|Summary of entities imported/exported per entity class|< string, in
 __optional__|Stores a list of field names that were not imported because of differences between original and current model|< string, <<_fieldsnotimportedstringcollectiondto,FieldsNotImportedStringCollectionDto>> > map
 |**exceptionMessage** +
 __optional__|Occurred exception message|string
-|**done** +
-__optional__||boolean
 |**failureMessage** +
 __optional__||string
-|**failed** +
-__optional__||boolean
 |**failureMessageKey** +
 __optional__||string
+|**done** +
+__optional__||boolean
+|**failed** +
+__optional__||boolean
 |===
 
 
@@ -11966,12 +12056,12 @@ __optional__||string
 [options="header", cols=".^3a,.^4a"]
 |===
 |Name|Schema
-|**headers** +
-__optional__|< string, < string > array > map
-|**mediaType** +
-__optional__|<<_mediatype,MediaType>>
 |**bodyAsString** +
 __optional__|string
+|**mediaType** +
+__optional__|<<_mediatype,MediaType>>
+|**headers** +
+__optional__|< string, < string > array > map
 |**contentTypeFromMessage** +
 __optional__|boolean
 |===
@@ -12006,10 +12096,10 @@ __optional__|boolean
 __optional__|< string, < <<_inputpart,InputPart>> > array > map
 |**formData** +
 __optional__|< string, <<_inputpart,InputPart>> > map
-|**parts** +
-__optional__|< <<_inputpart,InputPart>> > array
 |**preamble** +
 __optional__|string
+|**parts** +
+__optional__|< <<_inputpart,InputPart>> > array
 |===
 
 
@@ -12105,27 +12195,6 @@ __optional__|Contains job execution result information|<<_jobexecutionresultdto,
 |===
 
 
-[[_jobinstanceinfodto]]
-=== JobInstanceInfoDto
-
-[options="header", cols=".^3a,.^11a,.^4a"]
-|===
-|Name|Description|Schema
-|**timerName** +
-__optional__|The timer name|string
-|**code** +
-__required__|Code of job instance info|string
-|**lastTransactionDate** +
-__optional__|The last transaction date|string (date-time)
-|**invoiceDate** +
-__optional__|The invoice date|string (date-time)
-|**billingCycle** +
-__optional__|The billing cycle|string
-|**forceExecution** +
-__optional__|Ignore a check if job is currently running and launch it anyway|boolean
-|===
-
-
 [[_timerentitydto]]
 === TimerEntityDto
 
@@ -12170,6 +12239,27 @@ __optional__|Timer entity information|<<_timerentitydto,TimerEntityDto>>
 |===
 
 
+[[_jobinstanceinfodto]]
+=== JobInstanceInfoDto
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**timerName** +
+__optional__|The timer name|string
+|**code** +
+__required__|Code of job instance info|string
+|**lastTransactionDate** +
+__optional__|The last transaction date|string (date-time)
+|**invoiceDate** +
+__optional__|The invoice date|string (date-time)
+|**billingCycle** +
+__optional__|The billing cycle|string
+|**forceExecution** +
+__optional__|Ignore a check if job is currently running and launch it anyway|boolean
+|===
+
+
 [[_gettimerentityresponsedto]]
 === GetTimerEntityResponseDto
 
@@ -12190,15 +12280,15 @@ __optional__|Timer entity information|<<_timerentitydto,TimerEntityDto>>
 |===
 |Name|Description|Schema
 |**moduleCode** +
-__required__||string
+__required__|The module code|string
 |**scriptInstance** +
-__required__||<<_scriptinstancedto,ScriptInstanceDto>>
+__required__|Script executed before and after this patch is applied.|<<_scriptinstancedto,ScriptInstanceDto>>
 |**sourceVersion** +
-__required__|**Pattern** : `"^(\\d+\\.)?(\\d+\\.)?(\\*\|\\d+)$"`|string
+__required__|This patch can be apply from this version +
+**Pattern** : `"^(\\d+\\.)?(\\d+\\.)?(\\*\|\\d+)$"`|string
 |**targetVersion** +
-__required__|**Pattern** : `"^(\\d+\\.)?(\\d+\\.)?(\\*\|\\d+)$"`|string
-|**patchExecutionMode** +
-__optional__||enum (BEFORE_UPGRADE, AFTER_UPGRADE)
+__required__|This patch can be apply up to this version +
+**Pattern** : `"^(\\d+\\.)?(\\d+\\.)?(\\*\|\\d+)$"`|string
 |===
 
 
@@ -12224,8 +12314,6 @@ __optional__|The logo picture|string
 __optional__|The logo picture file|< string (byte) > array
 |**script** +
 __optional__|Script instance information|<<_scriptinstancedto,ScriptInstanceDto>>
-|**moduleFiles** +
-__optional__|The module files|< string > array
 |**currentVersion** +
 __optional__|The current version|string
 |**meveoVersionBase** +
@@ -12234,11 +12322,11 @@ __optional__|The meveo version base +
 |**meveoVersionCeiling** +
 __optional__|The meveo version ceiling +
 **Pattern** : `"^(?<major>\\d+\\.)?(?<minor>\\d+\\.)?(?<patch>\\*\|\\d+)$"`|string
-|**transient** +
-__optional__||boolean
 |**codeOnly** +
 __optional__||boolean
 |**inDraft** +
+__optional__||boolean
+|**transient** +
 __optional__||boolean
 |**moduleItems** +
 __optional__|List of module items information|< <<_meveomoduleitemdto,MeveoModuleItemDto>> > array
@@ -12246,32 +12334,21 @@ __optional__|List of module items information|< <<_meveomoduleitemdto,MeveoModul
 __optional__|List of module dependencies information|< <<_moduledependencydto,ModuleDependencyDto>> > array
 |**patches** +
 __optional__|List of patch linked to this module|< <<_meveomodulepatchdto,MeveoModulePatchDto>> > array
-|===
-
-
-[[_meveomoduledtoresponse]]
-=== MeveoModuleDtoResponse
-
-[options="header", cols=".^3a,.^11a,.^4a"]
-|===
-|Name|Description|Schema
-|**actionStatus** +
-__optional__||<<_actionstatus,ActionStatus>>
-|**module** +
-__optional__|Module information|<<_meveomoduledto,MeveoModuleDto>>
+|**moduleFiles** +
+__optional__|The module files|< string > array
 |===
 
 
 [[_meveomoduleitemdto]]
 === MeveoModuleItemDto
 
-[options="header", cols=".^3a,.^4a"]
+[options="header", cols=".^3a,.^11a,.^4a"]
 |===
-|Name|Schema
+|Name|Description|Schema
 |**dtoClassName** +
-__optional__|string
+__required__|Simple class name to of this module|string
 |**dtoData** +
-__optional__|object
+__required__|Linked list value representation of this object when module is uninstalled. Otherwise, it represents the object.|object
 |===
 
 
@@ -12300,6 +12377,19 @@ __required__|The current version|string
 __optional__|Zipped module with files|<<_inputstream,InputStream>>
 |**filename** +
 __optional__||string
+|===
+
+
+[[_meveomoduledtoresponse]]
+=== MeveoModuleDtoResponse
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**actionStatus** +
+__optional__||<<_actionstatus,ActionStatus>>
+|**module** +
+__optional__|Module information|<<_meveomoduledto,MeveoModuleDto>>
 |===
 
 
@@ -12431,19 +12521,6 @@ __optional__|The priority|integer (int32)
 |===
 
 
-[[_getnotificationresponsedto]]
-=== GetNotificationResponseDto
-
-[options="header", cols=".^3a,.^11a,.^4a"]
-|===
-|Name|Description|Schema
-|**actionStatus** +
-__optional__||<<_actionstatus,ActionStatus>>
-|**notificationDto** +
-__optional__|Notification information|<<_notificationdto,NotificationDto>>
-|===
-
-
 [[_notificationhistoriesdto]]
 === NotificationHistoriesDto
 
@@ -12550,6 +12627,19 @@ __optional__|Inbound requests information|<<_inboundrequestsdto,InboundRequestsD
 |===
 
 
+[[_getnotificationresponsedto]]
+=== GetNotificationResponseDto
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**actionStatus** +
+__optional__||<<_actionstatus,ActionStatus>>
+|**notificationDto** +
+__optional__|Notification information|<<_notificationdto,NotificationDto>>
+|===
+
+
 [[_webhookdto]]
 === WebHookDto
 
@@ -12612,6 +12702,23 @@ __optional__|Web hook information|<<_webhookdto,WebHookDto>>
 |===
 
 
+[[_persisteditem]]
+=== PersistedItem
+
+[options="header", cols=".^3a,.^4a"]
+|===
+|Name|Schema
+|**code** +
+__optional__|string
+|**name** +
+__optional__|string
+|**uuid** +
+__optional__|string
+|**properties** +
+__optional__|< string, object > map
+|===
+
+
 [[_paginationconfiguration]]
 === PaginationConfiguration
 
@@ -12638,29 +12745,12 @@ __optional__|string
 __optional__|enum (ASCENDING, DESCENDING, UNSORTED)
 |**graphQlQuery** +
 __optional__|string
-|**orderings** +
-__optional__|< string, string > map
 |**sorted** +
 __optional__|boolean
 |**ascendingSorting** +
 __optional__|boolean
-|===
-
-
-[[_persisteditem]]
-=== PersistedItem
-
-[options="header", cols=".^3a,.^4a"]
-|===
-|Name|Schema
-|**code** +
-__optional__|string
-|**name** +
-__optional__|string
-|**uuid** +
-__optional__|string
-|**properties** +
-__optional__|< string, object > map
+|**orderings** +
+__optional__|< string, string > map
 |===
 
 
@@ -12945,19 +13035,6 @@ __optional__|List of transitions associated with this workflow|< <<_wftransition
 |===
 
 
-[[_workflowresponsedto]]
-=== WorkflowResponseDto
-
-[options="header", cols=".^3a,.^4a"]
-|===
-|Name|Schema
-|**actionStatus** +
-__optional__|<<_actionstatus,ActionStatus>>
-|**workflow** +
-__optional__|<<_workflowdto,WorkflowDto>>
-|===
-
-
 [[_workflowsresponsedto]]
 === WorkflowsResponseDto
 
@@ -13015,6 +13092,19 @@ __optional__|List of actions performed|< <<_workflowhistoryactiondto,WorkflowHis
 __optional__|<<_actionstatus,ActionStatus>>
 |**workflowHistories** +
 __optional__|< <<_workflowhistorydto,WorkflowHistoryDto>> > array
+|===
+
+
+[[_workflowresponsedto]]
+=== WorkflowResponseDto
+
+[options="header", cols=".^3a,.^4a"]
+|===
+|Name|Schema
+|**actionStatus** +
+__optional__|<<_actionstatus,ActionStatus>>
+|**workflow** +
+__optional__|<<_workflowdto,WorkflowDto>>
 |===
 
 
