@@ -1,11 +1,15 @@
 Meveo
 =====
 
-Meveo is a low code platform that allow to rapidly prototype, develop and execute back and front applications
+Meveo is an open-source low code platform that allow to rapidly prototype, develop and execute back and front applications
+
+[A 5 minute overview](https://vimeo.com/665033310)
+
+[a 1h walkthrough for devs](https://vimeo.com/665033310)
 
 Licence : AGPLv3.0
 
-Source code : [github](https://github.com/meveo-org/meveo)
+Source code and documentation : [github](https://github.com/meveo-org/meveo)
 
 Soon to release 7.0.0 (master branch)
 
