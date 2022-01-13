@@ -14,9 +14,9 @@ Soon to release 7.0.0 (master branch)
 
 # Tutorials
 
-1. [Run meveo locally using git and docker](https://vimeo.com/manage/videos/665443054)
+1. [Run meveo locally using git and docker](https://vimeo.com/665446095)
 
-2. [Install a module (i.e. an app) from a json file](https://vimeo.com/manage/videos/664075926)
+2. [Install a module (i.e. an app) from a json file](https://vimeo.com/664075926)
 
 
 [a 1h walkthrough for devs](https://vimeo.com/665033310)
