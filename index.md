@@ -20,6 +20,8 @@ Soon to release 7.0.0 (master branch)
 
 3. [Clone a git repository](https://vimeo.com/665855636)
 
+4. [Check that a git repo is a module](https://vimeo.com/665865222)
+
 
 [a 1h walkthrough for devs](https://vimeo.com/665033310)
 
