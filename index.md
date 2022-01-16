@@ -26,7 +26,9 @@ Soon to release 7.0.0 (master branch)
 # Walkthrough
 
 1. [Explanation of the devcontainer docker-compose.yml file and how to connect java debugger](https://vimeo.com/666383655)
-2. [a 1h walkthrough for devs](https://vimeo.com/665033310)
+2. [Create a module and clone it locally](https://vimeo.com/666386623)
+3. [Create an entity](https://vimeo.com/666389236)
+4. [a 1h walkthrough for devs](https://vimeo.com/665033310)
 
 
 The latest stable release is 6.9.0
