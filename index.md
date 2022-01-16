@@ -12,7 +12,7 @@ Source code and documentation : [github](https://github.com/meveo-org/meveo)
 Soon to release 7.0.0 (master branch)
 
 
-# Tutorials
+# Step by step tutorials
 
 1. [Run meveo locally using git and docker](https://vimeo.com/665446095)
 
@@ -23,7 +23,10 @@ Soon to release 7.0.0 (master branch)
 4. [Check that a git repo is a module](https://vimeo.com/665865222)
 
 
-[a 1h walkthrough for devs](https://vimeo.com/665033310)
+# Walkthrough
+
+1. [Explanation of the devcontainer docker-compose.yml file and how to connect java debugger](https://vimeo.com/666383655)
+2. [a 1h walkthrough for devs](https://vimeo.com/665033310)
 
 
 The latest stable release is 6.9.0
