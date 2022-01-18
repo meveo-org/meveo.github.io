@@ -21,7 +21,9 @@ Soon to release 7.0.0 (master branch)
 3. [Clone a github repository in meveo](https://vimeo.com/665855636)
 
 4. [Check that a git repo is a module](https://vimeo.com/665865222)
-5. Install a module from a git repo
+
+5. [Install a module from a git repo](https://vimeo.com/667040090)
+
 6. Create a new module
 7. clone a meveo module locally
 8. create an entity
