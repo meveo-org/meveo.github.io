@@ -15,7 +15,7 @@
       "description" : "Infrastructure management",
       "license" : "GPL",
       "currentVersion" : "1.31",
-      "moduleDependencies" : ["mv-credential"]
+      "moduleDependencies" : [{"code":"mv-credential","version" : "1.2.5"}]
     }
   ]
 }
