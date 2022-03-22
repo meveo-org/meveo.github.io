@@ -2,13 +2,15 @@
   "meveoVersion":"7.0.0.beta3",
   "lastUpdate":"2022-03-22T01:07:43.511Z",
   "modules":[
-    "mv-credential":{
+    {
+      "code":"mv-credential",
       "gitSource":"https://github.com/webdrone-fr/mv-credentials.git",
       "description" : "credentials",
       "license" : "GPL",
       "currentVersion" : "1.2.5"
     },
-    "mv-infrastructure":{
+    {
+      "code":"mv-infrastructure",
       "gitSource":"https://github.com/webdrone-fr/mv-infrastructure.git",
       "description" : "Infrastructure management",
       "license" : "GPL",
