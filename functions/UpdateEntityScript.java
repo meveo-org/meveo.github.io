@@ -16,8 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.meveo.model.customEntities.MyCustomEntity;
 
 
-/* Here we use a generic script by extending Script */
-public class PersistEntityScript extends Script {
+public class UpdateEntityScript extends Script {
 
     private static final Logger LOG = LoggerFactory.getLogger(PersistEntityScript.class);
     
@@ -30,6 +29,17 @@ public class PersistEntityScript extends Script {
     /* Default repository */
     private final Repository defaultRepo = repositoryService.findDefaultRepository();
   
+    /* variable used to retrieve the id of the entity to update */
+    private String entityUuid;
+
+    /* By using a setter the GUI for creating a rest endpoint
+    *  will detect 'enityUuid' as being an input of the function
+    *  it can then be selected as a path parameter of the endpoint
+    */
+    private void setEntityUuid(String entityUuid){
+        this.entityUuid = entityUuid;
+    }
+
     /* variable used to store the result of the script */
     private String result;
  
@@ -47,44 +57,29 @@ public class PersistEntityScript extends Script {
         LOG.info("input:{}",parameters);
 
         /* 
-         * Let assume some 'name' and 'desription' are sent to the function,
+         * Let's assume the 'uuid' of the entity to update is sent in parameters,
          * This is done for instance by calling a POST rest endpoint 
          * with a json body:
          * {
-         *   "name":"Jboss",
-         *   "description":"An opensource application server"
+         *   "name":"Wildfly",
+         *   "description":"A java opensource application server"
          * }
          */
         
-         /*
-         we can implement some validation and return an error if it fails
-         by throwing a BusinessException the Rest endpoint would return an error
-         here we want it to succeed (HTTP code 200) but write the error in a message
-        */
-        if(!parameters.containsKey("name")){
-            result = "{\"status\": \"failed\", \"result\": \"No name provided\"}";
-            return;
-        }
-
         String name = (String)parameters.get("name");
         String description = (String)parameters.get("description");
         
         try {
-            MyCustomEntity existingEntity = crossStorageApi.find(defaultRepo, MyCustomEntity.class)
-            .by("name", name)
-            .getResult();
-            if(existingEntity!=null){
-                throw new BusinessException("An entity with the same name already exists.");
-            }
-
-        	MyCustomEntity newEntity = new MyCustomEntity();
+            // lookup the entity by its uuid
+            MyCustomEntity existingEntity = crossStorageApi.find(defaultRepo, entityUuid, MyCustomEntity.class);
+            
             newEntity.setName(name);
             newEntity.setDescription(description);
-            newEntity.setCreationDate(Instant.now());
+            newEntity.setLastUpdate(Instant.now());
           	
             String uuid = crossStorageApi.createOrUpdate(defaultRepo, newEntity);
 
-            LOG.info("Entity created with Id: {}",uuid);
+            LOG.info("Entity  with Id {} updated ",uuid);
             result = "{\"status\": \"success\", \"result\": \"" + uuid + "\"}";
         } catch (Exception ex) {
             String errorMessage = ex.getMessage();
