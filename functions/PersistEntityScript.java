@@ -1,3 +1,9 @@
+/*
+ * This function is an example of entity creation and peristence
+ * for more documentation check 
+ * https://github.com/meveo-org/meveo/tree/develop/meveo-admin-ejbs/src/main/java/org/meveo/api/persistence#ii1-persisting-an-entity
+ */
+
 /* replace here by you module package name */
 package org.meveo.example;
 
