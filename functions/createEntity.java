@@ -77,9 +77,9 @@ public class PersistEntityScript extends Script {
         	MyCustomEntity newEntity = new MyCustomEntity();
             newEntity.setName(name);
             newEntity.setDescription(description);
-          	kiriScan.setCreationDate(Instant.now());
+            newEntity.setCreationDate(Instant.now());
           	
-            String uuid = crossStorageApi.createOrUpdate(defaultRepo, kiriScan);
+            String uuid = crossStorageApi.createOrUpdate(defaultRepo, newEntity);
 
             LOG.info("Entity created with Id: " + uuid);
             result = "{\"status\": \"success\", \"result\": \"" + uuid + "\"}";
