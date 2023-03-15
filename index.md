@@ -7,9 +7,9 @@ Meveo is an open-source low code platform that allow to rapidly prototype, devel
 
 Licence : AGPLv3.0
 
-Source code and documentation : [github](https://github.com/meveo-org/meveo)
+The latest stable release is 7.1.3
 
-Soon to release 7.0.0 (master branch)
+Source code and documentation : [github](https://github.com/meveo-org/meveo)
 
 
 # Step by step tutorials
@@ -47,7 +47,4 @@ Soon to release 7.0.0 (master branch)
 
 
 
-The latest stable release is 6.9.0
-
-[6.9.0 Documentation](6.9)
 
