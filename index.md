@@ -9,7 +9,7 @@ Licence : AGPLv3.0
 
 The latest stable release is 7.1.3
 
-Source code and documentation : [github](https://github.com/meveo-org/meveo)
+Source code and documentation : [github](https://github.com/meveo-org/meveo#readme)
 
 
 # Step by step tutorials
