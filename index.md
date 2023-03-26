@@ -3,7 +3,7 @@ Meveo
 
 Meveo is an open-source low code platform that allow to rapidly prototype, develop and execute back and front applications
 
-[A 5 minute overview](https://vimeo.com/665033310)
+[A 5 minutes overview](https://vimeo.com/665033310)
 
 Licence : AGPLv3.0
 
