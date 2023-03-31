@@ -2,8 +2,7 @@
  * This function is an example of using the meveo credentials to retrieve and store credential details when calling
  * third party APIs
  * For more documentation check
- * https://github.com/meveo-org/meveo/tree/develop/meveo-admin-ejbs/src/main/java/org/meveo/service/admin/impl
- * /credentials
+ * https://github.com/meveo-org/meveo/tree/develop/meveo-admin-ejbs/src/main/java/org/meveo/service/admin/impl/credentials
  */
 
 /* replace here by your module package name */
